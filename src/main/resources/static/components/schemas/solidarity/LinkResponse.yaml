@@ -1,0 +1,9 @@
+#LinkResponse:
+  type: object
+  properties:
+    title:
+      type: string
+    url:
+      type: string
+    color:
+      type: string

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create stock_dart_corporations table" author="Lucas">
+    <createTable tableName="stock_dart_corporations">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="corp_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="corp_name" type="VARCHAR(255)"/>
+      <column name="stock_code" type="VARCHAR(255)"/>
+      <column name="modify_date" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add representative_phone_number column on stock_dart_corporations table" author="Lucas">
+    <addColumn tableName="stock_dart_corporations">
+      <column name="representative_phone_number" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_dart_corporations" columnName="representative_phone_number"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add account_settlement_month column on stock_dart_corporations table" author="Lucas">
+    <addColumn tableName="stock_dart_corporations">
+      <column name="account_settlement_month" type="VARCHAR(255)" defaultValue="12"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_dart_corporations" columnName="account_settlement_month"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add version column on stock_dart_corporations table" author="Lucas">
+    <addColumn tableName="stock_dart_corporations">
+      <column name="version" type="BIGINT" defaultValue="1"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_dart_corporations" columnName="version"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add more column on stock_dart_corporations table" author="jooany">
+    <addColumn tableName="stock_dart_corporations">
+      <column name="ceo_name" type="VARCHAR(255)" remarks="대표자명"/>
+      <column name="corp_class" type="VARCHAR(255)" remarks="법인구분: Y(유가),K(코스닥),N(코넥스),E(기타)"/>
+      <column name="jurisdictional_registration_number" type="VARCHAR(255)" remarks="법인등록번호"/>
+      <column name="business_registration_number" type="VARCHAR(255)" remarks="사업자등록번호"/>
+      <column name="address" type="VARCHAR(255)" remarks="주소"/>
+      <column name="homepage_url" type="VARCHAR(255)" remarks="홈페이지URL"/>
+      <column name="ir_url" type="VARCHAR(255)" remarks="IR홈페이지URL"/>
+      <column name="representative_fax_number" type="VARCHAR(255)" remarks="팩스번호"/>
+      <column name="industry_code" type="VARCHAR(255)" remarks="업종코드"/>
+      <column name="establishment_date" type="VARCHAR(255)" remarks="설립일"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_dart_corporations" columnName="ceo_name"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="corp_class"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="jurisdictional_registration_number"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="business_registration_number"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="address"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="homepage_url"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="ir_url"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="representative_fax_number"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="industry_code"/>
+      <dropColumn tableName="stock_dart_corporations" columnName="establishment_date"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

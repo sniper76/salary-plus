@@ -1,0 +1,19 @@
+#SolidarityLeaderElectionApplicantDataResponse:
+  type: object
+  properties:
+    solidarityLeaderApplicantId:
+      type: integer
+      format: int64
+    nickname:
+      type: string
+    totalVoteStockQuantity:
+      type: integer
+      format: int64
+    resolutionCondition:
+      $ref: './SolidarityLeaderElectionApplicantDataLabelResponse.yaml'
+    finishedEarlyCondition:
+      $ref: './SolidarityLeaderElectionApplicantDataLabelResponse.yaml'
+    pollItemGroups:
+      type: array
+      items:
+        $ref: './SolidarityLeaderElectionVoteItemDataResponse.yaml'

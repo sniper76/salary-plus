@@ -1,0 +1,12 @@
+#VerificationCodeRequest:
+  type: object
+  properties:
+    verificationCode:
+      type: string
+      example: A123
+      nullable: false
+      x-field-extra-annotation: |
+        @Pattern(regexp = "^[A-Z]{1}[0-9]{3}$", message = "개인안심번호를 확인해주세요.")
+        @Size(min = 4, max = 4, message = "개인안심번호를 확인해주세요.")
+  example:
+    verificationCode: A123

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create solidarity_leader_elections table" author="Lucas">
+    <createTable tableName="solidarity_leader_elections">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="candidate_registration_start_date_time" type="TIMESTAMP" valueComputed="now()" remarks="후보자등록 시작일시">
+        <constraints nullable="false"/>
+      </column>
+      <column name="candidate_registration_end_date_time" type="TIMESTAMP" valueComputed="now()" remarks="후보자등록 종료일시">
+        <constraints nullable="false"/>
+      </column>
+      <column name="vote_start_date_time" type="TIMESTAMP" valueComputed="now()" remarks="투표 시작일시">
+        <constraints nullable="false"/>
+      </column>
+      <column name="vote_end_date_time" type="TIMESTAMP" valueComputed="now()" remarks="투표 종료일시">
+        <constraints nullable="false"/>
+      </column>
+      <column name="vote_closing_date_time" type="TIMESTAMP" remarks="투표 마감일시"/>
+      <column name="total_voters" type="INTEGER" defaultValue="0" remarks="총유권자 수"/>
+      <column name="total_votes_cast" type="INTEGER" defaultValue="0" remarks="총투표자 수"/>
+      <column name="vote_rate" type="DECIMAL(10,5)" defaultValue="0" remarks="투표율"/>
+      <column name="candidate_count" type="INTEGER" defaultValue="0" remarks="후보자 인원수"/>
+      <column name="election_status" type="VARCHAR(255)" defaultValue="ACTIVE" remarks="주주대표선출 상태"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add index on solidarity_leader_elections table" author="Lucas">
+    <createIndex
+      tableName="solidarity_leader_elections"
+      indexName="idx_solidarity_leader_elections"
+      unique="true"
+    >
+      <column name="stock_code"/>
+      <column name="created_at"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="solidarity_leader_elections"
+        indexName="idx_solidarity_leader_elections"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop vote count columns on solidarity_leader_elections" author="Lucas">
+    <dropColumn tableName="solidarity_leader_elections" columnName="total_voters"/>
+    <dropColumn tableName="solidarity_leader_elections" columnName="total_votes_cast"/>
+    <dropColumn tableName="solidarity_leader_elections" columnName="vote_rate"/>
+
+    <rollback>
+      <addColumn tableName="solidarity_leader_elections">
+        <column name="total_voters" type="INTEGER" defaultValue="0" remarks="총유권자 수"/>
+        <column name="total_votes_cast" type="INTEGER" defaultValue="0" remarks="총투표자 수"/>
+        <column name="vote_rate" type="DECIMAL(10,5)" defaultValue="0" remarks="투표율"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add vote count columns on solidarity_leader_elections" author="Lucas">
+    <addColumn tableName="solidarity_leader_elections">
+      <column name="total_stock_quantity" type="BIGINT" defaultValue="0" remarks="총 주식 발행수"/>
+      <column name="total_vote_stock_quantity" type="BIGINT" defaultValue="0" remarks="총투표 주식 수"/>
+      <column name="total_vote_stake" type="DECIMAL(10,5)" defaultValue="0" remarks="총투표 주식 지분율 = 총투표 주식 수 / 총 주식 발행수"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_leader_elections" columnName="total_stock_quantity"/>
+      <dropColumn tableName="solidarity_leader_elections" columnName="total_vote_stock_quantity"/>
+      <dropColumn tableName="solidarity_leader_elections" columnName="total_vote_stake"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add post_id columns on solidarity_leader_elections" author="Sniper">
+    <addColumn tableName="solidarity_leader_elections">
+      <column name="post_id" type="BIGINT" remarks="게시글 번호"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_leader_elections" columnName="post_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add election_status_details columns on solidarity_leader_elections" author="Lucas">
+    <addColumn tableName="solidarity_leader_elections">
+      <column name="election_status_details" type="VARCHAR(255)" defaultValue="IN_PROGRESS" remarks="주주대표선출 상태 상세정보"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_leader_elections" columnName="election_status_details"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migration ACTIVE election_status to CANDIDATE_REGISTRATION_PERIOD on solidarity_leader_elections" author="Lucas">
+    <sql>
+      UPDATE solidarity_leader_elections
+      SET election_status = 'CANDIDATE_REGISTRATION_PERIOD'
+      WHERE election_status = 'ACTIVE'
+    </sql>
+  </changeSet>
+
+  <changeSet id="drop not null constrains of some columns on solidarity_leader_elections" author="Lucas">
+    <dropNotNullConstraint tableName="solidarity_leader_elections" columnName="candidate_registration_start_date_time"/>
+    <dropNotNullConstraint tableName="solidarity_leader_elections" columnName="candidate_registration_end_date_time"/>
+    <dropNotNullConstraint tableName="solidarity_leader_elections" columnName="vote_start_date_time"/>
+    <dropNotNullConstraint tableName="solidarity_leader_elections" columnName="vote_end_date_time"/>
+  </changeSet>
+
+  <changeSet id="add winner_applicant_id columns on solidarity_leader_elections" author="Lucas">
+    <addColumn tableName="solidarity_leader_elections">
+      <column name="winner_applicant_id" type="BIGINT" remarks="주주대표 선출자의 지원 아이디"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_leader_elections" columnName="winner_applicant_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add display_end_date_time columns on solidarity_leader_elections" author="Sniper">
+    <addColumn tableName="solidarity_leader_elections">
+      <column name="display_end_date_time" type="TIMESTAMP" remarks="주주대표 선출 결과 표시 종료 일시"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_leader_elections" columnName="display_end_date_time"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migration is_solidarity_leader_confidential_agreement_signed to true on users for existing leaders" author="Lucas">
+    <sql>
+      update users
+      set is_solidarity_leader_confidential_agreement_signed = true
+      where id in (select sl.user_id
+                   from solidarity_leaders sl
+                          left outer join corporate_users cu on sl.user_id = cu.user_id
+                   where cu.id is null)
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

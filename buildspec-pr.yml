@@ -1,0 +1,44 @@
+version: 0.2
+
+batch:
+  fast-fail: true
+  build-list:
+    - identifier: build1
+      buildspec: buildspec-pr1.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build1
+    - identifier: build2
+      buildspec: buildspec-pr2.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build2
+    - identifier: build3
+      buildspec: buildspec-pr3.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build3
+    - identifier: build4
+      buildspec: buildspec-pr4.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build4
+    - identifier: build5
+      buildspec: buildspec-pr5.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build5
+    - identifier: build6
+      buildspec: buildspec-pr6.yml
+      ignore-failure: false
+      env:
+        variables:
+          BUILD_ID: build6
+
+
+#

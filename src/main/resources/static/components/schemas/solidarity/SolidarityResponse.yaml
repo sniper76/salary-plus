@@ -1,0 +1,36 @@
+#SolidarityResponse:
+  type: object
+  properties:
+    status:
+      $ref: '../enums/Status.yaml'
+    id:
+      type: integer
+      format: int64
+      description: 'Id of Solidarity'
+    name:
+      type: string
+      description: 'Name of the Stock'
+    code:
+      type: string
+      description: 'Code of the solidarity'
+    memberCount:
+      type: integer
+      description: 'Member count of the solidarity'
+      nullable: true
+    stake:
+      type: number
+      format: float
+      description: 'Stake of the solidarity'
+      nullable: true
+    requiredMemberCount:
+      type: integer
+      description: 'Required member count for the solidarity'
+      nullable: true
+    minThresholdMemberCount:
+      type: integer
+      nullable: true
+      example: '33861'
+    representativePhoneNumber:
+      type: string
+      description: '종목 담당자 전화번호'
+      example: '(02) 555-6666'

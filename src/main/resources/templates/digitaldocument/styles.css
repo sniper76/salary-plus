@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
+* { font-family: "Nanum Myeongjo", "NotoSansKR", sans-serif; }
+
+body {
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+@page{
+    margin-bottom: 3cm !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding-left: 6px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+img {
+    overflow: visible;
+    object-fit: scale-down;
+    max-height: 265mm;
+    width: 180mm;
+}
+
+tr {page-break-inside: avoid;}
+
+.bold-td {
+    font-weight: 800;
+}
+
+.section-1-header-td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: left;
+    width: 25%;
+}
+
+.section-2-header-td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.next-label {
+    text-align: center;
+    letter-spacing: 12px;
+    margin-bottom: 4px;
+}
+
+.footer {
+    font-size: 12px;
+}
+
+.margin-bottom-16px {
+    margin-bottom: 16px;
+}
+
+.section-title {
+    margin-bottom: 4px;
+}
+
+.user-info-section {
+    line-height: 1.8;
+    page-break-inside: avoid;
+    height: 140px;
+}
+
+.digital-proxy-user-info-section-height {
+    height: 100px;
+}
+
+
+.user-info-label, .user-info-value {
+    float: left;
+}
+
+.user-info-label {
+    width: 60%;
+    text-align: right;
+}
+
+.user-info-value {
+    width: 40%;
+    text-align: left;
+}
+
+.signature-container {
+    position: relative;
+}
+
+.signature-box {
+    position: absolute;
+    right: 60px;
+}
+
+.signature {
+    position: absolute;
+    top: -35px;
+    right: -5px;
+    height: 96px;
+    width: 160px;
+}
+
+.document-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+}
+
+.document-info-table th,
+.document-info-table td {
+    text-align: left;
+    padding: 4px;
+}
+
+.document-info-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.document-info-title {
+    width: 30%;
+}
+
+.empty {
+    clear: both;
+    height: 0;
+}
+
+.top-div {
+    display: block;
+    height: 18px;
+    font-size: 14px;
+}
+
+.top-div-left {
+    float: left;
+}
+
+.top-div-right {
+    float: right;
+}

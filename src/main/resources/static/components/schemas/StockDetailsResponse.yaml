@@ -1,0 +1,15 @@
+#StockDetailsResponse:
+  type: object
+  properties:
+    solidarity:
+      $ref: './SolidarityResponse.yaml'
+    todayDelta:
+      $ref: './DashboardResponse.yaml'
+    solidarityLeader:
+      $ref: './SolidarityLeaderResponse.yaml'
+    acceptUser:
+      $ref: './DigitalDocumentAcceptUserResponse.yaml'
+    solidarityLeaderApplicants:
+      type: array
+      items:
+        $ref: './SolidarityLeaderApplicantResponse.yaml'

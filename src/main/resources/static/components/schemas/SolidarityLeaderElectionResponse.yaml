@@ -1,0 +1,11 @@
+#SolidarityLeaderElectionResponse:
+  type: object
+  properties:
+    winner:
+      $ref: './LeaderElectionWinnerResponse.yaml'
+    applicants:
+      type: array
+      items:
+        $ref: './SolidarityLeaderApplicantResponse.yaml'
+    electionDetail:
+      $ref: './SolidarityLeaderElectionDetailResponse.yaml'

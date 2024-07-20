@@ -1,0 +1,14 @@
+#StockSearchRecommendationSectionResponse:
+  type: object
+  properties:
+    title:
+      type: string
+    baseDateTime:
+      type: string
+    type:
+      type: string
+      description: 'SEARCH_TREND_STOCK or STAKE_RANKING_STOCK'
+    stocks:
+      type: array
+      items:
+        $ref: '../stock/SimpleStockResponse.yaml'

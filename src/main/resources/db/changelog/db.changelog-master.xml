@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+>
+
+  <include file="db/changelog/db.changelog-001.xml"/>
+  <include file="db/changelog/db.changelog-002.xml"/>
+  <include file="db/changelog/db.changelog-003.xml"/>
+  <include file="db/changelog/db.changelog-004.xml"/>
+  <include file="db/changelog/db.changelog-005.xml"/>
+  <include file="db/changelog/db.changelog-006.xml"/>
+  <include file="db/changelog/db.changelog-007.xml"/>
+  <include file="db/changelog/db.changelog-008.xml"/>
+  <include file="db/changelog/db.changelog-009.xml"/>
+  <include file="db/changelog/db.changelog-010.xml"/>
+  <include file="db/changelog/db.changelog-011.xml"/>
+  <include file="db/changelog/db.changelog-012.xml"/>
+  <include file="db/changelog/db.changelog-013.xml"/>
+  <include file="db/changelog/db.changelog-014.xml"/>
+  <include file="db/changelog/db.changelog-015.xml"/>
+  <include file="db/changelog/db.changelog-016.xml"/>
+  <include file="db/changelog/db.changelog-017.xml"/>
+  <include file="db/changelog/db.changelog-018.xml"/>
+  <include file="db/changelog/db.changelog-019.xml"/>
+  <include file="db/changelog/db.changelog-020.xml"/>
+  <include file="db/changelog/db.changelog-021.xml"/>
+  <include file="db/changelog/db.changelog-022.xml"/>
+  <include file="db/changelog/db.changelog-023.xml"/>
+  <include file="db/changelog/db.changelog-024.xml"/>
+  <include file="db/changelog/db.changelog-025.xml"/>
+  <include file="db/changelog/db.changelog-026.xml"/>
+  <include file="db/changelog/db.changelog-027_dashboard_statistics.xml"/>
+  <include file="db/changelog/db.changelog-028_campaigns.xml"/>
+  <include file="db/changelog/db.changelog-029_campaign_stock_mappings.xml"/>
+  <include file="db/changelog/db.changelog-030_campaign_downloads.xml"/>
+  <include file="db/changelog/db.changelog-031_notifications.xml"/>
+  <include file="db/changelog/db.changelog-032_test_posts.xml"/>
+  <include file="db/changelog/db.changelog-033_popups.xml"/>
+  <include file="db/changelog/db.changelog-034_app_preferences.xml"/>
+  <include file="db/changelog/db.changelog-035_unread_posts.xml"/>
+  <include file="db/changelog/db.changelog-036_user_holding_stock_on_reference_dates.xml"/>
+  <include file="db/changelog/db.changelog-037_digital_document_numbers.xml"/>
+  <include file="db/changelog/db.changelog-038_digital_document_users_pages.xml"/>
+  <include file="db/changelog/db.changelog-039_private_stocks.xml"/>
+  <include file="db/changelog/db.changelog-040_automated_author_pushes.xml"/>
+  <include file="db/changelog/db.changelog-041_stock_dart_corporations.xml"/>
+  <include file="db/changelog/db.changelog-042_corporation_users.xml"/>
+  <include file="db/changelog/db.changelog-043_user_push_agreements.xml"/>
+  <include file="db/changelog/db.changelog-044_user_badge_visibilities.xml"/>
+  <include file="db/changelog/db.changelog-045_stock_acceptor_users.xml"/>
+  <include file="db/changelog/db.changelog-046_stock_rankings.xml"/>
+  <include file="db/changelog/db.changelog-047_file_contents.xml"/>
+  <include file="db/changelog/db.changelog-048_blocked_users.xml"/>
+  <include file="db/changelog/db.changelog-049_stock_search_trends.xml"/>
+  <include file="db/changelog/db.changelog-050_user_holding_stock_history_on_dates.xml"/>
+  <include file="db/changelog/db.changelog-051_solidarity_leader_elections.xml"/>
+  <include file="db/changelog/db.changelog-052_solidarity_leader_election_user_answers.xml"/>
+  <include file="db/changelog/db.changelog-053_new_notice_migration.xml"/>
+  <include file="db/changelog/db.changelog-054_solidarity_leader_election_poll_item_mappings.xml"/>
+  <include file="db/changelog/db.changelog-055_solidarity_leader_election_status_histories.xml"/>
+  <include file="db/changelog/db.changelog-056_holder_list_read_and_copies.xml"/>
+  <include file="db/changelog/db.changelog-057_web_verifications.xml"/>
+  <include file="db/changelog/db.changelog-058_blocked_solidarity_leader_applicants.xml"/>
+
+</databaseChangeLog>

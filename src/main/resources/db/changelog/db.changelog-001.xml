@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create_users_table" author="Lucas">
+    <createTable tableName="users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="email" type="varchar(255)">
+        <constraints nullable="true" unique="true"/>
+      </column>
+      <column name="hashed_phone_number" type="varchar(255)">
+        <constraints nullable="true" unique="true"/>
+      </column>
+      <column name="birth_date" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="gender" type="char(1)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="hashed_ci" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="hashed_di" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_agree_to_receive_mail" type="Boolean"/>
+      <column name="hashed_pin_number" type="varchar(255)"/>
+      <column name="last_pin_number_verified_at" type="TIMESTAMP"/>
+      <column name="nickname" type="varchar(255)"/>
+      <column name="job_title" type="varchar(255)"/>
+      <column name="address" type="varchar(255)"/>
+      <column name="address_detail" type="varchar(255)"/>
+      <column name="zipcode" type="varchar(255)"/>
+      <column name="total_asset_amount" type="BIGINT"/>
+      <column name="profile_image_url" type="varchar(255)"/>
+      <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_roles_table" author="Lucas">
+    <createTable tableName="roles">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="type" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_userroles_table" author="Lucas">
+    <createTable tableName="user_roles">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="role_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_role_id" author="Lucas">
+    <addUniqueConstraint tableName="user_roles" columnNames="user_id, role_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="user_roles"
+        constraintName="unique_user_id_role_id"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_stocks_table" author="Lucas">
+    <createTable tableName="stocks">
+      <column name="code" type="VARCHAR(255)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="total_issued_quantity" type="BIGINT"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_user_holding_stocks_table" author="Lucas">
+    <createTable tableName="user_holding_stocks">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="quantity" type="BIGINT"/>
+      <column name="display_order" type="INT"/>
+      <column name="status" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_stock_code" author="Lucas">
+    <addUniqueConstraint
+      tableName="user_holding_stocks"
+      columnNames="user_id, stock_code"
+      constraintName="unique_user_id_stock_code"
+    />
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="user_holding_stocks"
+        constraintName="unique_user_id_stock_code"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_solidarities_table" author="Lucas">
+    <createTable tableName="solidarities">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="INACTIVE_BY_ADMIN">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_open" type="BOOLEAN" defaultValue="false"/>
+      <column name="stock_count" type="BIGINT" defaultValue="0"/>
+      <column name="member_count" type="INT" defaultValue="0"/>
+      <column name="member_total_stock_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_boards_table" author="Lucas">
+    <createTable tableName="boards">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="group" type="VARCHAR(255)"/>
+      <column name="category" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_stock_code_category" author="Lucas">
+    <addUniqueConstraint
+      tableName="boards"
+      columnNames="stock_code, category"
+      constraintName="unique_stock_code_category"
+    />
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="boards"
+        constraintName="unique_stock_code_category"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_posts_table" author="Lucas">
+    <createTable tableName="posts">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="board_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="title" type="VARCHAR(255)"/>
+      <column name="content" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_anonymous" type="Boolean" defaultValueBoolean="false"/>
+      <column name="anonymous_name" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_comments_table" author="Lucas">
+    <createTable tableName="comments">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="post_id" type="BIGINT"/>
+      <column name="parent_id" type="BIGINT"/>
+      <column name="type" type="VARCHAR(255)"/>
+      <column name="content" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_reports_table" author="Lucas">
+    <createTable tableName="reports">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="post_id" type="BIGINT"/>
+      <column name="comment_id" type="BIGINT"/>
+      <column name="type" type="VARCHAR(255)"/>
+      <column name="reason" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_poll_items_table" author="Lucas">
+    <createTable tableName="poll_items">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="text" type="VARCHAR(255)"/>
+      <column name="poll_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_polls_table" author="Lucas">
+    <createTable tableName="polls">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="title" type="VARCHAR(255)"/>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="vote_type" type="VARCHAR(255)"/>
+      <column name="selection_option" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="poll_status" type="VARCHAR(255)" defaultValue="IN_PROGRESS">
+        <constraints nullable="false"/>
+      </column>
+      <column name="target_end_date" type="TIMESTAMP"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_poll_answers_table" author="Lucas">
+    <createTable tableName="poll_answers">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="poll_item_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="poll_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_poll_id_user_id_poll_item_id" author="Lucas">
+    <addUniqueConstraint
+      tableName="poll_answers"
+      columnNames="poll_id, user_id, poll_item_id"
+      constraintName="unique_poll_id_user_id_poll_item_id"
+    />
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="poll_answers"
+        constraintName="unique_poll_id_user_id_poll_item_id"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_user_verification_histories_table" author="Lucas">
+    <createTable tableName="user_verification_histories">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_ip" type="varchar(255)" defaultValue="192.168.0.1">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verification_type" type="varchar(255)">
+        <constraints nullable="true" unique="false"/>
+      </column>
+      <column name="operation_type" type="varchar(255)">
+        <constraints nullable="true" unique="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="creation idx_user_verification_histories_by_user_id index" author="Lucas">
+    <createIndex tableName="user_verification_histories" indexName="idx_user_verification_histories_by_user_id">
+      <column name="user_id"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="user_verification_histories" indexName="idx_user_verification_histories_by_user_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="remove unique key on user_verification_histories table" author="Lucas" failOnError="false">
+    <dropUniqueConstraint
+      tableName="user_verification_histories"
+      constraintName="user_verification_histories_verification_type_key"
+    />
+    <dropUniqueConstraint
+      tableName="user_verification_histories"
+      constraintName="user_verification_histories_operation_type_key"
+    />
+  </changeSet>
+
+  <changeSet id="add column user_verification_histories tables" author="Sniper">
+    <addColumn tableName="user_verification_histories">
+      <column name="digital_document_user_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="user_verification_histories" columnName="digital_document_user_id"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

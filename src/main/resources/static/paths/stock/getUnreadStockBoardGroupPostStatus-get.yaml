@@ -1,0 +1,42 @@
+#/api/stocks/{stockCode}/unread-board-group-post-status:
+  get:
+    summary: 종목별 게시판 그룹별 읽지 않은 게시글 상태 조회
+    operationId: getUnreadStockBoardGroupPostStatus
+    tags: [ UnreadStockBoardGroupPostStatus ]
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - name: stockCode
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Stock code parameter
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              title: UnreadStockBoardGroupPostStatusDataResponse
+              properties:
+                unreadStockBoardGroupPostStatus:
+                  $ref: '../../components/schemas/stock/UnreadStockBoardGroupPostStatusResponse.yaml'
+      '403':
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/ErrorResponse.yaml'
+            example:
+              message: '보유하고 있지 않은 주식입니다.'
+              code: 403
+      '404':
+        description: Not Found
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/ErrorResponse.yaml'
+            example:
+              message: '존재하지 않는 종목코드입니다.'
+              code: 404

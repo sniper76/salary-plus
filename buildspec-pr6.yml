@@ -1,0 +1,28 @@
+version: 0.2  # 0.2 권장
+
+phases:   # 빌드 단계
+  install:
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+      - sudo yum install -y glibc-langpack-ko
+      - export LC_ALL=ko_KR.utf8
+      - export LANG=ko_KR.utf8
+      - sudo yum install -y nodejs
+      - node -v # Verify installation
+      - npm -v  # Verify npm installation
+      - npm install -g swagger-cli
+  build:
+    commands:
+      - export CODEBUILD_GIT_BRANCH=`git branch -a --contains HEAD | sed -n 2p | awk '{ printf $1 }'`
+      - echo "Build started on branch $(echo $CODEBUILD_GIT_BRANCH) at $(date)"
+      - ./gradlew clean test6 -PbranchName="$(echo $CODEBUILD_GIT_BRANCH)"
+artifacts:
+  files:
+    - build/reports/tests/**/*
+
+cache:
+  paths:
+    - '/root/.gradle/**/*'
+    - '/root/.m2/**/*'

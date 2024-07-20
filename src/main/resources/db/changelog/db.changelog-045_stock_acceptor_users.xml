@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="create stock_acceptor_users table" author="Sniper">
+    <createTable tableName="stock_acceptor_users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add unique index on stock_acceptor_users" author="Sniper">
+    <createIndex tableName="stock_acceptor_users" indexName="idx_stock_code_unique_on_stock_acceptor_users">
+      <column name="stock_code"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="stock_acceptor_users" indexName="idx_stock_code_unique_on_stock_acceptor_users"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate insert table stock_acceptor_users" author="Sniper">
+    <sql>
+      insert into stock_acceptor_users(user_id, stock_code, created_at, updated_at)
+      select u.id, s.code, now(), now()
+      from stocks s
+             inner join solidarities sd on s.code = sd.stock_code
+             inner join solidarity_leaders sl on sd.id = sl.solidarity_id
+             inner join users u on sl.user_id = u.id
+      where u.status = 'ACTIVE'
+        and s.status = 'ACTIVE'
+        and sd.status = 'ACTIVE'
+    </sql>
+  </changeSet>
+
+  <changeSet id="create stock_acceptor_user_histories table" author="Sniper">
+    <createTable tableName="stock_acceptor_user_histories">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="migrate insert table stock_acceptor_user_histories" author="Sniper">
+    <sql>
+      insert into stock_acceptor_user_histories(user_id, stock_code, created_at)
+      select u.id, s.code, sl.created_at
+      from stocks s
+             inner join solidarities sd on s.code = sd.stock_code
+             inner join solidarity_leaders sl on sd.id = sl.solidarity_id
+             inner join users u on sl.user_id = u.id
+      where u.status = 'ACTIVE'
+        and s.status = 'ACTIVE'
+        and sd.status = 'ACTIVE'
+    </sql>
+  </changeSet>
+  <changeSet id="add column status on stock_acceptor_user_histories" author="Sniper">
+    <addColumn tableName="stock_acceptor_user_histories">
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="stock_acceptor_user_histories" columnName="status" />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate delete table stock_acceptor_user_histories" author="Sniper">
+    <sql>
+      truncate table stock_acceptor_user_histories
+    </sql>
+  </changeSet>
+
+  <changeSet id="migrate insert with status table stock_acceptor_user_histories" author="Sniper">
+    <sql>
+      insert into stock_acceptor_user_histories(user_id, stock_code, status, created_at)
+      select u.id, s.code, 'ACTIVE', sl.created_at
+      from stocks s
+             inner join solidarities sd on s.code = sd.stock_code
+             inner join solidarity_leaders sl on sd.id = sl.solidarity_id
+             inner join users u on sl.user_id = u.id
+      where u.status = 'ACTIVE'
+        and s.status = 'ACTIVE'
+        and sd.status = 'ACTIVE'
+    </sql>
+  </changeSet>
+
+  <changeSet id="migrate insert table user_roles" author="Sniper">
+    <sql>
+      insert into user_roles(user_id, role_id, created_at, updated_at)
+      select distinct sau.user_id, (select id from roles where type = 'ACCEPTOR_USER') as role_id, sau.created_at, sau.created_at
+      from stock_acceptor_users sau
+      where not exists (
+        select 1
+        from user_roles ur
+               inner join roles r on ur.role_id = r.id and r.type = 'ACCEPTOR_USER'
+        where ur.user_id = sau.user_id
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet id="add column user info column on stock_acceptor_user_histories" author="Sniper">
+    <addColumn tableName="stock_acceptor_user_histories">
+      <column name="name" type="VARCHAR(255)" />
+      <column name="birth_date" type="TIMESTAMP" />
+      <column name="hashed_phone_number" type="VARCHAR(255)" />
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="stock_acceptor_user_histories" columnName="name" />
+      <dropColumn tableName="stock_acceptor_user_histories" columnName="birth_date" />
+      <dropColumn tableName="stock_acceptor_user_histories" columnName="hashed_phone_number" />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate update with user info column on stock_acceptor_user_histories" author="Sniper">
+    <sql>
+      UPDATE stock_acceptor_user_histories
+      SET (name, birth_date, hashed_phone_number) = (
+        SELECT u.name, u.birth_date, u.hashed_phone_number
+        FROM users u
+        WHERE u.id = stock_acceptor_user_histories.user_id
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet id="add first_number_of_identification column on stock_acceptor_user_histories table" author="Sniper">
+    <addColumn tableName="stock_acceptor_user_histories">
+      <column name="first_number_of_identification" type="integer" defaultValueNumeric="1"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_acceptor_user_histories" columnName="first_number_of_identification"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate update first_number_of_identification column on stock_acceptor_user_histories" author="Sniper">
+    <sql>
+      UPDATE stock_acceptor_user_histories
+      SET (first_number_of_identification) = (
+        SELECT u.first_number_of_identification
+        FROM users u
+        WHERE u.id = stock_acceptor_user_histories.user_id
+      )
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

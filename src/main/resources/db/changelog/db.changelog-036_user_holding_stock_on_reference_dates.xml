@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create user_holding_stock_on_reference_dates table" author="Lucas">
+    <createTable tableName="user_holding_stock_on_reference_dates">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="quantity" type="BIGINT" defaultValue="0"/>
+      <column name="cash_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="credit_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="secure_loan_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="purchase_price" type="BIGINT" defaultValue="0"/>
+      <column name="reference_date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet
+    id="add unique index on user_holding_stock_on_reference_dates table"
+    author="Lucas"
+  >
+    <createIndex
+      tableName="user_holding_stock_on_reference_dates"
+      indexName="unique_idx_user_stock_reference_date"
+      unique="true"
+    >
+      <column name="user_id"/>
+      <column name="stock_code"/>
+      <column name="reference_date"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="user_holding_stock_on_reference_dates"
+        indexName="unique_idx_user_stock_reference_date"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="remove unnecessary columns on user_holding_stock_on_reference_dates table"
+    author="Lucas"
+  >
+    <dropColumn tableName="user_holding_stock_on_reference_dates" columnName="cash_quantity"/>
+    <dropColumn tableName="user_holding_stock_on_reference_dates" columnName="credit_quantity"/>
+    <dropColumn tableName="user_holding_stock_on_reference_dates" columnName="secure_loan_quantity"/>
+    <dropColumn tableName="user_holding_stock_on_reference_dates" columnName="purchase_price"/>
+
+    <rollback>
+      <addColumn tableName="user_holding_stock_on_reference_dates">
+        <column name="cash_quantity" type="BIGINT" defaultValue="0"/>
+        <column name="credit_quantity" type="BIGINT" defaultValue="0"/>
+        <column name="secure_loan_quantity" type="BIGINT" defaultValue="0"/>
+        <column name="purchase_price" type="BIGINT" defaultValue="0"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="modify status column on user_holding_stock_on_reference_dates table"
+    author="Lucas"
+    failOnError="false"
+  >
+    <addNotNullConstraint tableName="user_holding_stock_on_reference_dates" columnName="status"/>
+  </changeSet>
+
+</databaseChangeLog>

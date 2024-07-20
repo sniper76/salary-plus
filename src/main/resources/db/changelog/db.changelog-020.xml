@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create_digital_proxies_table" author="Sniper">
+    <createTable tableName="digital_proxies">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="title" type="varchar(255)"/>
+      <column name="template_id" type="varchar(255)"/>
+      <column name="template_name" type="varchar(255)"/>
+      <column name="template_role" type="varchar(255)"/>
+      <column name="description_text" type="text"/>
+      <column name="target_end_date" type="TIMESTAMP"/>
+      <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_digital_proxy_approvals_table" author="Sniper">
+    <createTable tableName="digital_proxy_approvals">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="digital_proxy_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="participant_id" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="document_id" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="embedded_url" type="varchar(1000)"/>
+      <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add column digital_proxy_id posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="digital_proxy_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="posts" columnName="digital_proxy_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete column embedded_url on digital_proxy_approvals table" author="Lucas">
+    <dropColumn tableName="digital_proxy_approvals" columnName="embedded_url"/>
+    <rollback>
+      <addColumn tableName="digital_proxy_approvals">
+        <column name="embedded_url" type="varchar(1000)"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create solidarity_daily_summaries table" author="sjoonb">
+    <createTable tableName="solidarity_daily_summaries">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="solidarity_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_quantity" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stake" type="DECIMAL(10,5)" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="market_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="member_count" type="INT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="delete column poll_status on polls table" author="Lucas">
+    <dropColumn tableName="polls" columnName="poll_status"/>
+    <rollback>
+      <addColumn tableName="polls">
+        <column name="poll_status" type="varchar(255)"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column target_start_date polls table" author="Sniper">
+    <addColumn tableName="polls">
+      <column name="target_start_date" type="TIMESTAMP"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="polls" columnName="target_start_date"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete column embedded_url on solidarity_leader_applicants table" author="Lucas">
+    <dropColumn tableName="solidarity_leader_applicants" columnName="deleted_at"/>
+    <rollback>
+      <addColumn tableName="solidarity_leader_applicants">
+        <column name="deleted_at" type="TIMESTAMP"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete member_count column on solidarities table" author="sjoonb">
+    <dropColumn tableName="solidarities" columnName="member_count"/>
+    <rollback>
+      <addColumn tableName="solidarities">
+        <column name="member_count" type="INT" defaultValue="0"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete member_total_stock_quantity column on solidarities table" author="sjoonb">
+    <dropColumn tableName="solidarities" columnName="member_total_stock_quantity"/>
+    <rollback>
+      <addColumn tableName="solidarities">
+        <column name="member_total_stock_quantity" type="BIGINT" defaultValue="0"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add not null constraint to total_issued_quantity columns on stocks table" author="sjoonb">
+    <addNotNullConstraint tableName="stocks" columnName="total_issued_quantity" defaultNullValue="0"/>
+  </changeSet>
+
+  <changeSet id="add column target_start_date digital_proxies table" author="Sniper">
+    <addColumn tableName="digital_proxies">
+      <column name="target_start_date" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="digital_proxies" columnName="target_start_date"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="rename column failure_reason to result on batch_logs table" author="Lucas">
+    <renameColumn tableName="batch_logs" oldColumnName="failure_reason" newColumnName="result" columnDataType="text"/>
+    <rollback>
+      <renameColumn tableName="batch_logs" oldColumnName="result" newColumnName="failure_reason" columnDataType="text"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop column title and description_text to digital_proxies table" author="Sniper">
+    <dropColumn tableName="digital_proxies" columnName="title"/>
+    <dropColumn tableName="digital_proxies" columnName="description_text"/>
+  </changeSet>
+
+  <changeSet id="add recent solidarity daily summary columns" author="sjoonb">
+    <addColumn tableName="solidarities">
+      <column name="most_recent_daily_summary_id" type="bigint">
+        <constraints nullable="true"/>
+      </column>
+      <column name="second_most_recent_daily_summary_id" type="bigint">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarities" columnName="most_recent_daily_summary_id"/>
+      <dropColumn tableName="solidarities" columnName="second_most_recent_daily_summary_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add has_ever_had_leader columns on solidarities table" author="jooany">
+    <addColumn tableName="solidarities">
+      <column name="has_ever_had_leader" type="boolean" defaultValue="false" />
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarities" columnName="has_ever_had_leader"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add not null constraint to has_ever_had_leader columns on solidarities table" author="jooany">
+    <addNotNullConstraint tableName="solidarities" columnName="has_ever_had_leader" defaultNullValue="false"/>
+
+    <rollback>
+      <dropNotNullConstraint tableName="solidarities" columnName="has_ever_had_leader"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate update has_ever_had_leader column on solidarities" author="jooany">
+    <sql>
+      UPDATE solidarities
+      SET has_ever_had_leader = true
+      WHERE id IN (SELECT sl.solidarity_id
+                   FROM solidarity_leaders sl
+                   WHERE sl.solidarity_id = solidarities.id)
+    </sql>
+  </changeSet>
+
+  <changeSet id="delete solidarity_id column on solidarity_daily_summaries table" author="sjoonb">
+    <dropColumn tableName="solidarity_daily_summaries" columnName="solidarity_id"/>
+    <rollback>
+      <addColumn tableName="solidarity_daily_summaries">
+        <column name="solidarity_id" type="BIGINT">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete name column on boards table" author="Lucas">
+    <dropColumn tableName="boards" columnName="name"/>
+    <rollback>
+      <addColumn tableName="boards">
+        <column name="name" type="VARCHAR(255)">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <!-- TODO [멀티설문] 나중에 완전히 안정이 되면 posts 에 있는 poll_id 컬럼을 삭제해야 한다. -->
+  <changeSet id="migration post_id on polls from posts" author="Lucas">
+    <sql>
+      UPDATE polls
+      SET post_id = (SELECT p.id as post_id
+                     FROM posts p
+                     WHERE p.poll_id = polls.id)
+      WHERE EXISTS (SELECT 1
+                    FROM posts p
+                    WHERE p.poll_id = polls.id)
+    </sql>
+  </changeSet>
+
+  <changeSet id="add column content polls table" author="Sniper">
+    <addColumn tableName="polls">
+      <column name="content" type="TEXT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="polls" columnName="content"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

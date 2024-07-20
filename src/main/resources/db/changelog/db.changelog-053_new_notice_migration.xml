@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="migration act_notice to notice on posts table" author="Lucas">
+    <sql>
+      UPDATE posts
+      SET board_id = (select b.id
+                      from boards b
+                      where b."group" = 'GLOBALEVENT'
+                        and b.category = 'NOTICE')
+      WHERE board_id = (select b.id
+                        from boards b
+                        where b."group" = 'GLOBALBOARD'
+                          and b.category = 'ACT_NOTICE')
+    </sql>
+  </changeSet>
+
+  <changeSet id="migration act_notice to notice on popups table" author="Lucas">
+    <sql>
+      UPDATE popups
+      set board_category = 'NOTICE'
+      where board_category = 'ACT_NOTICE'
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

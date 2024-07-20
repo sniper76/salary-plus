@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create_link_urls_table" author="Sniper">
+    <createTable tableName="link_urls">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="link_title" type="VARCHAR(1000)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="link_type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="link_url" type="varchar(1000)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="insert_link_urls_table" author="Sniper">
+    <insert tableName="link_urls">
+      <column name="link_title" value="뉴스"/>
+      <column name="link_type" value="NEWS"/>
+      <column name="link_url" value="https://finance.naver.com/"/>
+      <column name="created_at" value="now()"/>
+      <column name="updated_at" value="now()"/>
+    </insert>
+  </changeSet>
+
+</databaseChangeLog>

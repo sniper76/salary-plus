@@ -1,0 +1,11 @@
+#WebVerificationCodeGenerateRequest:
+  type: object
+  properties:
+    authenticationReference:
+      type: string
+      format: uuid
+      nullable: false
+      x-field-extra-annotation: |
+        @NotNull(message = "인증참조키를 확인하세요.")
+  example:
+    authenticationReference: 9151f21f-43ae-43b4-92f3-f4af67cdf544

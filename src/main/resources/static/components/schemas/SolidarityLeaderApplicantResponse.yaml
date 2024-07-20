@@ -1,0 +1,24 @@
+#SolidarityLeaderApplicantResponse:
+  type: object
+  properties:
+    id:
+      type: integer
+      format: int64
+    name:
+      type: string
+    phoneNumber:
+      type: string
+      nullable: true
+    nickname:
+      type: string
+      nullable: true
+    profileImageUrl:
+      type: string
+      nullable: true
+    individualStockCountLabel:
+      type: string
+    commentsForStockHolder:
+      type: string
+    solidarityApplicantId:
+      type: integer
+      format: int64

@@ -1,0 +1,9 @@
+#SimpleStockResponse:
+  type: object
+  properties:
+    code:
+      type: string
+    name:
+      type: string
+    standardCode:
+      type: string

@@ -1,0 +1,7 @@
+#WithdrawSolidarityLeaderApplicantRequest:
+  type: object
+  properties:
+    reason:
+      type: string
+      x-field-extra-annotation: |
+        @NotBlank(message = "지원 철회 사유를 입력하세요.")

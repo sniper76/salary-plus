@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add description column to file_contents table" author="Lucas">
+    <addColumn tableName="file_contents">
+      <column name="description" type="text"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="file_contents" columnName="description"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add status column to roles table" author="Lucas">
+    <addColumn tableName="roles">
+      <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="roles" columnName="status"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

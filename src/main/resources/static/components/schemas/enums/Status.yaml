@@ -1,0 +1,13 @@
+
+#Status:
+  type: string
+  enum:
+    - ACTIVE
+    - PROCESSING
+    - INACTIVE_BY_USER
+    - INACTIVE_BY_ADMIN
+    - WITHDRAWAL_REQUESTED
+    - DELETED_BY_USER
+    - DELETED_BY_ADMIN
+    - DELETED
+    - SCHEDULE

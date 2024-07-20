@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="remove unique constraint from solidarity_id if exists" author="sjoonb">
+    <preConditions onFail="MARK_RAN">
+      <sqlCheck expectedResult="1">
+        SELECT COUNT(*)
+        FROM information_schema.table_constraints
+        WHERE CONSTRAINT_NAME = 'solidarity_leader_applicants_solidarity_id_key'
+      </sqlCheck>
+    </preConditions>
+    <dropUniqueConstraint
+      tableName="solidarity_leader_applicants"
+      constraintName="solidarity_leader_applicants_solidarity_id_key"
+    />
+  </changeSet>
+
+  <changeSet id="delete column post_id and comment_id on reports table" author="Sniper">
+    <dropColumn tableName="reports" columnName="post_id"/>
+    <dropColumn tableName="reports" columnName="comment_id"/>
+    <rollback>
+      <addColumn tableName="reports">
+        <column name="post_id" type="BIGINT"/>
+        <column name="comment_id" type="BIGINT"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column content_id reports table" author="Sniper">
+    <addColumn tableName="reports">
+      <column name="content_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="reports" columnName="content_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change reason column type to text on reports table" author="Sniper">
+    <modifyDataType tableName="reports" columnName="reason" newDataType="text"/>
+
+    <rollback>
+      <modifyDataType tableName="reports" columnName="reason" newDataType="varchar(255)"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change status column type to report_status on reports table" author="Sniper">
+    <renameColumn tableName="reports" oldColumnName="status" newColumnName="report_status"/>
+
+    <rollback>
+      <renameColumn tableName="reports" oldColumnName="report_status" newColumnName="status"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate_report_status_to_READY_on_reports" author="Lucas">
+    <sql>
+      update reports
+      set report_status = 'READY'
+    </sql>
+  </changeSet>
+
+  <changeSet id="create_report_histories_table" author="Sniper">
+    <createTable tableName="report_histories">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="report_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="report_status" type="varchar(255)" defaultValue="PROCESSING">
+        <constraints nullable="false"/>
+      </column>
+      <column name="result" type="varchar(1000)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_user_anonymous_counts_table" author="Sniper">
+    <createTable tableName="user_anonymous_counts">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="true"/>
+      </column>
+      <column name="write_date" type="VARCHAR(8)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="post_count" type="INTEGER" defaultValueNumeric="0"/>
+      <column name="comment_count" type="INTEGER" defaultValueNumeric="0"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_write_date" author="Sniper">
+    <addUniqueConstraint tableName="user_anonymous_counts" columnNames="user_id, write_date"/>
+
+    <rollback>
+      <dropUniqueConstraint
+              tableName="user_anonymous_counts"
+              constraintName="unique_user_id_write_date"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_post_id" author="Sniper">
+    <addUniqueConstraint tableName="post_user_likes" columnNames="user_id, post_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+              tableName="post_user_likes"
+              constraintName="unique_user_id_post_id"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_post_id_comment_id" author="Sniper">
+    <addUniqueConstraint tableName="comment_user_likes" columnNames="user_id, post_id, comment_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+              tableName="comment_user_likes"
+              constraintName="unique_user_id_post_id_comment_id"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>
