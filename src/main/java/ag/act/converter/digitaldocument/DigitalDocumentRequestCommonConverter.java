@@ -35,6 +35,7 @@ public class DigitalDocumentRequestCommonConverter {
         digitalDocument.setTargetEndDate(DateTimeConverter.convert(createRequest.getTargetEndDate()));
         digitalDocument.setStatus(ag.act.model.Status.ACTIVE);
         digitalDocument.setJsonAttachOption(createRequest.getAttachOptions());
+        digitalDocument.setIsDisplayStockQuantity(createRequest.getIsDisplayStockQuantity());
 
         post.setDigitalDocument(digitalDocument);
         digitalDocument.setPost(post);

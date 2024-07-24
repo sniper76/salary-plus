@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static ag.act.TestUtil.someBoardGroupForStock;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
@@ -106,7 +107,7 @@ public class GetHomeApiUnreadPostsIntegrationTest extends AbstractCommonIntegrat
             MvcResult response = mockMvc
                 .perform(
                     get(TARGET_API)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

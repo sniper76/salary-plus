@@ -4,6 +4,7 @@ import ag.act.configuration.urlmatcher.postendpoint.BoardCategoryFinder;
 import ag.act.configuration.urlmatcher.postendpoint.PostEndPoint;
 import ag.act.configuration.urlmatcher.postendpoint.PostIdExtractor;
 import ag.act.core.configuration.GlobalBoardManager;
+import ag.act.core.holder.RequestContextHolder;
 import ag.act.enums.BoardCategory;
 import ag.act.enums.BoardGroup;
 import ag.act.enums.virtualboard.VirtualBoardGroup;
@@ -36,8 +37,15 @@ public class PermitAllRequestMatcher implements RequestMatcher {
         final String globalStockCode = globalBoardManager.getStockCode();
 
         postEndPointList = List.of(
-            // 글로벌 및 베스트 - 게시글 목록 조회
+            // 종목 랭킹 조회
             PostEndPoint.of("/api/stock-rankings"),
+
+            // 글로벌 카테고리 목록 조회
+            PostEndPoint.of("/api/stocks/%s/board-groups/%s/categories".formatted(globalStockCode, BoardGroup.GLOBALBOARD.name())),
+            PostEndPoint.of("/api/stocks/%s/board-groups/%s/categories".formatted(globalStockCode, BoardGroup.GLOBALEVENT.name())),
+            PostEndPoint.of("/api/stocks/%s/board-groups/%s/categories".formatted(globalStockCode, BoardGroup.GLOBALCOMMUNITY.name())),
+
+            // 글로벌 및 베스트 - 게시글 목록 조회
             PostEndPoint.of("/api/stocks/%s/board-groups/%s/posts".formatted(globalStockCode, BoardGroup.GLOBALBOARD.name())),
             PostEndPoint.of("/api/stocks/%s/board-groups/%s/posts".formatted(globalStockCode, BoardGroup.GLOBALEVENT.name())),
             PostEndPoint.of("/api/stocks/%s/board-groups/%s/posts".formatted(globalStockCode, BoardGroup.GLOBALCOMMUNITY.name())),
@@ -59,9 +67,12 @@ public class PermitAllRequestMatcher implements RequestMatcher {
 
     @Override
     public boolean matches(final HttpServletRequest request) {
-
         if (isMatchedInWhiteList(request, allowedAnyMethodPathRequestMatchers)) {
             return true;
+        }
+
+        if (!RequestContextHolder.isWebAppVersion()) {
+            return false;
         }
 
         return isMatchedInWhitePostEndPoint(request, postEndPointList);
@@ -71,8 +82,8 @@ public class PermitAllRequestMatcher implements RequestMatcher {
         return postEndPointList.stream()
             .anyMatch(postEndPoint -> {
                 return postEndPoint.antPathRequestMatcher().matches(request)
-                    && postEndPoint.httpMethod().matches(request.getMethod())
-                    && postEndPoint.boardCategoryPredicate().test(findBoardCategory(request).orElse(null));
+                       && postEndPoint.httpMethod().matches(request.getMethod())
+                       && postEndPoint.boardCategoryPredicate().test(findBoardCategory(request).orElse(null));
             });
     }
 

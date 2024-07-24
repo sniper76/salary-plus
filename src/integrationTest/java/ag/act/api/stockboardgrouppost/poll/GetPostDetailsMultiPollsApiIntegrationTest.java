@@ -36,6 +36,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.userAgent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -73,7 +76,7 @@ class GetPostDetailsMultiPollsApiIntegrationTest extends AbstractCommonIntegrati
                 get(TARGET_API, stock.getCode(), board.getGroup(), postId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();
@@ -399,7 +402,7 @@ class GetPostDetailsMultiPollsApiIntegrationTest extends AbstractCommonIntegrati
                     get(TARGET_API, stock.getCode(), board.getGroup(), postId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header(X_APP_VERSION, X_APP_VERSION_WEB)
+                        .headers(headers(xAppVersion(X_APP_VERSION_WEB), userAgent(USER_AGENT_WEB)))
                 )
                 .andExpect(resultMatcher)
                 .andReturn();
@@ -422,5 +425,4 @@ class GetPostDetailsMultiPollsApiIntegrationTest extends AbstractCommonIntegrati
 
         return post;
     }
-
 }

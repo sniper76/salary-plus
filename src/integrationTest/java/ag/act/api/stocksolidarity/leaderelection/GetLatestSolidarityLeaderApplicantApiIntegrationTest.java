@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.someSolidarityLeaderElectionApplyStatus;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
@@ -117,7 +118,7 @@ public class GetLatestSolidarityLeaderApplicantApiIntegrationTest extends Abstra
     private MvcResult callApi(ResultMatcher matcher) throws Exception {
         return mockMvc.perform(
                 get(TARGET_API, stock.getCode())
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             ).andExpect(matcher)
             .andReturn();
     }

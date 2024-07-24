@@ -30,6 +30,7 @@ import java.util.List;
 
 import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -95,7 +96,7 @@ class PostByDigitalDocumentDuplicateApiIntegrationTest extends AbstractCommonInt
                     .content(objectMapperUtil.toRequestBody(getPostCopyRequest(stockCode)))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

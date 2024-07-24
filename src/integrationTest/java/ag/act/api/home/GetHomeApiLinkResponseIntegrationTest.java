@@ -24,6 +24,7 @@ import java.util.Random;
 
 import static ag.act.TestUtil.someLocalDateTimeInTheFutureMinutesBetween;
 import static ag.act.TestUtil.someLocalDateTimeInThePastMinutesBetween;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -67,7 +68,7 @@ class GetHomeApiLinkResponseIntegrationTest extends AbstractCommonIntegrationTes
         return mockMvc
             .perform(
                 get(TARGET_API)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

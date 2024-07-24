@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static ag.act.TestUtil.someHtmlContent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
@@ -190,7 +191,7 @@ class CreateReplyApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

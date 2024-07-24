@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.EnumSet;
 
 import static ag.act.TestUtil.assertTime;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
@@ -60,7 +61,7 @@ class GetBoardGroupPostDetailApiIntegrationTest extends AbstractCommonIntegratio
                 get(TARGET_API, stock.getCode(), board.getGroup(), post.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -260,7 +261,7 @@ class GetBoardGroupPostDetailApiIntegrationTest extends AbstractCommonIntegratio
                 get(TARGET_API, stockCode, boardGroup, post.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isBadRequest())
             .andReturn();

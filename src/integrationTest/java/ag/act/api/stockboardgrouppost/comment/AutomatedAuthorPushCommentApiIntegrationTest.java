@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -67,7 +68,7 @@ class AutomatedAuthorPushCommentApiIntegrationTest extends AbstractCommonIntegra
                         .content(someAlphanumericString(10)).isAnonymous(Boolean.FALSE)))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + userJwt)
+                    .headers(headers(jwt(userJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -84,7 +85,7 @@ class AutomatedAuthorPushCommentApiIntegrationTest extends AbstractCommonIntegra
                 delete(TARGET_API_DELETE, stock.getCode(), board.getGroup(), post.getId(), comment.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + userJwt)
+                    .headers(headers(jwt(userJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

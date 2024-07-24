@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -190,7 +191,7 @@ class PostsByDigitalDocumentDuplicateApiIntegrationTest extends AbstractCommonIn
                 post(TARGET_API, postId, stockGroupId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

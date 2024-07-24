@@ -55,6 +55,7 @@ public class JointOwnershipDocumentService implements DigitalDocumentTypeService
         digitalDocument.setContent(createRequest.getContent());
         digitalDocument.setCompanyRegistrationNumber(createRequest.getCompanyRegistrationNumber());
         digitalDocument.setIdCardWatermarkType(IdCardWatermarkType.fromValue(createRequest.getIdCardWatermarkType()));
+        digitalDocument.setIsDisplayStockQuantity(createRequest.getIsDisplayStockQuantity());
 
         return digitalDocumentRepository.save(digitalDocument);
     }

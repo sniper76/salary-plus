@@ -25,8 +25,11 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.util.List;
 import java.util.Map;
 
+import static ag.act.TestUtil.someAppVersionExcludesWeb;
 import static ag.act.TestUtil.someBoardCategory;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.userAgent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -52,6 +55,7 @@ class GuestGetCommentsApiIntegrationTest extends AbstractCommonIntegrationTest {
     private Comment comment1;
     private Comment comment2;
     private String appVersion;
+    private String userAgent;
 
     @BeforeEach
     void setUp() {
@@ -67,68 +71,162 @@ class GuestGetCommentsApiIntegrationTest extends AbstractCommonIntegrationTest {
     }
 
     @Nested
-    class WhenGlobalBoardPostComments {
-
+    class GetCommentsInWeb {
         @BeforeEach
         void setUp() {
-            boardGroup = BoardGroup.GLOBALBOARD;
-            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
-            post = itUtil.createPost(board, writer.getId());
-
-            comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-
-            params = Map.of(
-                "page", PAGE_1,
-                "size", SIZE,
-                "sort", CREATED_AT_DESC
-            );
+            userAgent = USER_AGENT_WEB;
             appVersion = X_APP_VERSION_WEB;
         }
 
-        @Test
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
 
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertResponse(response);
+        @Nested
+        class WhenGlobalBoardPostComments {
+
+            @BeforeEach
+            void setUp() {
+                boardGroup = BoardGroup.GLOBALBOARD;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
+                post = itUtil.createPost(board, writer.getId());
+
+                comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+
+                params = Map.of(
+                    "page", PAGE_1,
+                    "size", SIZE,
+                    "sort", CREATED_AT_DESC
+                );
+            }
+
+            @Test
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        class WhenGlobalEvent {
+
+            @BeforeEach
+            void setUp() {
+                boardGroup = BoardGroup.GLOBALEVENT;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
+                post = itUtil.createPost(board, writer.getId());
+
+                comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+
+                params = Map.of(
+                    "page", PAGE_1,
+                    "size", SIZE,
+                    "sort", CREATED_AT_DESC
+                );
+            }
+
+            @Test
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        class WhenGlobalCommunity {
+
+            @BeforeEach
+            void setUp() {
+                boardGroup = BoardGroup.GLOBALCOMMUNITY;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
+                post = itUtil.createPost(board, writer.getId());
+
+                comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+
+                params = Map.of(
+                    "page", PAGE_1,
+                    "size", SIZE,
+                    "sort", CREATED_AT_DESC
+                );
+            }
+
+            @Test
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        class WhenStockDebateCategory {
+
+            @BeforeEach
+            void setUp() {
+                stock = itUtil.createStock();
+                boardGroup = BoardGroup.DEBATE;
+                Board board = getBoard(stock, BoardCategory.DEBATE);
+                post = itUtil.createPost(board, writer.getId());
+                comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+
+                params = Map.of(
+                    "page", PAGE_1,
+                    "size", SIZE,
+                    "sort", CREATED_AT_DESC
+                );
+            }
+
+            @Test
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        class WhenAnalysisAndSolidarityLeaderLettersCategory {
+
+            @BeforeEach
+            void setUp() {
+                stock = itUtil.createStock();
+                boardGroup = BoardGroup.ANALYSIS;
+                Board board = getBoard(stock, BoardCategory.SOLIDARITY_LEADER_LETTERS);
+                post = itUtil.createPost(board, writer.getId());
+                comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+
+                params = Map.of(
+                    "page", PAGE_1,
+                    "size", SIZE,
+                    "sort", CREATED_AT_DESC
+                );
+            }
+
+            @Test
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertResponse(response);
+            }
         }
     }
 
     @Nested
-    class WhenGlobalEvent {
-
+    class GetCommentsInNotWeb {
         @BeforeEach
         void setUp() {
-            boardGroup = BoardGroup.GLOBALEVENT;
-            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
-            post = itUtil.createPost(board, writer.getId());
+            userAgent = USER_AGENT_NOT_WEB;
+            appVersion = someAppVersionExcludesWeb();
 
-            comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-
-            params = Map.of(
-                "page", PAGE_1,
-                "size", SIZE,
-                "sort", CREATED_AT_DESC
-            );
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    class WhenGlobalCommunity {
-
-        @BeforeEach
-        void setUp() {
             boardGroup = BoardGroup.GLOBALCOMMUNITY;
             Board board = getBoard(globalStock, someBoardCategory(boardGroup));
             post = itUtil.createPost(board, writer.getId());
@@ -141,73 +239,17 @@ class GuestGetCommentsApiIntegrationTest extends AbstractCommonIntegrationTest {
                 "size", SIZE,
                 "sort", CREATED_AT_DESC
             );
-            appVersion = X_APP_VERSION_WEB;
         }
 
         @Test
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+        void shouldReturnUnauthorized() throws Exception {
+            MvcResult mvcResult = callApi(status().isUnauthorized(), globalStock.getCode());
 
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    class WhenStockDebateCategory {
-
-        @BeforeEach
-        void setUp() {
-            stock = itUtil.createStock();
-            boardGroup = BoardGroup.DEBATE;
-            Board board = getBoard(stock, BoardCategory.DEBATE);
-            post = itUtil.createPost(board, writer.getId());
-            comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-
-            params = Map.of(
-                "page", PAGE_1,
-                "size", SIZE,
-                "sort", CREATED_AT_DESC
+            itUtil.assertErrorResponse(
+                mvcResult,
+                401,
+                "인가되지 않은 접근입니다."
             );
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    class WhenAnalysisAndSolidarityLeaderLettersCategory {
-
-        @BeforeEach
-        void setUp() {
-            stock = itUtil.createStock();
-            boardGroup = BoardGroup.ANALYSIS;
-            Board board = getBoard(stock, BoardCategory.SOLIDARITY_LEADER_LETTERS);
-            post = itUtil.createPost(board, writer.getId());
-            comment1 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            comment2 = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-
-            params = Map.of(
-                "page", PAGE_1,
-                "size", SIZE,
-                "sort", CREATED_AT_DESC
-            );
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertResponse(response);
         }
     }
 
@@ -253,7 +295,7 @@ class GuestGetCommentsApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .params(toMultiValueMap(params))
                     .contentType(APPLICATION_JSON)
                     .accept(APPLICATION_JSON)
-                    .header(X_APP_VERSION, appVersion)
+                    .headers(headers(xAppVersion(appVersion), userAgent(userAgent)))
             ).andExpect(resultMatcher)
             .andReturn();
     }

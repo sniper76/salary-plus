@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static ag.act.itutil.PdfTestHelper.assertPdfTextEquals;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -269,7 +270,7 @@ class PreviewProxyDigitalDocumentApiIntegrationTest extends AbstractCommonIntegr
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

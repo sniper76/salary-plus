@@ -63,6 +63,7 @@ import static ag.act.TestUtil.someHtmlContent;
 import static ag.act.TestUtil.someHtmlContentWithImages;
 import static ag.act.TestUtil.someLocalDateTimeInTheFutureDaysBetween;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
@@ -628,7 +629,7 @@ class CreatePostApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toRequestBody(createPostRequest))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .header(X_APP_VERSION, X_APP_VERSION_CMS)
             )
             .andExpect(resultMatcher)

@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -136,7 +137,7 @@ class UserSolidarityLeaderConfidentialAgreementDocumentDownloadIntegrationTest e
                 get(TARGET_API, userId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_PDF, MediaType.ALL)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

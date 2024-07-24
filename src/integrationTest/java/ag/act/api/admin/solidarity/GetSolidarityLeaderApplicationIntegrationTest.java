@@ -21,6 +21,7 @@ import static ag.act.TestUtil.someSolidarityLeaderElectionApplicationItem;
 import static ag.act.enums.solidarity.election.SolidarityLeaderElectionApplyStatus.COMPLETE;
 import static ag.act.enums.solidarity.election.SolidarityLeaderElectionApplyStatus.DELETED_BY_USER;
 import static ag.act.enums.solidarity.election.SolidarityLeaderElectionApplyStatus.SAVE;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -269,7 +270,7 @@ public class GetSolidarityLeaderApplicationIntegrationTest extends AbstractCommo
     private MvcResult callApiAndGetResult(ResultMatcher resultMatcher) throws Exception {
         return mockMvc.perform(
                 get(TARGET_API, stockCode, solidarityLeaderElectionId, solidarityLeaderApplicant.getId())
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             ).andExpect(resultMatcher)
             .andReturn();
     }

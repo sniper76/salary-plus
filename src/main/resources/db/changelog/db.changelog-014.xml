@@ -96,6 +96,16 @@
     </rollback>
   </changeSet>
 
+  <changeSet id="add client_type on comments table" author="Tnfls99">
+    <addColumn tableName="comments">
+      <column name="client_type" type="VARCHAR(255)" defaultValue="APP"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="comments" columnName="client_type"/>
+    </rollback>
+  </changeSet>
+
   <changeSet id="change content column type to text on posts table" author="Lucas">
     <modifyDataType tableName="posts" columnName="content" newDataType="text"/>
 

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import static ag.act.TestUtil.someCorporateNo;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -41,7 +42,7 @@ class DeleteCorporateUserApiIntegrationTest extends AbstractCommonIntegrationTes
                 delete(TARGET_API, corporateId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

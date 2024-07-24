@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
@@ -79,7 +80,7 @@ public class GetStockGroupsAutoCompleteApiIntegrationTest extends AbstractCommon
                     .param("searchKeyword", searchKeyword)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

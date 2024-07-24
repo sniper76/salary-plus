@@ -31,6 +31,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.someNonAdminUserWritableBoardGroupCategory;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -260,7 +261,7 @@ class CreateBoardGroupPostCommentCheckAopApiIntegrationTest extends AbstractComm
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

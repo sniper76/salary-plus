@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someCorporateNo;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.then;
@@ -69,7 +70,7 @@ public class EditSolidarityLeaderMessageApiIntegrationTest extends AbstractCommo
                     patch(TARGET_API, solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isOk())
@@ -109,7 +110,7 @@ public class EditSolidarityLeaderMessageApiIntegrationTest extends AbstractCommo
                     patch(TARGET_API, solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isNotFound())
@@ -141,7 +142,7 @@ public class EditSolidarityLeaderMessageApiIntegrationTest extends AbstractCommo
                     patch(TARGET_API, solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isForbidden())
@@ -168,7 +169,7 @@ public class EditSolidarityLeaderMessageApiIntegrationTest extends AbstractCommo
                     patch(TARGET_API, solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isBadRequest())
@@ -210,7 +211,7 @@ public class EditSolidarityLeaderMessageApiIntegrationTest extends AbstractCommo
                     patch(TARGET_API, solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isBadRequest())

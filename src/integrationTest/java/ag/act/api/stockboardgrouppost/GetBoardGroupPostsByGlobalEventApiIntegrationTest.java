@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -74,7 +75,7 @@ class GetBoardGroupPostsByGlobalEventApiIntegrationTest extends AbstractCommonIn
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

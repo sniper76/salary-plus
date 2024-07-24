@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.replacePlaceholders;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
@@ -97,7 +98,7 @@ public class GetPopupExclusiveApiIntegrationTest extends PopupIntegrationTest {
                 get(targetApiUri)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

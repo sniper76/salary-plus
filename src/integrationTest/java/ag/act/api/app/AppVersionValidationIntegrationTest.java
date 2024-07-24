@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import static ag.act.TestUtil.someEmail;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -66,7 +67,7 @@ class AppVersionValidationIntegrationTest extends AbstractCommonIntegrationTest 
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .header(X_APP_VERSION, appVersion)
             )
             .andExpect(resultMatcher)
@@ -149,7 +150,7 @@ class AppVersionValidationIntegrationTest extends AbstractCommonIntegrationTest 
                     get("/api/health")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .header(X_APP_VERSION, appVersion)
                 )
                 .andExpect(resultMatcher)

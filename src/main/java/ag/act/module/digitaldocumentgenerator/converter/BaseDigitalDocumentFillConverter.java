@@ -62,6 +62,7 @@ public abstract class BaseDigitalDocumentFillConverter {
             attachingFilesDescriptionConverter.convert(dto.getAttachingFilesDto())
         );
         digitalDocumentFill.setVersion(digitalDocument.getVersion().name());
+        digitalDocumentFill.setIsDisplayStockQuantity(digitalDocument.getIsDisplayStockQuantity());
 
         return digitalDocumentFill;
     }

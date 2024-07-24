@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.time.Instant;
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -256,7 +257,7 @@ class CreatePostBySolidarityLeaderApiIntegrationTest extends AbstractCommonInteg
                 post(TARGET_URI, stock.getCode(), boardGroup.name())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapperUtil.toRequestBody(createPostRequest))
-                    .header("Authorization", "Bearer " + jwt))
+                    .headers(headers(jwt(jwt))))
             .andExpect(resultMatcher)
             .andReturn();
     }

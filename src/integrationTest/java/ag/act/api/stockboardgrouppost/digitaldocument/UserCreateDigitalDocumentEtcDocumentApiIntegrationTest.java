@@ -29,6 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.createMockMultipartFile;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -107,7 +108,7 @@ class UserCreateDigitalDocumentEtcDocumentApiIntegrationTest extends AbstractCom
                         .file(idCardImage)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -141,7 +142,7 @@ class UserCreateDigitalDocumentEtcDocumentApiIntegrationTest extends AbstractCom
                         .file(signImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -181,7 +182,7 @@ class UserCreateDigitalDocumentEtcDocumentApiIntegrationTest extends AbstractCom
                         .file(bankAccountFile2)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -224,7 +225,7 @@ class UserCreateDigitalDocumentEtcDocumentApiIntegrationTest extends AbstractCom
                             .file(idCardImage)
                             .contentType(MediaType.MULTIPART_FORM_DATA)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isBadRequest())
                     .andReturn();
@@ -253,7 +254,7 @@ class UserCreateDigitalDocumentEtcDocumentApiIntegrationTest extends AbstractCom
                             .file(signImageFile)
                             .contentType(MediaType.MULTIPART_FORM_DATA)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();

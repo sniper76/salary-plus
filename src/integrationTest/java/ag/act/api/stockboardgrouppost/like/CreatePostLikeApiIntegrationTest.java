@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.io.UnsupportedEncodingException;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -79,7 +80,7 @@ class CreatePostLikeApiIntegrationTest extends AbstractCommonIntegrationTest {
             }
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings({"unused", "JUnitMalformedDeclaration"})
         class DefaultTestCases {
 
             @Order(1)
@@ -132,7 +133,7 @@ class CreatePostLikeApiIntegrationTest extends AbstractCommonIntegrationTest {
                 requestBuilder
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

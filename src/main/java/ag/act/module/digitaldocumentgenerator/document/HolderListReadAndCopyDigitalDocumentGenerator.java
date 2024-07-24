@@ -43,7 +43,6 @@ class HolderListReadAndCopyDigitalDocumentGenerator implements IDigitalDocumentG
             .signatureImage(dto.getSignatureImage())
             .attachingFilesDto(dto.getAttachingFilesDto())
             .holderListReadAndCopyDataModel(dto.getHolderListReadAndCopyDataModel())
-            .holderListReadAndCopyMaskingDataModel(dto.getHolderListReadAndCopyMaskingDataModel())
             .build();
 
         return uploadAndReturn(generateHtmlDocumentDto, digitalDocument);

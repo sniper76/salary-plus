@@ -24,6 +24,7 @@ import ag.act.model.PostDataResponse;
 import ag.act.model.PostDetailsDataResponse;
 import ag.act.model.PostDetailsResponse;
 import ag.act.model.PostResponse;
+import ag.act.model.Status;
 import ag.act.repository.interfaces.PollItemCount;
 import ag.act.service.BoardService;
 import ag.act.service.digitaldocument.DigitalDocumentService;
@@ -96,19 +97,18 @@ public class StockBoardGroupPostService {
     ) {
         final String stockCode = getBoardGroupPostDto.getStockCode();
         final BoardGroup boardGroup = BoardGroup.fromValue(getBoardGroupPostDto.getBoardGroupName());
-
         final List<Long> blockedUserIdList = blockedUserService.getBlockUserIdListOfMine();
+
         final Page<Post> boardPosts = postService.getBoardPostsByStockCodeAndBoardGroup(
             stockCode,
             boardGroup,
             blockedUserIdList,
-            StatusUtil.getStatusesForPostList(getBoardGroupPostDto.getIsNotDeleted()),
+            getStatuses(getBoardGroupPostDto),
             pageRequest
         );
 
         return boardGroupPostResponseConverter.convert(boardPosts);
     }
-
 
     private GetBoardGroupPostResponse getBoardGroupPostsByCategory(
         GetBoardGroupPostDto getBoardGroupPostDto,
@@ -119,14 +119,19 @@ public class StockBoardGroupPostService {
             getBoardGroupPostDto.getBoardCategories()
         );
         final List<Long> blockedUserIdList = blockedUserService.getBlockUserIdListOfMine();
+
         final Page<Post> boardPosts = postService.getBoardPosts(
             boardIds,
             blockedUserIdList,
-            StatusUtil.getStatusesForPostList(getBoardGroupPostDto.getIsNotDeleted()),
+            getStatuses(getBoardGroupPostDto),
             pageRequest
         );
 
         return boardGroupPostResponseConverter.convert(boardPosts);
+    }
+
+    private List<Status> getStatuses(GetBoardGroupPostDto getBoardGroupPostDto) {
+        return getBoardGroupPostDto.getIsNotDeleted() ? StatusUtil.getActivePostStatuses() : StatusUtil.getPostStatusesVisibleToUsers();
     }
 
     public PostDataResponse getBoardGroupPostDetailWithUpdateViewCount(Long postId, String stockCode, String boardGroupName) {

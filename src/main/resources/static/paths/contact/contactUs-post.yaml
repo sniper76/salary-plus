@@ -1,0 +1,43 @@
+#/api/contact-us:
+  post:
+    operationId: contactUs
+    tags: [ ContactUs ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            title: ContactUsRequest
+            properties:
+              recaptchaResponse:
+                type: string
+                description: 'reCAPTCHA 요청값'
+                x-field-extra-annotation: |
+                  @NotBlank(message = "reCAPTCHA 요청값를 확인해주세요.")
+              senderName:
+                type: string
+                description: '이름'
+                x-field-extra-annotation: |
+                  @NotBlank(message = "이름을 확인해주세요.")
+              senderEmail:
+                type: string
+                description: '이메일 주소'
+                x-field-extra-annotation: |
+                  @Email(message = "형식에 맞지 않는 이메일입니다. ex) act123@naver.com", regexp="^[A-Za-z0-9][A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$")
+              phoneNumber:
+                type: string
+                x-field-extra-annotation: |
+                  @IsPhoneNumber(message = "휴대폰번호를 확인해주세요.")
+              content:
+                type: string
+                description: '문의내용'
+                x-field-extra-annotation: |
+                  @NotBlank(message = "문의내용을 확인해주세요.")
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/SimpleStringResponse.yaml'

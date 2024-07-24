@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ag.act.TestUtil.someBoardCategory;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -144,7 +145,7 @@ class UpdateMultiSelectionPollAnswerApiIntegrationTest extends AbstractCommonInt
                         .content(objectMapperUtil.toRequestBody(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -222,7 +223,7 @@ class UpdateMultiSelectionPollAnswerApiIntegrationTest extends AbstractCommonInt
                         .content(objectMapperUtil.toRequestBody(requestUpdate))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

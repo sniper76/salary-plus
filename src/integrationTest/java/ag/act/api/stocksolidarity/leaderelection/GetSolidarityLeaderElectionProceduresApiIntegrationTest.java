@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -92,7 +93,7 @@ class GetSolidarityLeaderElectionProceduresApiIntegrationTest extends AbstractCo
     private SolidarityLeaderElectionProceduresDataResponse callApiAndGetResult() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
                 get(TARGET_API)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .contentType(MediaType.APPLICATION_JSON)
             ).andExpect(status().isOk())
             .andReturn();

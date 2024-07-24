@@ -36,6 +36,7 @@ import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someCompanyRegistrationNumber;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -137,7 +138,7 @@ class AdminCreateJointOwnershipDigitalDocumentApiIntegrationTest extends Abstrac
                         .content(objectMapperUtil.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -181,6 +182,7 @@ class AdminCreateJointOwnershipDigitalDocumentApiIntegrationTest extends Abstrac
             assertThat(digitalDocument.getStockCode(), is(stock.getCode()));
             assertThat(digitalDocument.getType().name(), is(request.getDigitalDocument().getType()));
             assertThat(digitalDocument.getAcceptUserId(), is(acceptUser.getId()));
+            assertThat(digitalDocument.getIsDisplayStockQuantity(), is(Boolean.FALSE));
 
             JsonAttachOption jsonAttachOptionDatabase = digitalDocument.getJsonAttachOption();
             JsonAttachOption attachOptions = request.getDigitalDocument().getAttachOptions();
@@ -210,7 +212,7 @@ class AdminCreateJointOwnershipDigitalDocumentApiIntegrationTest extends Abstrac
                         .content(objectMapperUtil.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();

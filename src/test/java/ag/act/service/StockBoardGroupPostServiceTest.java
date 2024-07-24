@@ -227,7 +227,7 @@ class StockBoardGroupPostServiceTest {
         @BeforeEach
         void setUp() {
             // Given
-            statusList = StatusUtil.getStatusesForPostList();
+            statusList = StatusUtil.getPostStatusesVisibleToUsers();
             stockCode = someStockCode();
             given(getBoardGroupPostDto.getStockCode()).willReturn(stockCode);
         }

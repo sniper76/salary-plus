@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -83,7 +84,7 @@ public class DeletePopupApiIntegrationTest extends AbstractCommonIntegrationTest
                     delete(TARGET_API, popupId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -124,7 +125,7 @@ public class DeletePopupApiIntegrationTest extends AbstractCommonIntegrationTest
                     delete(TARGET_API, pushId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().is(httpStatus))
                 .andReturn();

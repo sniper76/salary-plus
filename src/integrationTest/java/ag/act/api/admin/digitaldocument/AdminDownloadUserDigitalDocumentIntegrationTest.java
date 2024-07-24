@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.time.LocalDateTime;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomLongs.someLongBetween;
@@ -206,7 +207,7 @@ class AdminDownloadUserDigitalDocumentIntegrationTest extends AbstractCommonInte
                 get(TARGET_API, userId, digitalDocumentId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt))
+                    .headers(headers(jwt(jwt))))
             .andExpect(resultMatcher)
             .andReturn();
     }

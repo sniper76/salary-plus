@@ -32,6 +32,7 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -68,7 +69,7 @@ public class GetHomeApiIntegrationTest extends AbstractCommonIntegrationTest {
         return mockMvc
             .perform(
                 get(TARGET_API)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

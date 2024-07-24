@@ -26,6 +26,7 @@ import java.time.LocalDate;
 
 import static ag.act.TestUtil.someLocalDateTimeInThePastDaysBetween;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -152,7 +153,7 @@ class DigitalDocumentDeleteIntegrationTest extends AbstractCommonIntegrationTest
             .perform(
                 delete(TARGET_API, digitalDocumentId)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

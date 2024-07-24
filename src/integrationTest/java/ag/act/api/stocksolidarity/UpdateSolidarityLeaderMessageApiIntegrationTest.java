@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.stream.Stream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.then;
@@ -63,7 +64,7 @@ public class UpdateSolidarityLeaderMessageApiIntegrationTest extends AbstractCom
                     patch(TARGET_API, stock.getCode(), solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isOk())
@@ -101,7 +102,7 @@ public class UpdateSolidarityLeaderMessageApiIntegrationTest extends AbstractCom
                     patch(TARGET_API, stock.getCode(), solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isNotFound())
@@ -135,7 +136,7 @@ public class UpdateSolidarityLeaderMessageApiIntegrationTest extends AbstractCom
                     patch(TARGET_API, stock.getCode(), solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isUnauthorized())
@@ -161,7 +162,7 @@ public class UpdateSolidarityLeaderMessageApiIntegrationTest extends AbstractCom
                     patch(TARGET_API, stock.getCode(), solidarityId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                         .content(objectMapperUtil.toJson(request))
                 )
                 .andExpect(status().isBadRequest())

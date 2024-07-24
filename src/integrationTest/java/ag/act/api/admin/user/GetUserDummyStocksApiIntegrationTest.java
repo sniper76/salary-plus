@@ -19,6 +19,7 @@ import java.util.Map;
 import static ag.act.TestUtil.someLocalDate;
 import static ag.act.TestUtil.someStockCode;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -166,7 +167,7 @@ public class GetUserDummyStocksApiIntegrationTest extends AbstractCommonIntegrat
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

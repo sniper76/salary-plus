@@ -30,7 +30,7 @@ public class VirtualBoardGroupPostService {
 
         final List<BoardCategory> categories = getTargetCategories(getBoardGroupPostDto);
         final List<Long> blockedUserIdList = blockedUserService.getBlockUserIdListOfMine();
-        final List<Status> statuses = StatusUtil.getStatusesForPostList(getBoardGroupPostDto.getIsNotDeleted());
+        final List<Status> statuses = getStatuses(getBoardGroupPostDto);
 
         if (getBoardGroupPostDto.isExclusiveToHolders()) {
             return bestPostService.getBestPostsForOnlyExclusiveToHolders(
@@ -57,6 +57,10 @@ public class VirtualBoardGroupPostService {
             blockedUserIdList,
             pageRequest
         );
+    }
+
+    private List<Status> getStatuses(GetBoardGroupPostDto getBoardGroupPostDto) {
+        return getBoardGroupPostDto.getIsNotDeleted() ? StatusUtil.getActivePostStatuses() : StatusUtil.getPostStatusesVisibleToUsers();
     }
 
     private List<String> getStockHoldingStockCodes() {

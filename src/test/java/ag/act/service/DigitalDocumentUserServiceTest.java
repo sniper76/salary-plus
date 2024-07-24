@@ -276,7 +276,7 @@ class DigitalDocumentUserServiceTest {
             given(DecimalFormatUtil.twoDecimalPlaceDouble(stockSum * 100.0 / totalIssuedQuantity))
                 .willReturn(referenceRatio);
 
-            given(myDataSummaryService.findByUserIdNoneNull(userId)).willReturn(myDataSummary);
+            given(myDataSummaryService.getByUserId(userId)).willReturn(myDataSummary);
 
             given(digitalDocumentRepository.findById(digitalDocumentId))
                 .willReturn(Optional.of(digitalDocument));

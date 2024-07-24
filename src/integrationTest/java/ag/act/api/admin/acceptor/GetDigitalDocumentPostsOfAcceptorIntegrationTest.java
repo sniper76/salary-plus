@@ -35,6 +35,7 @@ import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someLocalDateTimeInTheFutureDaysBetween;
 import static ag.act.TestUtil.someStockCode;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -252,7 +253,7 @@ class GetDigitalDocumentPostsOfAcceptorIntegrationTest extends AbstractCommonInt
                     .params(toMultiValueMap(param))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

@@ -190,7 +190,7 @@ public class DigitalDocumentUserService {
     }
 
     private Long findLoanPriceFromMydataSummary(Long userId) {
-        return Optional.ofNullable(myDataSummaryService.findByUserIdNoneNull(userId).getLoanPrice()).orElse(0L);
+        return Optional.ofNullable(myDataSummaryService.getByUserId(userId).getLoanPrice()).orElse(0L);
     }
 
     @UseGuards({HoldingStockGuard.class})

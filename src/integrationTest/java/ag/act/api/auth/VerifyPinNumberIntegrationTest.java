@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static ag.act.TestUtil.assertTime;
 import static ag.act.enums.verification.VerificationOperationType.VERIFICATION;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,7 +51,7 @@ class VerifyPinNumberIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

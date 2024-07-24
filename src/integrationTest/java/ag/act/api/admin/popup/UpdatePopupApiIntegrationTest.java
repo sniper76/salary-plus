@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -105,7 +106,7 @@ class UpdatePopupApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

@@ -9,9 +9,11 @@ import ag.act.entity.mydata.JsonMyData;
 import ag.act.entity.mydata.JsonMyDataStock;
 import ag.act.exception.BadRequestException;
 import ag.act.exception.NotFoundException;
+import ag.act.module.mydata.json.MyDataJsonService;
 import ag.act.repository.MyDataSummaryRepository;
 import ag.act.repository.UserRepository;
 import ag.act.util.KoreanDateTimeUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static ag.act.util.DateTimeUtil.getEndOfLastYear;
 
+@RequiredArgsConstructor
 @Service
 public class MyDataSummaryService {
     private static final long ONE_DAY = 1L;
@@ -36,17 +39,7 @@ public class MyDataSummaryService {
     private final MyDataSummaryRepository myDataSummaryRepository;
     private final UserRepository userRepository;
 
-    public MyDataSummaryService(
-        MyDataJsonService myDataJsonService,
-        MyDataSummaryRepository myDataSummaryRepository,
-        UserRepository userRepository
-    ) {
-        this.myDataJsonService = myDataJsonService;
-        this.myDataSummaryRepository = myDataSummaryRepository;
-        this.userRepository = userRepository;
-    }
-
-    public MyDataSummary findByUserIdNoneNull(Long userId) {
+    public MyDataSummary getByUserId(Long userId) {
         return findByUserId(userId)
             .orElseThrow(() -> new BadRequestException("사용자의 마이데이터 정보가 없습니다."));
     }

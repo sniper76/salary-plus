@@ -31,6 +31,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
@@ -100,7 +101,7 @@ class CreatePostWithMultiPollsApiIntegrationTest extends AbstractCommonIntegrati
                     .content(objectMapperUtil.toRequestBody(createPostRequest))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

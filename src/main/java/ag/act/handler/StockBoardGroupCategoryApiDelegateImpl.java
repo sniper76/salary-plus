@@ -1,8 +1,6 @@
 package ag.act.handler;
 
 import ag.act.api.StockBoardGroupCategoryApiDelegate;
-import ag.act.core.guard.IsActiveUserGuard;
-import ag.act.core.guard.UseGuards;
 import ag.act.enums.BoardGroup;
 import ag.act.enums.virtualboard.VirtualBoardGroup;
 import ag.act.model.BoardCategoryDataArrayResponse;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@UseGuards({IsActiveUserGuard.class})
 public class StockBoardGroupCategoryApiDelegateImpl implements StockBoardGroupCategoryApiDelegate {
     private final BoardService boardService;
     private final VirtualBoardService virtualBoardService;

@@ -20,6 +20,6 @@ public class StockSearchRecommendationCachingLoader implements StockSearchRecomm
     }
 
     private void loadRecommendationSections() {
-        //        stockSearchRecommendationRetriever.getRecommendationSections();
+        stockSearchRecommendationRetriever.getRecommendationSections();
     }
 }

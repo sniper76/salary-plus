@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -53,7 +54,7 @@ class GetAdminBoardGroupCategoryApiIntegrationTest extends AbstractCommonIntegra
                 get(TARGET_API, boardGroupName)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

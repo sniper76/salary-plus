@@ -28,6 +28,7 @@ import static ag.act.enums.digitaldocument.HolderListReadAndCopyItemType.LEADER_
 import static ag.act.enums.digitaldocument.HolderListReadAndCopyItemType.LEADER_EMAIL;
 import static ag.act.enums.digitaldocument.HolderListReadAndCopyItemType.LEADER_NAME;
 import static ag.act.enums.digitaldocument.HolderListReadAndCopyItemType.REFERENCE_DATE_BY_LEADER;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -268,7 +269,7 @@ class GetHolderListReadAndCopyFormApiIntegrationTest extends AbstractCommonInteg
                 get(TARGET_API, stockCode, board.getGroup().name())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + leaderJwt)
+                    .headers(headers(jwt(leaderJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

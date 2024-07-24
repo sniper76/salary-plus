@@ -1,5 +1,6 @@
 package ag.act;
 
+import ag.act.core.request.RequestContextManager;
 import com.google.firebase.messaging.FirebaseMessaging;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -7,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequestWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
@@ -17,8 +19,12 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Profile({"test-persistence", "test"})
 public class TestConfiguration {
+
+    @Autowired
+    private RequestContextManager requestContextManager;
 
     @Bean("firebaseMessaging")
     public FirebaseMessaging firebaseMessaging() {
@@ -32,7 +38,7 @@ public class TestConfiguration {
 
     @SuppressWarnings("NullableProblems")
     @Order(0)
-    static class MockHttpServletRequestFilter extends OncePerRequestFilter {
+    class MockHttpServletRequestFilter extends OncePerRequestFilter {
 
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -47,6 +53,8 @@ public class TestConfiguration {
                 setIfNull(mockHttpServletRequest, "User-Agent", "Mozilla/5.0");
                 setIfNull(mockHttpServletRequest, "Host", "localhost");
             }
+
+            requestContextManager.set(request, response);
 
             filterChain.doFilter(request, response);
         }

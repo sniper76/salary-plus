@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import static ag.act.TestUtil.createMockMultipartFile;
 import static ag.act.TestUtil.someFilename;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -100,7 +101,7 @@ class ImageUploadApiIntegrationTest extends AbstractCommonIntegrationTest {
         return mockMvc.perform(
                 multipart(TARGET_API)
                     .file(file)
-                    .header(AUTHORIZATION, "Bearer " + jwt))
+                    .headers(headers(jwt(jwt))))
             .andExpect(resultMatcher)
             .andReturn();
     }

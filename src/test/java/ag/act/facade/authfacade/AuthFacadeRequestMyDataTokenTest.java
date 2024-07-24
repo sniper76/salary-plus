@@ -118,16 +118,16 @@ class AuthFacadeRequestMyDataTokenTest {
     @Nested
     class WhenJsonProcessingExceptionOccur {
         @BeforeEach
-        void setUp() throws JsonProcessingException {
+        void setUp() {
             // Given
             given(myDataService.getFinpongAccessToken(user, ci, phoneNumber, accessToken))
-                .willThrow(JsonProcessingException.class);
+                .willThrow(RuntimeException.class);
         }
 
         @Test
         void shouldInternalServerException() {
             assertException(
-                ag.act.exception.InternalServerException.class,
+                RuntimeException.class,
                 () -> facade.requestMyDataToken(accessToken),
                 "마이데이터 엑세스토큰 요청 중에 알 수 없는 오류가 발생하였습니다."
             );

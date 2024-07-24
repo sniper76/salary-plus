@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.io.File;
 
 import static ag.act.itutil.PdfTestHelper.assertPdfTextEquals;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -165,6 +166,7 @@ class PreviewJointOwnershipDigitalDocumentApiIntegrationTest extends AbstractCom
             .type(DigitalDocumentType.JOINT_OWNERSHIP_DOCUMENT.name())
             .companyName("test company")
             .content("공동보유확인서 내용이 들어갑니다.")
+            .isDisplayStockQuantity(Boolean.TRUE)
             .companyRegistrationNumber("123-45-67890");
     }
 
@@ -175,7 +177,7 @@ class PreviewJointOwnershipDigitalDocumentApiIntegrationTest extends AbstractCom
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

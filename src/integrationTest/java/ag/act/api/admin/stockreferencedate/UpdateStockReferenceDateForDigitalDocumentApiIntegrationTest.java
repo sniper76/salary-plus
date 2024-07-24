@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -131,7 +132,7 @@ class UpdateStockReferenceDateForDigitalDocumentApiIntegrationTest extends Abstr
                             .content(objectMapperUtil.toRequestBody(request))
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + adminJwt)
+                            .headers(headers(jwt(adminJwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -201,7 +202,7 @@ class UpdateStockReferenceDateForDigitalDocumentApiIntegrationTest extends Abstr
                             .content(objectMapperUtil.toRequestBody(request))
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + adminJwt)
+                            .headers(headers(jwt(adminJwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -274,7 +275,7 @@ class UpdateStockReferenceDateForDigitalDocumentApiIntegrationTest extends Abstr
                             .content(objectMapperUtil.toRequestBody(request))
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + adminJwt)
+                            .headers(headers(jwt(adminJwt)))
                     )
                     .andExpect(status().isBadRequest())
                     .andReturn();

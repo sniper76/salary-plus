@@ -47,6 +47,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                reply_comment_count, 
                is_anonymous, 
                status, 
+               client_type,
                created_at, 
                updated_at, 
                deleted_at, 

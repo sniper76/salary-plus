@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import static ag.act.TestUtil.someEmail;
 import static ag.act.TestUtil.someHtmlContent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xApiKey;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomStrings.someAlphanumericString;
@@ -86,7 +87,7 @@ class PublicEmailIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toJson(request1))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("x-api-key", publicApiKey)
+                    .headers(headers(xApiKey(publicApiKey)))
             )
             .andExpect(resultMatcher)
             .andReturn();

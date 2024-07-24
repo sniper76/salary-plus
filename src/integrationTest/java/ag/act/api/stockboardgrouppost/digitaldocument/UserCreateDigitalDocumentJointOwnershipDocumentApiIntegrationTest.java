@@ -42,6 +42,7 @@ import java.util.List;
 
 import static ag.act.TestUtil.someFilename;
 import static ag.act.itutil.PdfTestHelper.assertPdfBytesEqualsToFile;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -196,6 +197,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
             digitalDocument.setCompanyName("주식회사 액트");
             digitalDocument.setCompanyRegistrationNumber("123-45-67890");
             digitalDocument.setContent("공동보유의 내용이 들어갑니다.");
+            digitalDocument.setIsDisplayStockQuantity(Boolean.TRUE);
             itUtil.updateDigitalDocument(digitalDocument);
 
             userHoldingStock.setQuantity(quantity);
@@ -244,6 +246,72 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
         class WithBankAccountImages {
 
             @Nested
+            class WhenAcceptorNormalUserWatermarkNone {
+                @Value("classpath:/digitaldocument/usersignedoutput/joint_ownership_document_with_bank_account_images.pdf")
+                private File expectedPdfFile;
+
+                @BeforeEach
+                void setUp() {
+                    digitalDocument.setIdCardWatermarkType(IdCardWatermarkType.NONE);
+                    itUtil.updateDigitalDocument(digitalDocument);
+                }
+
+                @DisplayName("Should return 200 response code when call " + TARGET_API)
+                @Test
+                public void shouldReturnSuccess() throws Exception {
+                    MvcResult response = mockMvc
+                        .perform(
+                            multipart(TARGET_API, digitalDocument.getId())
+                                .file(signatureImageFile)
+                                .file(idCardImageFile)
+                                .file(bankAccountFile1)
+                                .file(bankAccountFile2)
+                                .contentType(MediaType.MULTIPART_FORM_DATA)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .headers(headers(jwt(jwt)))
+                        )
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+                    assertResponse(response, userSignedPdf, expectedPdfFile);
+                }
+            }
+
+            @SuppressWarnings("LineLength")
+            @Nested
+            class WhenAcceptorNormalUserWatermarkNoneAndNoneDisplayStockQuantity {
+                @Value("classpath:/digitaldocument/usersignedoutput/joint_ownership_document_with_bank_account_images_none_display_stock_quantity.pdf")
+                private File expectedPdfFile;
+
+                @BeforeEach
+                void setUp() {
+                    digitalDocument.setIsDisplayStockQuantity(Boolean.FALSE);
+                    digitalDocument.setIdCardWatermarkType(IdCardWatermarkType.NONE);
+                    itUtil.updateDigitalDocument(digitalDocument);
+                }
+
+                @DisplayName("Should return 200 response code when call " + TARGET_API)
+                @Test
+                public void shouldReturnSuccess() throws Exception {
+                    MvcResult response = mockMvc
+                        .perform(
+                            multipart(TARGET_API, digitalDocument.getId())
+                                .file(signatureImageFile)
+                                .file(idCardImageFile)
+                                .file(bankAccountFile1)
+                                .file(bankAccountFile2)
+                                .contentType(MediaType.MULTIPART_FORM_DATA)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .headers(headers(jwt(jwt)))
+                        )
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+                    assertResponse(response, userSignedPdf, expectedPdfFile);
+                }
+            }
+
+            @Nested
             class WhenAcceptorNormalUserWatermarkActLogo {
                 @Value("classpath:/digitaldocument/usersignedoutput/joint_ownership_document_with_bank_account_images_watermark_act_logo.pdf")
                 private File expectedPdfFile;
@@ -260,7 +328,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(bankAccountFile2)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -293,7 +361,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(bankAccountFile2)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -327,7 +395,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(bankAccountFile2)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -363,7 +431,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(bankAccountFile2)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -418,7 +486,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(hectoEncryptedStringFile)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -450,7 +518,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                                 .file(hectoEncryptedStringFile)
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization", "Bearer " + jwt)
+                                .headers(headers(jwt(jwt)))
                         )
                         .andExpect(status().isOk())
                         .andReturn();
@@ -527,7 +595,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(bankAccountFile2)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -574,7 +642,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(bankAccountFile2)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -621,7 +689,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(bankAccountFile2)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -661,7 +729,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(idCardImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -701,7 +769,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(hectoEncryptedStringFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -741,7 +809,7 @@ class UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest extends 
                         .file(idCardImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();

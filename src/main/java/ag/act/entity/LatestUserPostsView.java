@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,7 +66,14 @@ public class LatestUserPostsView {
     @Column(name = "unique_combined_id", nullable = false)
     private String uniqueCombinedId;
 
-    public String getUniqueCombinedId() {
+    @PrePersist
+    public void onPrePersist() {
+        if (uniqueCombinedId == null) {
+            uniqueCombinedId = genUniqueCombinedId();
+        }
+    }
+
+    private String genUniqueCombinedId() {
         return "%s__%s__%s__%s__%s".formatted(
             stock.getCode(),
             user.getId(),

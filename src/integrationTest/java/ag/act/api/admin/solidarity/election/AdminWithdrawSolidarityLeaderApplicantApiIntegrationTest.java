@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.Optional;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -165,7 +166,7 @@ class AdminWithdrawSolidarityLeaderApplicantApiIntegrationTest extends AbstractC
     private MvcResult callApi(ResultMatcher resultMatcher) throws Exception {
         return mockMvc.perform(
                 post(TARGET_API, stock.getCode(), applicant.getId())
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapperUtil.toRequestBody(request))
             ).andExpect(resultMatcher)

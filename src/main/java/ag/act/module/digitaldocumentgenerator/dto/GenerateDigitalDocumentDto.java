@@ -13,5 +13,4 @@ public class GenerateDigitalDocumentDto {
     private MultipartFile signatureImage;
     private AttachingFilesDto attachingFilesDto;
     private HolderListReadAndCopyDataModel holderListReadAndCopyDataModel;
-    private HolderListReadAndCopyDataModel holderListReadAndCopyMaskingDataModel;
 }

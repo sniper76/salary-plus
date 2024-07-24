@@ -8,6 +8,7 @@ import ag.act.dto.mydata.InvestInfo;
 import ag.act.dto.mydata.MyDataDto;
 import ag.act.entity.Stock;
 import ag.act.enums.StockCreditType;
+import ag.act.module.mydata.load.MyDataProcessor;
 import ag.act.service.stock.StockService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

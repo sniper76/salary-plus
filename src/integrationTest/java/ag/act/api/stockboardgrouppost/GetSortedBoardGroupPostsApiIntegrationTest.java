@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -85,7 +86,7 @@ class GetSortedBoardGroupPostsApiIntegrationTest extends AbstractCommonIntegrati
                 get(TARGET_API, stock.getCode(), board.getGroup())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -98,7 +99,7 @@ class GetSortedBoardGroupPostsApiIntegrationTest extends AbstractCommonIntegrati
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

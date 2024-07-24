@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,7 +59,7 @@ class CheckHoldingStockForPostUpdateApiIntegrationTest extends AbstractCommonInt
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();
@@ -70,7 +71,7 @@ class CheckHoldingStockForPostUpdateApiIntegrationTest extends AbstractCommonInt
                 delete(TARGET_API, stock.getCode(), board.getGroup(), post.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

@@ -4,7 +4,6 @@ import ag.act.configuration.security.ActUserProvider;
 import ag.act.core.aop.LatestUserPostsViewAspect;
 import ag.act.dto.CreateLatestUserPostsViewDto;
 import ag.act.dto.GetBoardGroupPostDto;
-import ag.act.entity.LatestUserPostsView;
 import ag.act.entity.Stock;
 import ag.act.entity.User;
 import ag.act.enums.BoardCategory;
@@ -32,6 +31,7 @@ import static ag.act.TestUtil.someStockCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 
@@ -48,8 +48,6 @@ public class LatestUserPostsViewAspectTest {
     private String stockCode;
     @Mock
     private User user;
-    @Mock
-    private LatestUserPostsView latestUserPostsView;
     private List<MockedStatic<?>> statics;
 
     @BeforeEach
@@ -61,8 +59,7 @@ public class LatestUserPostsViewAspectTest {
         given(ActUserProvider.getNoneNull()).willReturn(user);
         given(ActUserProvider.getActUser()).willReturn(user);
         given(stockService.getStock(stockCode)).willReturn(stock);
-        given(latestUserPostsViewService.createOrUpdate(any(CreateLatestUserPostsViewDto.class)))
-            .willReturn(latestUserPostsView);
+        willDoNothing().given(latestUserPostsViewService).createOrUpdate(any(CreateLatestUserPostsViewDto.class));
     }
 
     @AfterEach

@@ -17,6 +17,7 @@ import java.time.LocalDate;
 
 import static ag.act.TestUtil.getPathFrom;
 import static ag.act.enums.FileType.MATRIX;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -65,7 +66,7 @@ class DownloadAllUsersGivenAllConditionsRetentionCsvApiIntegrationTest extends A
                 get(TARGET_API, getPathFrom(UserRetentionWeeklyCsvDataType.ALL_USERS_GIVEN_ALL_CONDITIONS.name()))
                     .contentType(MediaType.ALL)
                     .accept(MediaType.ALL)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

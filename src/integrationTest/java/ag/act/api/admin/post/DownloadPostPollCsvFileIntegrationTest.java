@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someBoardCategoryExcluding;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,7 +70,7 @@ public class DownloadPostPollCsvFileIntegrationTest extends AbstractCommonIntegr
                 get(TARGET_API, post.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

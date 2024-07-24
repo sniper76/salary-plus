@@ -14,7 +14,7 @@ import ag.act.module.digitaldocumentgenerator.openhtmltopdf.PDFMergerService;
 import ag.act.module.digitaldocumentgenerator.openhtmltopdf.PDFRenderService;
 import ag.act.module.digitaldocumentgenerator.openhtmltopdf.watermark.PDFWaterMarkImageAppender;
 import ag.act.module.digitaldocumentgenerator.validator.BaseDigitalDocumentFillValidator;
-import ag.act.module.mydata.MyDataCryptoHelper;
+import ag.act.module.mydata.crypto.MyDataCryptoHelper;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -76,7 +76,7 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         }
     }
 
-    protected long addOriginalPdfToSources(
+    private long addOriginalPdfToSources(
         List<byte[]> pdfSources, IGenerateHtmlDocumentDto generateHtmlDocumentDto
     ) throws IOException {
         final byte[] originalPdfBytes = generateDigitalDocumentPdfBytes(generateHtmlDocumentDto);
@@ -86,7 +86,7 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         return originalPageCount;
     }
 
-    protected long addAttachmentPdfToSources(
+    private long addAttachmentPdfToSources(
         List<byte[]> pdfSources, IGenerateHtmlDocumentDto generateHtmlDocumentDto
     ) throws IOException {
         if (generateHtmlDocumentDto.getAttachingFilesDto() != null) {
@@ -100,17 +100,17 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         return 0;
     }
 
-    protected int getPdfPageCount(byte[] pdfBytes) throws IOException {
+    private int getPdfPageCount(byte[] pdfBytes) throws IOException {
         try (final PDDocument pdDocument = PDDocument.load(pdfBytes)) {
             return pdDocument.getNumberOfPages();
         }
     }
 
-    protected byte[] generateDigitalDocumentPdfBytes(IGenerateHtmlDocumentDto dto) {
+    private byte[] generateDigitalDocumentPdfBytes(IGenerateHtmlDocumentDto dto) {
         return pdfRenderService.renderPdf(generateDocumentHtmlString(dto));
     }
 
-    protected List<byte[]> generateAttachingDocumentPdfBytesList(AttachingFilesDto attachingFilesDto) {
+    private List<byte[]> generateAttachingDocumentPdfBytesList(AttachingFilesDto attachingFilesDto) {
         final List<byte[]> attachingPdfDocuments = new ArrayList<>();
 
         if (attachingFilesDto.getIdCardImage() != null) {
@@ -131,14 +131,14 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         return attachingPdfDocuments;
     }
 
-    protected List<byte[]> generateAdditionalPdfArray(AttachingFilesDto dto) {
+    private List<byte[]> generateAdditionalPdfArray(AttachingFilesDto dto) {
         return dto.getBankAccountImages().stream()
             .map(this::generateSinglePageHtmlString)
             .map(pdfRenderService::renderPdf)
             .toList();
     }
 
-    protected byte[] generateIdCardPdf(MultipartFile idCardImage, IdCardWatermarkType idCardWatermarkType) {
+    private byte[] generateIdCardPdf(MultipartFile idCardImage, IdCardWatermarkType idCardWatermarkType) {
         final byte[] pdfBytes = pdfRenderService.renderPdf(generateSinglePageHtmlString(idCardImage));
         if (isNotValidBytes(pdfBytes)) {
             return pdfBytes;
@@ -154,7 +154,7 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         }
     }
 
-    protected byte[] generateHectoBankAccountPdf(MultipartFile hectoEncryptedBankAccountPdf) {
+    private byte[] generateHectoBankAccountPdf(MultipartFile hectoEncryptedBankAccountPdf) {
         try {
             return Base64.getDecoder().decode(
                 myDataCryptoHelper.decrypt(
@@ -168,7 +168,7 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         }
     }
 
-    protected String generateDocumentHtmlString(IGenerateHtmlDocumentDto dto) {
+    private String generateDocumentHtmlString(IGenerateHtmlDocumentDto dto) {
         digitalDocumentFillValidator.validate(dto);
 
         final DigitalDocumentFill digitalDocumentFill = digitalDocumentFillConverter.convert(dto);
@@ -176,17 +176,17 @@ public abstract class AbstractDigitalDocumentTypeGenerator implements IDigitalDo
         return digitalDocumentHtmlGenerator.fillAndGetHtmlString(digitalDocumentFill, this.templateName);
     }
 
-    protected String generateSinglePageHtmlString(MultipartFile image) {
+    private String generateSinglePageHtmlString(MultipartFile image) {
         final SinglePageImageFill singlePageImageFill = digitalDocumentFillConverter.convert(image);
 
         return digitalDocumentHtmlGenerator.fillAndGetHtmlString(singlePageImageFill, SINGLE_PAGE_IMAGE_TEMPLATE);
     }
 
-    protected boolean isNotValidBytes(final byte[] bytes) {
+    private boolean isNotValidBytes(final byte[] bytes) {
         return bytes == null || bytes.length == 0;
     }
 
-    protected boolean isNoneIdCardWatermarkType(IdCardWatermarkType idCardWatermarkType) {
+    private boolean isNoneIdCardWatermarkType(IdCardWatermarkType idCardWatermarkType) {
         return idCardWatermarkType == IdCardWatermarkType.NONE;
     }
 }

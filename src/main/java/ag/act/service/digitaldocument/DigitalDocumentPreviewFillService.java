@@ -31,6 +31,7 @@ public class DigitalDocumentPreviewFillService {
         digitalDocumentFill.setCompanyName(request.getCompanyName());
         digitalDocumentFill.setAttachingFilesDescription("유저별 첨부파일 첨부 내역이 들어갑나다.");
         digitalDocumentFill.setVersion(request.getVersion());
+        digitalDocumentFill.setIsDisplayStockQuantity(request.getIsDisplayStockQuantity());
 
         return digitalDocumentFill;
     }

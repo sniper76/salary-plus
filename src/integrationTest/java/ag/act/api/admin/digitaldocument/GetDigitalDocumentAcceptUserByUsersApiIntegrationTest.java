@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -168,7 +169,7 @@ class GetDigitalDocumentAcceptUserByUsersApiIntegrationTest extends AbstractComm
                         .params(toMultiValueMap(params))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + acceptUserJwt)
+                        .headers(headers(jwt(acceptUserJwt)))
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -338,7 +339,7 @@ class GetDigitalDocumentAcceptUserByUsersApiIntegrationTest extends AbstractComm
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + acceptUserJwt)
+                    .headers(headers(jwt(acceptUserJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

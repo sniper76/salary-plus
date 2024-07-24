@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -139,7 +140,7 @@ public class GetDeletedBoardGroupPostDetailsApiIntegrationTest extends AbstractC
                 get(TARGET_API, stockCode, board.getGroup().name(), postId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

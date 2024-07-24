@@ -37,6 +37,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -232,7 +233,7 @@ class UserUpdateDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
             .perform(
                 patch(TARGET_API, digitalDocument.getId())
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

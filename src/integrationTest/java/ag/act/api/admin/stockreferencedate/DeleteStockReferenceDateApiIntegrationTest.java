@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import static ag.act.TestUtil.someLocalDateTime;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -55,7 +56,7 @@ class DeleteStockReferenceDateApiIntegrationTest extends AbstractCommonIntegrati
                     delete(TARGET_API, stockCode, stockReferenceDateId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -91,7 +92,7 @@ class DeleteStockReferenceDateApiIntegrationTest extends AbstractCommonIntegrati
                     delete(TARGET_API, stockCode, stockReferenceDateId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().is(404))
                 .andReturn();
@@ -136,7 +137,7 @@ class DeleteStockReferenceDateApiIntegrationTest extends AbstractCommonIntegrati
                     delete(TARGET_API, stock.getCode(), stockReferenceDate.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().is(400))
                 .andReturn();

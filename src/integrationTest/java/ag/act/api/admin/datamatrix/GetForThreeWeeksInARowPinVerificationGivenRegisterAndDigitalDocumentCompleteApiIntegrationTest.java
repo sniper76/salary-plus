@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.is;
@@ -221,7 +222,7 @@ public class GetForThreeWeeksInARowPinVerificationGivenRegisterAndDigitalDocumen
                 get(TARGET_API)
                     .contentType(MediaType.ALL)
                     .accept(MediaType.ALL)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

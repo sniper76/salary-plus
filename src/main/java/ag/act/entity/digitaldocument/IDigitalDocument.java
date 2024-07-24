@@ -48,4 +48,8 @@ public interface IDigitalDocument extends ActEntity {
     DigitalDocumentVersion getVersion();
 
     void setVersion(DigitalDocumentVersion version);
+
+    Boolean getIsDisplayStockQuantity();
+
+    void setIsDisplayStockQuantity(Boolean isDisplayStockQuantity);
 }

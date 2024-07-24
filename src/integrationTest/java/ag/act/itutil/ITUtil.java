@@ -1201,6 +1201,7 @@ public class ITUtil {
         comment.setReplyCommentCount(0L);
         comment.setIsAnonymous(false);
         comment.setStatus(status);
+        comment.setClientType(someEnum(ClientType.class));
 
         final Comment savedCommend = commentRepository.save(comment);
 
@@ -1226,6 +1227,7 @@ public class ITUtil {
         comment.setReplyCommentCount(0L);
         comment.setIsAnonymous(someBoolean());
         comment.setStatus(status);
+        comment.setClientType(someEnum(ClientType.class));
 
         final Comment savedCommend = commentRepository.save(comment);
 
@@ -2427,6 +2429,7 @@ public class ITUtil {
         digitalDocument.setStockReferenceDate(referenceDate);
         digitalDocument.setJsonAttachOption(jsonAttachOption);
         digitalDocument.setVersion(DigitalDocumentVersion.V1);
+        digitalDocument.setIsDisplayStockQuantity(Boolean.FALSE);
 
         if (digitalDocument.getType() == DigitalDocumentType.DIGITAL_PROXY) {
             createStockReferenceDate(stock.getCode(), digitalDocument.getStockReferenceDate());
@@ -2870,7 +2873,7 @@ public class ITUtil {
     }
 
     private List<ag.act.model.Status> getStatusByPostListForAdmin() {
-        List<Status> statuses = new ArrayList<>(StatusUtil.getStatusesForPostList());
+        List<Status> statuses = new ArrayList<>(StatusUtil.getPostStatusesVisibleToUsers());
         statuses.add(Status.DELETED_BY_ADMIN);
         return statuses;
     }
@@ -3422,7 +3425,6 @@ public class ITUtil {
                 return newLatestUserPostsView;
             });
 
-        latestUserPostsView.setUniqueCombinedId(latestUserPostsView.getUniqueCombinedId());
         latestUserPostsView.setTimestamp(LocalDateTime.now());
         return latestUserPostsViewRepository.save(latestUserPostsView);
     }
@@ -3866,7 +3868,7 @@ public class ITUtil {
     public int countBestPosts(List<BoardCategory> boardCategories) {
         return postRepository.countByBoardCategoryInAndStatusInAndLikeCountGreaterThanEqual(
             boardCategories,
-            StatusUtil.getStatusesForPostList(),
+            StatusUtil.getPostStatusesVisibleToUsers(),
             10L
         );
     }

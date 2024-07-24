@@ -54,6 +54,7 @@ import java.util.stream.Stream;
 
 import static ag.act.TestUtil.createMockMultipartFile;
 import static ag.act.TestUtil.someEmail;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -424,7 +425,7 @@ class UserCreateDigitalDocumentHolderListReadAndCopyApiIntegrationTest extends A
         return mockMvc.perform(
                 requestBuilder
                     .param("createPostRequest", generateCreatePostRequestString(requestData))
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .contentType(MediaType.MULTIPART_FORM_DATA)
                     .accept(MediaType.APPLICATION_JSON)
             )

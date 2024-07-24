@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomIntegers.somePositiveInteger;
@@ -127,7 +128,7 @@ class CreatePrivateStockApiIntegrationTest extends AbstractCommonIntegrationTest
                 post(TARGET_API)
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             ).andExpect(resultMatcher)
             .andReturn();
     }

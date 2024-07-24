@@ -42,7 +42,8 @@ public class WebRequestMatcherConfig {
     @Bean
     public AntPathRequestMatcher[] permitAppVersionCheckPathRequestMatchers() {
         return new AntPathRequestMatcher[] {
-            new AntPathRequestMatcher("/api/sms/**")
+            new AntPathRequestMatcher("/api/sms/**"),
+            new AntPathRequestMatcher("/api/contact-us"),
         };
     }
 }

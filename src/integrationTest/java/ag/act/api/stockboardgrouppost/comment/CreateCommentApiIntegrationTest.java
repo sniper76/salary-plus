@@ -4,6 +4,8 @@ package ag.act.api.stockboardgrouppost.comment;
 import ag.act.AbstractCommonIntegrationTest;
 import ag.act.TestUtil.TestHtmlContent;
 import ag.act.constants.MessageConstants;
+import ag.act.core.holder.web.WebBrowserDetector;
+import ag.act.core.holder.web.WebBrowserDetectorFactory;
 import ag.act.entity.Board;
 import ag.act.entity.Comment;
 import ag.act.entity.Post;
@@ -12,16 +14,22 @@ import ag.act.entity.Stock;
 import ag.act.entity.User;
 import ag.act.entity.UserBadgeVisibility;
 import ag.act.entity.UserHoldingStock;
+import ag.act.enums.AppPreferenceType;
+import ag.act.enums.ClientType;
 import ag.act.enums.UserBadgeType;
+import ag.act.exception.NotFoundException;
 import ag.act.model.CommentDataResponse;
 import ag.act.model.CommentResponse;
+import ag.act.model.CreateCommentRequest;
 import ag.act.model.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -30,14 +38,20 @@ import java.util.List;
 import java.util.Objects;
 
 import static ag.act.TestUtil.someHtmlContent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomBooleans.someBoolean;
+import static shiver.me.timbers.data.random.RandomThings.someThing;
 
 class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
 
@@ -52,6 +66,10 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
     private UserHoldingStock userHoldingStock;
     private Solidarity solidarity;
     private TestHtmlContent testHtmlContent;
+    private String appVersion;
+
+    @MockBean
+    private WebBrowserDetectorFactory webBrowserDetectorFactory;
 
     @BeforeEach
     void setUp() {
@@ -63,14 +81,24 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
         post = itUtil.createPost(board, user.getId());
         solidarity = itUtil.createSolidarity(stock.getCode());
         userHoldingStock = itUtil.createUserHoldingStock(stock.getCode(), user);
+
+        setUpAppVersion();
+    }
+
+    private void setUpAppVersion() {
+        appVersion = someThing(AppPreferenceType.MIN_APP_VERSION.getDefaultValue(), X_APP_VERSION_WEB);
+
+        WebBrowserDetector webBrowserDetector = mock(WebBrowserDetector.class);
+        given(webBrowserDetectorFactory.createWebBrowserDetector(any(HttpServletRequest.class))).willReturn(webBrowserDetector);
+        given(webBrowserDetector.isRequestFromWebBrowser()).willReturn(appVersion.equals(X_APP_VERSION_WEB));
     }
 
     private ag.act.model.CreateCommentRequest genAnonymousRequest() {
         return genRequest(Boolean.TRUE);
     }
 
-    private ag.act.model.CreateCommentRequest genRequest(Boolean isAnonymous) {
-        ag.act.model.CreateCommentRequest request = new ag.act.model.CreateCommentRequest();
+    private CreateCommentRequest genRequest(Boolean isAnonymous) {
+        CreateCommentRequest request = new CreateCommentRequest();
 
         testHtmlContent = someHtmlContent();
         request.setContent(testHtmlContent.html());
@@ -87,7 +115,7 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt), xAppVersion(appVersion)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -104,6 +132,17 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 }
             }
         );
+    }
+
+    private void assertFromDatabase(Long commentId) {
+        Comment comment = itUtil.findCommentById(commentId)
+            .orElseThrow(() -> new NotFoundException("[TEST] 댓글 정보를 찾을 수 없습니다."));
+
+        if (appVersion.equals(X_APP_VERSION_WEB)) {
+            assertThat(comment.getClientType(), is(ClientType.WEB));
+        } else {
+            assertThat(comment.getClientType(), is(ClientType.APP));
+        }
     }
 
     @Nested
@@ -165,26 +204,28 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 }
             }
 
-            private void assertResponse(ag.act.model.CommentDataResponse result) {
-                final ag.act.model.CommentResponse createUpdateResponse = result.getData();
+            private void assertResponse(CommentDataResponse result) {
+                final CommentResponse commentResponse = result.getData();
 
-                assertThat(createUpdateResponse.getId(), is(notNullValue()));
-                assertCommentContent(createUpdateResponse);
-                assertThat(createUpdateResponse.getLikeCount(), is(0L));
-                assertThat(createUpdateResponse.getReplyCommentCount(), is(0L));
-                assertThat(createUpdateResponse.getLiked(), is(false));
-                assertThat(createUpdateResponse.getDeleted(), is(false));
+                assertThat(commentResponse.getId(), is(notNullValue()));
+                assertCommentContent(commentResponse);
+                assertThat(commentResponse.getLikeCount(), is(0L));
+                assertThat(commentResponse.getReplyCommentCount(), is(0L));
+                assertThat(commentResponse.getLiked(), is(false));
+                assertThat(commentResponse.getDeleted(), is(false));
 
                 if (request.getIsAnonymous()) {
-                    assertThat(createUpdateResponse.getUserProfile().getNickname(), is(containsString("익명")));
+                    assertThat(commentResponse.getUserProfile().getNickname(), is(containsString("익명")));
                 } else {
-                    assertThat(createUpdateResponse.getUserProfile().getNickname(), is(user.getNickname()));
-                    assertThat(createUpdateResponse.getUserProfile().getProfileImageUrl(), is(user.getProfileImageUrl()));
-                    assertThat(createUpdateResponse.getUserProfile().getIndividualStockCountLabel(), is("1주+"));
-                    assertThat(createUpdateResponse.getUserProfile().getTotalAssetLabel(), is(nullValue()));
-                    assertThat(createUpdateResponse.getUserProfile().getIsSolidarityLeader(), is(isSolidarityLeader));
+                    assertThat(commentResponse.getUserProfile().getNickname(), is(user.getNickname()));
+                    assertThat(commentResponse.getUserProfile().getProfileImageUrl(), is(user.getProfileImageUrl()));
+                    assertThat(commentResponse.getUserProfile().getIndividualStockCountLabel(), is("1주+"));
+                    assertThat(commentResponse.getUserProfile().getTotalAssetLabel(), is(nullValue()));
+                    assertThat(commentResponse.getUserProfile().getIsSolidarityLeader(), is(isSolidarityLeader));
                 }
-                assertThat(createUpdateResponse.getUserProfile().getUserIp(), is("127.0"));
+                assertThat(commentResponse.getUserProfile().getUserIp(), is("127.0"));
+
+                assertFromDatabase(commentResponse.getId());
             }
         }
 
@@ -250,15 +291,15 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 void shouldReturnSuccess() throws Exception {
                     MvcResult response = callApiWithJwt(request, jwt);
 
-                    final ag.act.model.CommentDataResponse result = objectMapperUtil.toResponse(
+                    final CommentDataResponse result = objectMapperUtil.toResponse(
                         response.getResponse().getContentAsString(),
-                        ag.act.model.CommentDataResponse.class
+                        CommentDataResponse.class
                     );
 
                     assertResponse(result);
-                    final ag.act.model.CommentResponse createUpdateResponse = result.getData();
-                    assertThat(createUpdateResponse.getUserProfile().getIndividualStockCountLabel(), is("5만주+"));
-                    assertThat(createUpdateResponse.getUserProfile().getTotalAssetLabel(), is(nullValue()));
+                    final CommentResponse commentResponse = result.getData();
+                    assertThat(commentResponse.getUserProfile().getIndividualStockCountLabel(), is("5만주+"));
+                    assertThat(commentResponse.getUserProfile().getTotalAssetLabel(), is(nullValue()));
                 }
             }
 
@@ -333,17 +374,17 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
             assertAnonymousFromDatabase(user, 1);
         }
 
-        private ag.act.model.CommentDataResponse callApi(ag.act.model.CreateCommentRequest request) throws Exception {
+        private CommentDataResponse callApi(CreateCommentRequest request) throws Exception {
             final MvcResult response = callApiWithJwt(request, jwt);
 
             return objectMapperUtil.toResponse(
                 response.getResponse().getContentAsString(),
-                ag.act.model.CommentDataResponse.class
+                CommentDataResponse.class
             );
         }
 
         private void assertResponse(CommentDataResponse result) {
-            final ag.act.model.CommentResponse createUpdateResponse = result.getData();
+            final CommentResponse createUpdateResponse = result.getData();
             assertThat(createUpdateResponse.getUserProfile().getNickname(), is(MessageConstants.ANONYMOUS_NAME));
         }
     }
@@ -386,7 +427,7 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
             assertAnonymousFromDatabase(anonymousUser3, 3);
         }
 
-        private ag.act.model.CommentDataResponse callApi(ag.act.model.CreateCommentRequest request, User loginUser) throws Exception {
+        private CommentDataResponse callApi(CreateCommentRequest request, User loginUser) throws Exception {
 
             final String jwt = itUtil.createJwt(loginUser.getId());
 
@@ -394,13 +435,8 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
 
             return objectMapperUtil.toResponse(
                 response.getResponse().getContentAsString(),
-                ag.act.model.CommentDataResponse.class
+                CommentDataResponse.class
             );
-        }
-
-        private void assertResponse(ag.act.model.CommentDataResponse result, String nickname) {
-            final ag.act.model.CommentResponse createUpdateResponse = result.getData();
-            assertThat(createUpdateResponse.getUserProfile().getNickname(), is(nickname));
         }
     }
 
@@ -451,11 +487,6 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 ag.act.model.CommentDataResponse.class
             );
         }
-
-        private void assertResponse(ag.act.model.CommentDataResponse result, String nickname) {
-            final ag.act.model.CommentResponse createUpdateResponse = result.getData();
-            assertThat(createUpdateResponse.getUserProfile().getNickname(), is(nickname));
-        }
     }
 
     @Nested
@@ -488,7 +519,7 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                         .content(objectMapperUtil.toRequestBody(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt), xAppVersion(appVersion)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -497,11 +528,6 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 response.getResponse().getContentAsString(),
                 CommentDataResponse.class
             );
-        }
-
-        private void assertResponse(CommentDataResponse result, String nickname) {
-            final ag.act.model.CommentResponse createUpdateResponse = result.getData();
-            assertThat(createUpdateResponse.getUserProfile().getNickname(), is(nickname));
         }
 
     }
@@ -550,10 +576,11 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                 ag.act.model.CommentDataResponse.class
             );
         }
+    }
 
-        private void assertResponse(ag.act.model.CommentDataResponse result, String nickname) {
-            final ag.act.model.CommentResponse createUpdateResponse = result.getData();
-            assertThat(createUpdateResponse.getUserProfile().getNickname(), is(nickname));
-        }
+    private void assertResponse(CommentDataResponse result, String nickname) {
+        final CommentResponse commentResponse = result.getData();
+        assertThat(commentResponse.getUserProfile().getNickname(), is(nickname));
+        assertFromDatabase(commentResponse.getId());
     }
 }

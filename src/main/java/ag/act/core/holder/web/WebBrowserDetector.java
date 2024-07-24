@@ -23,11 +23,11 @@ public class WebBrowserDetector {
 
     private boolean isWebRequest(String userAgent) {
         return isKnownBrowser(userAgent)
-            || isLocalHostUsingPostman(userAgent);
+            || isPostmanOnLocalOrDevServer(userAgent);
     }
 
-    private boolean isLocalHostUsingPostman(String userAgent) {
-        return isLocalhost()
+    private boolean isPostmanOnLocalOrDevServer(String userAgent) {
+        return (isLocalhost() || isDevServer())
             && isPostmanRuntimeUserAgent(userAgent);
     }
 
@@ -35,9 +35,17 @@ public class WebBrowserDetector {
         return userAgent.contains("PostmanRuntime");
     }
 
+    private boolean isDevServer() {
+        return isServerOf("devapi.act.ag");
+    }
+
     private boolean isLocalhost() {
+        return isServerOf("localhost");
+    }
+
+    private Boolean isServerOf(String hostName) {
         return getHost()
-            .map(host -> host.contains("localhost"))
+            .map(host -> host.contains(hostName))
             .orElse(false);
     }
 

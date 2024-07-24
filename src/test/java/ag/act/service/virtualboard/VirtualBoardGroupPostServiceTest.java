@@ -70,7 +70,7 @@ class VirtualBoardGroupPostServiceTest {
         private List<Long> blockedUserIdList;
         private List<MockedStatic<?>> statics;
 
-        private final List<Status> statusList = StatusUtil.getStatusesForPostList();
+        private final List<Status> statusList = StatusUtil.getPostStatusesVisibleToUsers();
 
         @BeforeEach
         void setUp() {

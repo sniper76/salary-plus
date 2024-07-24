@@ -20,6 +20,7 @@ import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someEmail;
 import static ag.act.TestUtil.somePhoneNumber;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -76,7 +77,7 @@ class GetUserListExceptSuperAdminApiIntegrationTest extends AbstractCommonIntegr
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

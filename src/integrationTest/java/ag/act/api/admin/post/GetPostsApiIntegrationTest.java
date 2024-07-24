@@ -47,6 +47,7 @@ import static ag.act.TestUtil.somePostStatus;
 import static ag.act.TestUtil.toMultiValueMap;
 import static ag.act.enums.admin.PostSearchType.CONTENT;
 import static ag.act.enums.admin.PostSearchType.TITLE;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -916,7 +917,7 @@ class GetPostsApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .header(X_APP_VERSION, X_APP_VERSION_CMS)
             )
             .andExpect(status().isOk())

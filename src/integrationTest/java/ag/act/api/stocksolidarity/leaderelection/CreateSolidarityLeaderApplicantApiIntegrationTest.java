@@ -29,6 +29,7 @@ import java.util.Optional;
 
 import static ag.act.TestUtil.someSolidarityLeaderElectionApplicationItem;
 import static ag.act.TestUtil.someSolidarityLeaderElectionApplyStatus;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -584,7 +585,7 @@ class CreateSolidarityLeaderApplicantApiIntegrationTest extends AbstractSolidari
                 post(TARGET_API, stock.getCode())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapperUtil.toJson(request))
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             ).andExpect(matcher)
             .andReturn();
     }

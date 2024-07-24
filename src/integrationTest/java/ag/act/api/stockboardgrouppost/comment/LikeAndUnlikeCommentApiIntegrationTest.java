@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -58,7 +59,7 @@ class LikeAndUnlikeCommentApiIntegrationTest extends AbstractCommonIntegrationTe
                 post(TARGET_API, stock.getCode(), board.getGroup(), post.getId(), comment.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -76,7 +77,7 @@ class LikeAndUnlikeCommentApiIntegrationTest extends AbstractCommonIntegrationTe
                 delete(TARGET_API, stock.getCode(), board.getGroup(), post.getId(), comment.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

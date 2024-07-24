@@ -9,6 +9,7 @@ import ag.act.enums.DigitalDocumentType;
 import ag.act.enums.SlackChannel;
 import ag.act.external.http.DefaultHttpClientUtil;
 import ag.act.itutil.ITUtil;
+import ag.act.itutil.authentication.AuthenticationTestUtil.TestHeader;
 import ag.act.itutil.dbcleaner.DbCleaner;
 import ag.act.module.cache.AppPreferenceCache;
 import ag.act.module.dart.DartCorporationPageableFactory;
@@ -27,6 +28,7 @@ import ag.act.service.aws.SesService;
 import ag.act.service.image.ImageIOWrapper;
 import ag.act.service.image.ScalrClient;
 import ag.act.service.push.AutomatedAuthorPushSearchTimeFactory;
+import ag.act.service.recaptcha.RecaptchaVerifier;
 import ag.act.util.AppRenewalDateProvider;
 import ag.act.util.ObjectMapperUtil;
 import ag.act.util.SlackMessageSender;
@@ -39,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -53,6 +56,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -65,7 +69,7 @@ import static org.mockito.BDDMockito.willDoNothing;
 import static shiver.me.timbers.data.random.RandomIntegers.someIntegerBetween;
 import static shiver.me.timbers.data.random.RandomStrings.someAlphanumericString;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "checkstyle:ParameterName"})
 @SpringIntegrationTest
 public abstract class AbstractCommonIntegrationTest {
     protected static final int PUSH_SAFE_TIME_RANGE_OFFSET = 2;
@@ -77,10 +81,14 @@ public abstract class AbstractCommonIntegrationTest {
     protected static final Integer PAGE_4 = 4;
     protected static final Integer PAGE_5 = 5;
     protected static final String CREATED_AT_DESC = "createdAt:DESC";
-    protected static final String AUTHORIZATION = "Authorization";
+    protected static final String X_API_KEY = "x-api-key";
+    protected static final String DEFAULT_BATCH_API_KEY = "b0e6f688a1a08462201ef69f4";
     protected static final String X_APP_VERSION = "x-app-version";
     protected static final String X_APP_VERSION_CMS = "CMS";
     protected static final String X_APP_VERSION_WEB = "WEB";
+    protected static final String USER_AGENT = "User-Agent";
+    protected static final String USER_AGENT_NOT_WEB = "Act/test";
+    protected static final String USER_AGENT_WEB = "Mozilla/test";
     protected static Integer SIZE = 2;
     protected static final int KOREAN_TIME_OFFSET = 9;
 
@@ -133,6 +141,8 @@ public abstract class AbstractCommonIntegrationTest {
     protected AppPreferenceCache appPreferenceCache;
     @MockBean
     protected SesService sesService;
+    @MockBean
+    protected RecaptchaVerifier recaptchaVerifier;
 
     @Value("${external.dart.api-key}")
     protected String dartApiKey;
@@ -262,5 +272,41 @@ public abstract class AbstractCommonIntegrationTest {
                 Math.max(minHour, MIN_HOUR),
                 Math.min(maxHour, MAX_HOUR)
             ));
+    }
+
+    protected HttpHeaders headers(TestHeader... testHeaders) {
+        HttpHeaders headers = new HttpHeaders();
+
+        Arrays.stream(testHeaders)
+            .forEach(testHeader -> headers.add(testHeader.headerName(), testHeader.headerValue()));
+
+        return headers;
+    }
+
+    protected HttpHeaders batchXApiKey() {
+        HttpHeaders headers = new HttpHeaders();
+        setXApiKeyHeader(DEFAULT_BATCH_API_KEY, headers);
+
+        return headers;
+    }
+
+    private void setJwtHeader(String jwt, HttpHeaders headers) {
+        Objects.requireNonNull(jwt, "jwt must not be null");
+        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + jwt);
+    }
+
+    private void setXAppVersionHeader(String xAppVersion, HttpHeaders headers) {
+        Objects.requireNonNull(xAppVersion, "xAppVersion must not be null");
+        headers.add(X_APP_VERSION, xAppVersion);
+    }
+
+    private void setUserAgentHeader(String userAgent, HttpHeaders headers) {
+        Objects.requireNonNull(userAgent, "userAgent must not be null");
+        headers.add(USER_AGENT, userAgent);
+    }
+
+    private void setXApiKeyHeader(String xApiKey, HttpHeaders headers) {
+        Objects.requireNonNull(xApiKey, "xApiKey must not be null");
+        headers.add(X_API_KEY, xApiKey);
     }
 }

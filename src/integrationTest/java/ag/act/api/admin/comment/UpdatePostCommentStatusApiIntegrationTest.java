@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.stream.Stream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -66,7 +67,7 @@ class UpdatePostCommentStatusApiIntegrationTest extends AbstractCommonIntegratio
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

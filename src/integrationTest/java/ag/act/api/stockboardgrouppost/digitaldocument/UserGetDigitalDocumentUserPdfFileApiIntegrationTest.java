@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static ag.act.TestUtil.someFilename;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -151,7 +152,7 @@ class UserGetDigitalDocumentUserPdfFileApiIntegrationTest extends AbstractCommon
                         .param("answerData", answerData)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

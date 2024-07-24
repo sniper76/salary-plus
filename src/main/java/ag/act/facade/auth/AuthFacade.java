@@ -17,13 +17,12 @@ import ag.act.model.CheckEmailResponse;
 import ag.act.model.CmsLoginRequest;
 import ag.act.model.PinNumberRequest;
 import ag.act.model.RegisterUserInfoRequest;
+import ag.act.module.mydata.IMyDataService;
 import ag.act.module.mydata.MyDataService;
 import ag.act.service.cms.CmsLoginService;
 import ag.act.service.user.UserService;
 import ag.act.service.user.UserVerificationHistoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import java.security.GeneralSecurityException;
@@ -35,9 +34,8 @@ import static ag.act.enums.ActErrorCode.PIN_VERIFICATION_FAILED;
 
 @Service
 @RequiredArgsConstructor
-public class AuthFacade {
+public class AuthFacade implements IMyDataService {
 
-    private static final int MY_DATA_MAX_RETRY_COUNT = 3;
     private final UserService userService;
     private final MyDataService myDataService;
     private final UserVerificationHistoryService userVerificationHistoryService;
@@ -124,8 +122,6 @@ public class AuthFacade {
         return new ag.act.model.SimpleStringResponse().status("ok");
     }
 
-    @SuppressWarnings("DefaultAnnotationParam")
-    @Retryable(maxAttempts = MY_DATA_MAX_RETRY_COUNT, backoff = @Backoff(delay = 1000))
     public ag.act.model.MyDataTokenResponse requestMyDataToken(String accessToken) {
         final User user = ActUserProvider.getNoneNull();
 
@@ -135,7 +131,7 @@ public class AuthFacade {
         } catch (ActRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new InternalServerException("마이데이터 엑세스토큰 요청 중에 알 수 없는 오류가 발생하였습니다.", e);
+            throw new InternalServerException(UNKNOWN_GET_FINPONG_ACCESS_TOKEN_ERROR_MESSAGE, e);
         }
     }
 
@@ -150,7 +146,7 @@ public class AuthFacade {
         } catch (ActRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new InternalServerException("마이데이터 엑세스토큰 요청 중에 알 수 없는 오류가 발생하였습니다.", e);
+            throw new InternalServerException(UNKNOWN_GET_FINPONG_ACCESS_TOKEN_ERROR_MESSAGE, e);
         }
     }
 
@@ -161,11 +157,11 @@ public class AuthFacade {
 
     public void withdrawMyDataService(String finpongAccessToken) {
         try {
-            myDataService.withdraw(finpongAccessToken);
+            myDataService.withdrawMyData(finpongAccessToken);
         } catch (ActRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new ActRuntimeException("마이데이터 연동 취소 요청 중에 알 수 없는 오류가 발생하였습니다.", e);
+            throw new ActRuntimeException(UNKNOWN_WITHDRAW_ERROR_MESSAGE, e);
         }
     }
 

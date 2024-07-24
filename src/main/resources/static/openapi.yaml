@@ -2874,6 +2874,9 @@ paths:
   /public-api/email:
     $ref: './paths/public/publicApiEmail-post.yaml'
 
+  /api/contact-us:
+    $ref: './paths/contact/contactUs-post.yaml'
+
   /api/batch/update-stocks:
     post:
       operationId: updateStocks
@@ -11146,6 +11149,10 @@ components:
           type: integer
           format: int64
           description: 'DIGITAL_PROXY or JOINT_OWNERSHIP_DOCUMENT 인 경우 수임인 아이디 필수'
+        isDisplayStockQuantity:
+          type: boolean
+          default: false
+          description: '보유주식수 표시 여부'
 
     CreatePostHolderListReadAndCopyRequest:
       type: object
@@ -11302,6 +11309,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HolderListReadAndCopyItemRequest'
+        isDisplayStockQuantity:
+          type: boolean
+          default: false
+          description: '보유주식수 표시 여부'
 
     UpdateDigitalDocumentRequest:
       type: object

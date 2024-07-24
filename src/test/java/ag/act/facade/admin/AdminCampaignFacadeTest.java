@@ -2,6 +2,7 @@ package ag.act.facade.admin;
 
 import ag.act.configuration.security.ActUserProvider;
 import ag.act.converter.CampaignDetailsResponseConverter;
+import ag.act.core.holder.RequestContextHolder;
 import ag.act.dto.campaign.CampaignDetailsResponseSourceDto;
 import ag.act.dto.campaign.SimpleCampaignPostDto;
 import ag.act.dto.post.CreatePostRequestDto;
@@ -10,6 +11,7 @@ import ag.act.entity.CampaignStockMapping;
 import ag.act.entity.Post;
 import ag.act.entity.StockGroup;
 import ag.act.entity.User;
+import ag.act.enums.ClientType;
 import ag.act.exception.BadRequestException;
 import ag.act.facade.admin.campaign.AdminCampaignFacade;
 import ag.act.facade.admin.campaign.CampaignDownloadFacade;
@@ -50,6 +52,7 @@ import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mockStatic;
 import static shiver.me.timbers.data.random.RandomBooleans.someBoolean;
+import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
 import static shiver.me.timbers.data.random.RandomStrings.someString;
 
@@ -85,9 +88,10 @@ class AdminCampaignFacadeTest {
 
     @BeforeEach
     void setUp() {
-        statics = List.of(mockStatic(ActUserProvider.class));
+        statics = List.of(mockStatic(ActUserProvider.class), mockStatic(RequestContextHolder.class));
 
         given(ActUserProvider.getNoneNull()).willReturn(user);
+        given(RequestContextHolder.getClientType()).willReturn(someEnum(ClientType.class));
     }
 
     @AfterEach

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someCorporateNo;
 import static ag.act.TestUtil.someCorporateNoOverLength;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -48,7 +49,7 @@ class CreateCorporateUserApiIntegrationTest extends AbstractCommonIntegrationTes
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + adminJwt)
+                    .headers(headers(jwt(adminJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

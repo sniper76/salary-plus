@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static ag.act.TestUtil.someWebVerificationCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
@@ -134,8 +136,7 @@ class UpdateWebVerificationCodeIntegrationTest extends AbstractCommonIntegration
                     .content(objectMapperUtil.toRequestBody(verificationCodeRequest))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + userJwt)
-                    .header("X-APP-VERSION", "APP")
+                    .headers(headers(jwt(userJwt), xAppVersion("APP")))
             )
             .andExpect(resultMatcher)
             .andReturn();

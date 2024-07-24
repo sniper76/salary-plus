@@ -33,6 +33,7 @@ import java.util.List;
 import static ag.act.TestUtil.createMockMultipartFile;
 import static ag.act.TestUtil.someLocalDateTimeInThePastDaysBetween;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -155,7 +156,7 @@ class UserDigitalDelegateSaveApiIntegrationTest extends AbstractCommonIntegratio
                     .param("answerData", genAnswerData())
                     .contentType(MediaType.MULTIPART_FORM_DATA)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

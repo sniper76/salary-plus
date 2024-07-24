@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 
 import static ag.act.TestUtil.someEmail;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -138,7 +139,7 @@ class DigitalDocumentEmailSenderIntegrationTest extends AbstractCommonIntegratio
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + leaderJwt)
+                    .headers(headers(jwt(leaderJwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

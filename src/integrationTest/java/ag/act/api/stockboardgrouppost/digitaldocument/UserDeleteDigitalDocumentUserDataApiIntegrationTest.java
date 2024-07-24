@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -102,7 +103,7 @@ class UserDeleteDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
                 .perform(
                     delete(TARGET_API, digitalDocument.getId())
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

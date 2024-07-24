@@ -1,5 +1,6 @@
 package ag.act.service.stockboardgrouppost.comment;
 
+import ag.act.core.holder.RequestContextHolder;
 import ag.act.entity.Comment;
 import ag.act.entity.Post;
 import ag.act.enums.CommentType;
@@ -96,6 +97,7 @@ public class CommentService implements BlockedUserEnhancer {
         comment.setUserId(userId);
         comment.setReplyCommentCount(0L);
         comment.setLikeCount(0L);
+        comment.setClientType(RequestContextHolder.getClientType());
 
         comment.setType(CommentType.POST);
         if (parentCommentId > 0) {

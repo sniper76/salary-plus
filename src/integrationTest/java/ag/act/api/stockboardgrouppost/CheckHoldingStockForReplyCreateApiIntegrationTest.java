@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -65,7 +66,7 @@ class CheckHoldingStockForReplyCreateApiIntegrationTest extends AbstractCommonIn
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();
@@ -77,7 +78,7 @@ class CheckHoldingStockForReplyCreateApiIntegrationTest extends AbstractCommonIn
                 get(TARGET_API, stock.getCode(), board.getGroup(), post.getId(), comment.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

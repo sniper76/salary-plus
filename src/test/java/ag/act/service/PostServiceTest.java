@@ -74,7 +74,7 @@ class PostServiceTest {
     void setUp() {
         boardId = someLong();
         blockedUserIdList = List.of(somePositiveLong());
-        statusList = StatusUtil.getStatusesForPostList();
+        statusList = StatusUtil.getPostStatusesVisibleToUsers();
 
         given(appRenewalDateProvider.get()).willReturn(appRenewalDate);
         given(userRoleFacade.assignAcceptorRoleToUser(anyLong())).willReturn(userDataResponse);

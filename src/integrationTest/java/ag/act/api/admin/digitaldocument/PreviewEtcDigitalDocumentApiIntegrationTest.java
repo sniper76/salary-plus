@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.Locale;
 
 import static ag.act.itutil.PdfTestHelper.assertPdfTextEquals;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -130,6 +131,7 @@ class PreviewEtcDigitalDocumentApiIntegrationTest extends AbstractCommonIntegrat
             .type(DigitalDocumentType.ETC_DOCUMENT.name())
             .companyName("test company")
             .title("Title")
+            .isDisplayStockQuantity(Boolean.TRUE)
             .content("<p>Contents With Strict <br /> Valid HTML tags</p><p>second line</p>");
     }
 
@@ -140,7 +142,7 @@ class PreviewEtcDigitalDocumentApiIntegrationTest extends AbstractCommonIntegrat
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

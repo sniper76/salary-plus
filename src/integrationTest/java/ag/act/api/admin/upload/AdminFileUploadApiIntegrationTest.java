@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static ag.act.TestUtil.createMockMultipartFile;
 import static ag.act.TestUtil.someFilename;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -66,7 +67,7 @@ class AdminFileUploadApiIntegrationTest extends AbstractCommonIntegrationTest {
                         multipart(TARGET_API, fileContentType)
                             .file(file)
                             .param("description", description)
-                            .header(AUTHORIZATION, "Bearer " + jwt))
+                            .headers(headers(jwt(jwt))))
                     .andExpect(status().isOk())
                     .andReturn();
 
@@ -106,7 +107,7 @@ class AdminFileUploadApiIntegrationTest extends AbstractCommonIntegrationTest {
                     multipart(TARGET_API, fileContentType)
                         .file(file)
                         .param("description", description)
-                        .header(AUTHORIZATION, "Bearer " + jwt))
+                        .headers(headers(jwt(jwt))))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
@@ -134,7 +135,7 @@ class AdminFileUploadApiIntegrationTest extends AbstractCommonIntegrationTest {
                     multipart(TARGET_API, wrongFileContentType)
                         .file(file)
                         .param("description", description)
-                        .header(AUTHORIZATION, "Bearer " + jwt))
+                        .headers(headers(jwt(jwt))))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 

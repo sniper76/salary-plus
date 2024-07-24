@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -55,7 +56,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                         get(TARGET_API, user.getId())
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -95,7 +96,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                         get(TARGET_API, user.getId())
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isGone())
                     .andReturn();
@@ -122,7 +123,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                         get(TARGET_API, user.getId())
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isGone())
                     .andReturn();
@@ -168,7 +169,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                             .param("stockCode", stockCode)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -198,7 +199,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                             .param("stockCode", stockCode)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -229,7 +230,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                             .param("stockCode", stockCode)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isGone())
                     .andReturn();
@@ -257,7 +258,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                             .param("stockCode", stockCode)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isGone())
                     .andReturn();
@@ -285,7 +286,7 @@ class GetSimpleProfileApiIntegrationTest extends AbstractCommonIntegrationTest {
                             .param("stockCode", stockCode)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isGone())
                     .andReturn();

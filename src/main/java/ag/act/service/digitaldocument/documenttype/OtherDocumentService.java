@@ -49,6 +49,7 @@ public class OtherDocumentService implements DigitalDocumentTypeService<IOtherDo
         digitalDocument.setTitle(createRequest.getTitle());
         digitalDocument.setContent(createRequest.getContent());
         digitalDocument.setIdCardWatermarkType(IdCardWatermarkType.fromValue(createRequest.getIdCardWatermarkType()));
+        digitalDocument.setIsDisplayStockQuantity(createRequest.getIsDisplayStockQuantity());
 
         return digitalDocumentRepository.save(digitalDocument);
     }

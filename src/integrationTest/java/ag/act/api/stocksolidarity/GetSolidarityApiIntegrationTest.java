@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -75,7 +76,7 @@ class GetSolidarityApiIntegrationTest extends AbstractCommonIntegrationTest {
                 get(TARGET_API, stock.getCode())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + paramJwt)
+                    .headers(headers(jwt(paramJwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

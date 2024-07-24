@@ -2,41 +2,41 @@ package ag.act.api.stockboardgrouppost.preview;
 
 import ag.act.AbstractCommonIntegrationTest;
 import ag.act.TestUtil;
+import ag.act.core.configuration.GlobalBoardManager;
 import ag.act.entity.Board;
 import ag.act.entity.Post;
 import ag.act.entity.Stock;
 import ag.act.entity.User;
 import ag.act.enums.BoardCategory;
 import ag.act.enums.BoardGroup;
-import ag.act.enums.virtualboard.VirtualBoardCategory;
-import ag.act.enums.virtualboard.VirtualBoardGroup;
 import ag.act.model.GetBoardGroupPostResponse;
 import ag.act.model.Paging;
 import ag.act.model.PostResponse;
 import ag.act.model.Status;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static ag.act.TestUtil.someBoardGroupCategoryForGlobal;
 import static ag.act.TestUtil.someBoardGroupCategoryForStock;
-import static ag.act.TestUtil.someVirtualBoardCategory;
-import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.userAgent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static shiver.me.timbers.data.random.RandomThings.someThing;
 
 class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
     private static final String TARGET_API = "/api/stocks/{stockCode}/board-groups/{boardGroupName}/posts/previews";
@@ -50,10 +50,15 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
     private Stock stock;
     private User writer;
     private Post[] posts;
+    private String globalStockCode;
+
+    @Autowired
+    private GlobalBoardManager globalBoardManager;
 
     @BeforeEach
     void setUp() {
         itUtil.init();
+        globalStockCode = globalBoardManager.getStockCode();
         dbCleaner.clean();
 
         currentUser = itUtil.createUser();
@@ -61,7 +66,11 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
         writer = itUtil.createUser();
     }
 
-    @DirtiesContext
+    @AfterEach
+    void tearDown() {
+        dbCleaner.clean();
+    }
+
     @Nested
     class GetGlobalBoardGroupPostPreviews {
         private Board board;
@@ -82,18 +91,37 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
             createDeletedPost(board);
         }
 
-        @Test
-        @DisplayName("글로벌 게시판 미리보기 목록을 조회한다.")
-        void shouldReturnSuccess() throws Exception {
-            final GetBoardGroupPostResponse result = callApiAndGetResponse(
-                board.getGroup().name(),
-                board.getCategory().name()
-            );
+        @Nested
+        @DisplayName("유저가")
+        class WhenUser {
+            @Test
+            @DisplayName("글로벌 게시판 미리보기 목록을 조회한다.")
+            void shouldReturnSuccess() throws Exception {
+                final GetBoardGroupPostResponse result = userCallApiAndGetResponse(
+                    board.getGroup().name()
+                );
 
-            assertPaging(result.getPaging());
-            assertPosts(result.getData());
+                assertPaging(result.getPaging());
+                assertPosts(result.getData());
+            }
         }
 
+        @Nested
+        @DisplayName("게스트가")
+        class WhenGuest {
+
+            @Test
+            @DisplayName("글로벌 게시판 미리보기 목록을 조회한다.")
+            void shouldReturnSuccess() throws Exception {
+                final GetBoardGroupPostResponse result = guestCallApiAndGetResponse(
+                    status().isOk(),
+                    board.getGroup().name()
+                );
+
+                assertPaging(result.getPaging());
+                assertPosts(result.getData());
+            }
+        }
 
         private void createAndSetGlobalBoard() {
             TestUtil.BoardGroupCategory globalBoardGroupCategory = someBoardGroupCategoryForGlobal();
@@ -133,9 +161,8 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
             @Test
             @DisplayName("종목 게시판 미리보기 목록을 조회한다.")
             void shouldReturnSuccess() throws Exception {
-                final GetBoardGroupPostResponse result = callApiAndGetResponse(
-                    board.getGroup().name(),
-                    board.getCategory().name()
+                final GetBoardGroupPostResponse result = userCallApiAndGetResponse(
+                    board.getGroup().name()
                 );
 
                 assertPaging(result.getPaging());
@@ -175,10 +202,8 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
             @Test
             @DisplayName("종목 게시판 미리보기 목록을 조회한다.")
             void shouldReturnSuccess() throws Exception {
-                final GetBoardGroupPostResponse result = callApiAndGetResponse(
-                    board.getGroup().name(),
-                    board.getCategory().name()
-                );
+                final GetBoardGroupPostResponse result = userCallApiAndGetResponse(
+                    board.getGroup().name());
 
                 assertPaging(result.getPaging());
                 assertPosts(result.getData());
@@ -192,6 +217,18 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
                     assertPostResponse(postResponses.get(i), posts[expectedPostSize - EXCLUSIVE_TO_HOLDERS_POST_COUNT - i]);
                 }
                 assertNotUserHoldingStockPostResponse(postResponses.get(EXCLUSIVE_TO_HOLDERS_POST_INDEX), posts[expectedPostSize - 1]);
+            }
+        }
+
+        @Nested
+        @DisplayName("게스트가")
+        class WhenGuest {
+            @Test
+            @DisplayName("인가되지 않은 접근 에러를 반환한다.")
+            void shouldReturnUnauthorized() throws Exception {
+                MvcResult mvcResult = guestCallApi(status().isUnauthorized(), board.getGroup().name());
+
+                itUtil.assertErrorResponse(mvcResult, UNAUTHORIZED_STATUS, "인가되지 않은 접근입니다.");
             }
         }
 
@@ -211,55 +248,6 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
             assertThat(actual.getLikeCount(), is(expected.getLikeCount()));
             assertThat(actual.getIsExclusiveToHolders(), is(Boolean.TRUE));
             assertThat(actual.getStatus(), is(Status.ACTIVE));
-        }
-    }
-
-    @Nested
-    class GetVirtualBoardGroupActBestPostPreviews {
-        private VirtualBoardCategory virtualBoardCategory;
-
-        @BeforeEach
-        void setUp() {
-            virtualBoardCategory = someVirtualBoardCategory(VirtualBoardGroup.ACT_BEST);
-            BoardCategory boardCategory1 = someThing(virtualBoardCategory.getSubCategories().toArray(BoardCategory[]::new));
-            BoardCategory boardCategory2 = someThing(virtualBoardCategory.getSubCategories().toArray(BoardCategory[]::new));
-            BoardGroup boardGroup = boardCategory1.getBoardGroup();
-
-            createAndSetStock(boardGroup);
-
-            Board board1 = getBoard(boardCategory1.getBoardGroup(), boardCategory1);
-            Board board2 = getBoard(boardCategory2.getBoardGroup(), boardCategory2);
-
-            posts = new Post[] {
-                createPost(board1),
-                createPost(board1),
-                createPost(board2),
-                createPost(board2)
-            };
-
-            // 잉여 데이터
-            createDeletedPost(board2);
-        }
-
-        private void createAndSetStock(BoardGroup boardGroup) {
-            if (boardGroup.isGlobal()) {
-                createAndSetGlobalStock();
-                return;
-            }
-            createAndSetNotGlobalStock();
-            itUtil.createUserHoldingStock(stock.getCode(), currentUser);
-        }
-
-        @Test
-        @DisplayName("액트 베스트 게시판 미리보기 목록을 조회한다.")
-        void shouldReturnSuccess() throws Exception {
-            final GetBoardGroupPostResponse result = callApiAndGetResponse(
-                VirtualBoardGroup.ACT_BEST.name(),
-                virtualBoardCategory.name()
-            );
-
-            assertPaging(result.getPaging());
-            assertPosts(result.getData());
         }
     }
 
@@ -287,7 +275,7 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
     }
 
     private void createAndSetGlobalStock() {
-        stock = itUtil.createStock();
+        stock = itUtil.findStock(globalStockCode);
     }
 
     private Board getBoard(BoardGroup boardGroup, BoardCategory boardCategory) {
@@ -324,25 +312,39 @@ class GetPostPreviewsApiIntegrationTest extends AbstractCommonIntegrationTest {
         assertThat(actual.getDeletedAt(), is(nullValue()));
     }
 
-    private GetBoardGroupPostResponse callApiAndGetResponse(
-        String boardGroupName,
-        String boardCategoryName
+    private GetBoardGroupPostResponse userCallApiAndGetResponse(
+        String boardGroupName
     ) throws Exception {
-        Map<String, Object> params = Map.of("boardCategory", boardCategoryName);
-
-        return itUtil.getResult(callApi(boardGroupName, params), GetBoardGroupPostResponse.class);
+        return itUtil.getResult(userCallApi(boardGroupName), GetBoardGroupPostResponse.class);
     }
 
-    private MvcResult callApi(String boardGroupName, Map<String, Object> params) throws Exception {
+    private GetBoardGroupPostResponse guestCallApiAndGetResponse(
+        ResultMatcher resultMatcher,
+        String boardGroupName
+    ) throws Exception {
+        return itUtil.getResult(guestCallApi(resultMatcher, boardGroupName), GetBoardGroupPostResponse.class);
+    }
+
+    private MvcResult userCallApi(String boardGroupName) throws Exception {
         return mockMvc.perform(
                 get(TARGET_API, stock.getCode(), boardGroupName)
-                    .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(X_APP_VERSION, X_APP_VERSION_WEB)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt), xAppVersion(X_APP_VERSION_WEB), userAgent(USER_AGENT_WEB)))
             )
             .andExpect(status().isOk())
+            .andReturn();
+    }
+
+    private MvcResult guestCallApi(ResultMatcher resultMatcher, String boardGroupName) throws Exception {
+        return mockMvc.perform(
+                get(TARGET_API, stock.getCode(), boardGroupName)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .headers(headers(xAppVersion(X_APP_VERSION_WEB), userAgent(USER_AGENT_WEB)))
+
+            )
+            .andExpect(resultMatcher)
             .andReturn();
     }
 }

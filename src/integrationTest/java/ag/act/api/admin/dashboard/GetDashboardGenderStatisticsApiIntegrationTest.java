@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -143,7 +144,7 @@ class GetDashboardGenderStatisticsApiIntegrationTest extends AbstractCommonInteg
                         .params(toMultiValueMap(paramsMap))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + adminJwt)
+                        .headers(headers(jwt(adminJwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

@@ -94,6 +94,9 @@ public class DigitalDocument implements IDigitalProxy, IJointOwnershipDocument, 
     @Column(name = "shareholding_ratio")
     private Double shareholdingRatio;
 
+    @Column(name = "is_display_stock_quantity", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean isDisplayStockQuantity;
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private DigitalDocumentType type;
@@ -179,6 +182,7 @@ public class DigitalDocument implements IDigitalProxy, IJointOwnershipDocument, 
         digitalDocument.setTargetStartDate(targetStartDate);
         digitalDocument.setTargetEndDate(targetEndDate);
         digitalDocument.setJsonAttachOption(jsonAttachOption);
+        digitalDocument.setIsDisplayStockQuantity(isDisplayStockQuantity);
 
         newPost.setDigitalDocument(digitalDocument);
         return digitalDocument;

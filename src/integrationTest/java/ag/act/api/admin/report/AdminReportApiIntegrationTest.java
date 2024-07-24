@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -72,7 +73,7 @@ class AdminReportApiIntegrationTest extends AbstractCommonIntegrationTest {
                     get(TARGET_API, ReportType.POST)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -151,7 +152,7 @@ class AdminReportApiIntegrationTest extends AbstractCommonIntegrationTest {
                         get(TARGET_API_PARAM, ReportType.COMMENT, 1, SIZE_5_PER_PAGE)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();
@@ -180,7 +181,7 @@ class AdminReportApiIntegrationTest extends AbstractCommonIntegrationTest {
                         get(TARGET_API_PARAM, ReportType.COMMENT, 2, SIZE_5_PER_PAGE)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
-                            .header("Authorization", "Bearer " + jwt)
+                            .headers(headers(jwt(jwt)))
                     )
                     .andExpect(status().isOk())
                     .andReturn();

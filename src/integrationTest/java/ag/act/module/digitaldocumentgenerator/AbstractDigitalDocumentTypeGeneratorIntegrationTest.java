@@ -181,7 +181,7 @@ class AbstractDigitalDocumentTypeGeneratorIntegrationTest extends AbstractCommon
             willDoNothing().given(jointOwnershipDocumentFillValidator).validate(generateHtmlDocumentDto);
             given(jointOwnershipDocumentFillConverter.convert(generateHtmlDocumentDto))
                 .willReturn(jointOwnershipDocumentFill);
-            given(digitalDocumentHtmlGenerator.fillAndGetHtmlString(jointOwnershipDocumentFill, "joint-ownership-document-v3.ftlh"))
+            given(digitalDocumentHtmlGenerator.fillAndGetHtmlString(jointOwnershipDocumentFill, "joint-ownership-document-v4.ftlh"))
                 .willReturn(documentHtmlString);
             given(pdfRenderService.renderPdf(documentHtmlString))
                 .willReturn(digitalDocumentPdfBytes);
@@ -219,7 +219,7 @@ class AbstractDigitalDocumentTypeGeneratorIntegrationTest extends AbstractCommon
         @Test
         void shouldFillAndGetHtmlString() {
             then(digitalDocumentHtmlGenerator).should().fillAndGetHtmlString(
-                jointOwnershipDocumentFill, "joint-ownership-document-v3.ftlh"
+                jointOwnershipDocumentFill, "joint-ownership-document-v4.ftlh"
             );
         }
 
@@ -253,7 +253,7 @@ class AbstractDigitalDocumentTypeGeneratorIntegrationTest extends AbstractCommon
             willDoNothing().given(otherDocumentFillValidator).validate(generateHtmlDocumentDto);
             given(otherDocumentFillConverter.convert(generateHtmlDocumentDto))
                 .willReturn(otherDocumentFill);
-            given(digitalDocumentHtmlGenerator.fillAndGetHtmlString(otherDocumentFill, "other-document-v2.ftlh"))
+            given(digitalDocumentHtmlGenerator.fillAndGetHtmlString(otherDocumentFill, "other-document-v3.ftlh"))
                 .willReturn(documentHtmlString);
             given(pdfRenderService.renderPdf(documentHtmlString))
                 .willReturn(digitalDocumentPdfBytes);
@@ -276,7 +276,7 @@ class AbstractDigitalDocumentTypeGeneratorIntegrationTest extends AbstractCommon
         @Test
         void shouldFillAndGetHtmlString() {
             then(digitalDocumentHtmlGenerator).should().fillAndGetHtmlString(
-                otherDocumentFill, "other-document-v2.ftlh"
+                otherDocumentFill, "other-document-v3.ftlh"
             );
         }
     }

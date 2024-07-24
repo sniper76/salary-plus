@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Map;
 
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.userAgent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -43,6 +46,7 @@ public class GetTopNStockRankingsIntegrationTest extends AbstractCommonIntegrati
 
     private String jwt;
     private Map<String, Object> params;
+    private String userAgent = USER_AGENT_NOT_WEB; //default
 
     @BeforeEach
     void setUp() {
@@ -171,6 +175,8 @@ public class GetTopNStockRankingsIntegrationTest extends AbstractCommonIntegrati
         class SortByStakeForGuest {
             @BeforeEach
             void setUp() {
+                userAgent = USER_AGENT_WEB;
+
                 jwt = "";
                 params = Map.of(
                     "size", String.valueOf(REQUEST_STOCK_RANK_LIST_SIZE),
@@ -206,6 +212,8 @@ public class GetTopNStockRankingsIntegrationTest extends AbstractCommonIntegrati
         class SortByNotMatchSortColumnForGuest {
             @BeforeEach
             void setUp() {
+                userAgent = USER_AGENT_WEB;
+
                 jwt = "";
                 params = Map.of(
                     "size", String.valueOf(-10),
@@ -253,7 +261,7 @@ public class GetTopNStockRankingsIntegrationTest extends AbstractCommonIntegrati
                 get(TARGET_API)
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();
@@ -265,7 +273,7 @@ public class GetTopNStockRankingsIntegrationTest extends AbstractCommonIntegrati
                 get(TARGET_API)
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .header(X_APP_VERSION, X_APP_VERSION_WEB)
+                    .headers(headers(xAppVersion(X_APP_VERSION_WEB), userAgent(USER_AGENT_WEB)))
             )
             .andExpect(resultMatcher)
             .andReturn();

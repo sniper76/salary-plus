@@ -12,4 +12,5 @@ public abstract class DigitalDocumentFill {
     private String signatureImageSrc;
     private String attachingFilesDescription;
     private String version;
+    private Boolean isDisplayStockQuantity;
 }

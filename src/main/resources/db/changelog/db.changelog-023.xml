@@ -561,4 +561,18 @@
     </sql>
   </changeSet>
 
+  <changeSet id="add is_display_stock_quantity columns on digital_documents table" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="is_display_stock_quantity" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="is_display_stock_quantity"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="remove append_date_watermark columns on digital_documents table" author="Sniper">
+    <dropColumn tableName="digital_documents" columnName="append_date_watermark"/>
+  </changeSet>
+
 </databaseChangeLog>

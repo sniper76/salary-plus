@@ -35,6 +35,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -118,7 +119,7 @@ class CreatePostAndUserBadgeApiIntegrationTest extends AbstractCommonIntegration
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
                     .header(X_APP_VERSION, appVersion)
             )
             .andExpect(status().isOk())

@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ag.act.TestUtil.createMockMultipartFile;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -98,7 +99,7 @@ class CheckPostWriterDigitalDocumentApiIntegrationTest extends AbstractCommonInt
                 get(TARGET_API, stock.getCode(), board.getGroup())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();
@@ -124,7 +125,7 @@ class CheckPostWriterDigitalDocumentApiIntegrationTest extends AbstractCommonInt
                         .file(signImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
@@ -152,7 +153,7 @@ class CheckDigitalDocumentUserDataApiIntegrationTest extends AbstractCommonInteg
                         .param("answerData", genInvalidAnswerDataSize())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -182,7 +183,7 @@ class CheckDigitalDocumentUserDataApiIntegrationTest extends AbstractCommonInteg
                         .param("answerData", genInvalidAnswerDataNotExistSplit())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -212,7 +213,7 @@ class CheckDigitalDocumentUserDataApiIntegrationTest extends AbstractCommonInteg
                         .param("answerData", genInvalidAnswerItemCount())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();

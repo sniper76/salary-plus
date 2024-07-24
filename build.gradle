@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        springbootVersion = "3.2.8"
+    }
     repositories {
         mavenCentral()
         maven {
@@ -7,12 +10,13 @@ buildscript {
     }
     dependencies {
         classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}"
     }
 }
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.4'
+    id 'org.springframework.boot' version "${springbootVersion}"
     id 'io.spring.dependency-management' version '1.1.4'
     id "org.openapi.generator" version "6.6.0"
     id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
@@ -22,9 +26,8 @@ plugins {
     id "io.sentry.jvm.gradle" version "4.4.0"
 }
 
-
 group = 'ag.act'
-version = '0.0.1-SNAPSHOT'
+version = file('version.txt').text.trim()
 
 ext {
     queryDslVersion = "5.0.0"
@@ -48,7 +51,7 @@ repositories {
 }
 
 jacoco {
-    toolVersion = "0.8.11"
+    toolVersion = "0.8.12"
 }
 
 jacocoTestReport {
@@ -57,7 +60,11 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     '**/Q*.class',
                     '**/entity/**/*.class',
-                    '**/*ApiDelegate.class'
+                    'ag/act/*.class',
+                    'ag/act/model/*.class',
+                    'ag/act/api/*.class',
+                    '**/*ApiDelegate.class',
+                    '**/*Tests.class'
             ])
         }))
     }
@@ -77,6 +84,12 @@ sentry {
 apply plugin: 'org.openapi.generator'
 apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
+dependencyManagement {
+    imports {
+        mavenBom "software.amazon.awssdk:bom:2.25.70"
+    }
+}
+
 dependencies {
     implementation 'com.fasterxml.jackson:jackson-bom:2.13.5'
 
@@ -89,8 +102,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation 'org.springframework.retry:spring-retry'
-    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:3.1.2'
 
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
     implementation 'com.google.firebase:firebase-admin:9.3.0'
     implementation 'software.amazon.awssdk:s3'
     implementation 'software.amazon.awssdk:lambda'
@@ -164,12 +178,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'com.pgs-soft:HttpClientMock:1.0.0'
 
-
-    dependencyManagement {
-        imports {
-            mavenBom("software.amazon.awssdk:bom:2.25.20")
-        }
-    }
     implementation 'io.micrometer:micrometer-core'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
@@ -449,7 +457,6 @@ task createDockerfile(type: Dockerfile, dependsOn: fatJar) {
     destFile = project.file('Dockerfile')
     from 'azul/zulu-openjdk-alpine:17'
     runCommand('addgroup -S actuser && adduser -S actuser -G actuser')
-    user('actuser:actuser')
     user('actuser:actuser')
     copyFile("build/libs/${project.name}-*.jar", "/tmp/${project.name}.jar")
     workingDir('/tmp')

@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someInstantInTheFuture;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.either;
 import static org.hamcrest.Matchers.is;
@@ -471,7 +472,7 @@ class CreatePushApiIntegrationTest extends AbstractCommonIntegrationTest {
                         .content(objectMapperUtil.toRequestBody(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -708,7 +709,7 @@ class CreatePushApiIntegrationTest extends AbstractCommonIntegrationTest {
                         .content(objectMapperUtil.toRequestBody(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,7 +57,7 @@ abstract class GetStockHomeApiIntegrationTest extends AbstractCommonIntegrationT
         return mockMvc
             .perform(
                 get(TARGET_API, stock.getCode())
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

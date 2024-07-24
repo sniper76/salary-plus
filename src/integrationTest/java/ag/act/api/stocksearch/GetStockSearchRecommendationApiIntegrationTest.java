@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ag.act.TestUtil.assertTime;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -335,7 +336,7 @@ class GetStockSearchRecommendationApiIntegrationTest extends AbstractCommonInteg
                 get(TARGET_API)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

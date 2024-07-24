@@ -13,7 +13,7 @@ import ag.act.model.SimpleStockResponse;
 import ag.act.model.Status;
 import ag.act.model.UserDataResponse;
 import ag.act.model.UserResponse;
-import ag.act.module.mydata.MyDataCryptoHelper;
+import ag.act.module.mydata.crypto.MyDataCryptoHelper;
 import ag.act.util.DateTimeFormatUtil;
 import ag.act.util.KoreanDateTimeUtil;
 import org.hamcrest.core.CombinableMatcher;
@@ -44,6 +44,7 @@ import java.util.stream.Collectors;
 
 import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someLocalDateTimeInThePastDaysBetween;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -144,7 +145,7 @@ class UpdateMyDataApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toRequestBody(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

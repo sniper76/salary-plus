@@ -19,48 +19,77 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-@Transactional
+@Transactional(Transactional.TxType.REQUIRES_NEW)
 @RequiredArgsConstructor
 public class LatestUserPostsViewService {
     private final LatestUserPostsViewRepository latestUserPostsViewRepository;
 
-    @SuppressWarnings("UnusedReturnValue")
-    public LatestUserPostsView createOrUpdate(
-        CreateLatestUserPostsViewDto dto
+    public void createOrUpdate(
+        CreateLatestUserPostsViewDto requestDto
     ) {
-        LatestUserPostsView latestUserPostsView = getOrInitialize(dto);
-        latestUserPostsView.setTimestamp(LocalDateTime.now());
-        return getLatestUserPostsViewAfterSave(latestUserPostsView);
-    }
+        final LocalDateTime currentDateTime = LocalDateTime.now();
+        LatestUserPostsView latestUserPostsView = getOrInitialize(requestDto);
+        latestUserPostsView.setTimestamp(currentDateTime);
 
-    private LatestUserPostsView getLatestUserPostsViewAfterSave(LatestUserPostsView latestUserPostsView) {
         try {
-            return latestUserPostsViewRepository.save(latestUserPostsView);
+            save(latestUserPostsView);
         } catch (DataIntegrityViolationException dive) {
-            log.error(
-                "latestUserPostsView 데이터 생성중 중복 오류가 발생하였습니다 : userId={} stockCode={} group={} category={} postViewType={}",
-                latestUserPostsView.getUser().getId(),
-                latestUserPostsView.getStock().getCode(),
-                latestUserPostsView.getBoardGroup(),
-                latestUserPostsView.getBoardCategory(),
-                latestUserPostsView.getPostsViewType(),
-                dive
+            updateLatestUserPostsViewWhenError(
+                requestDto,
+                currentDateTime,
+                new LatestUserPostsViewError(latestUserPostsView, dive)
             );
         }
-        return latestUserPostsView;
     }
 
-    private LatestUserPostsView getOrInitialize(CreateLatestUserPostsViewDto dto) {
-        return get(dto)
-            .orElse(initialize(dto));
+    record LatestUserPostsViewError(LatestUserPostsView latestUserPostsView, DataIntegrityViolationException exception) {
     }
 
-    private Optional<LatestUserPostsView> get(CreateLatestUserPostsViewDto dto) {
-        Stock stock = dto.getStock();
-        User user = dto.getUser();
-        BoardGroup boardGroup = dto.getBoardGroup();
-        BoardCategory boardCategory = dto.getBoardCategory();
-        final PostsViewType postsViewType = dto.getPostsViewType();
+    private void updateLatestUserPostsViewWhenError(
+        CreateLatestUserPostsViewDto requestDto,
+        LocalDateTime currentDateTime,
+        LatestUserPostsViewError error
+    ) {
+        final Optional<LatestUserPostsView> latestUserPostsViewOptional = get(requestDto);
+
+        if (latestUserPostsViewOptional.isPresent()) {
+            final LatestUserPostsView latestUserPostsView = latestUserPostsViewOptional.get();
+            latestUserPostsView.setTimestamp(currentDateTime);
+            save(latestUserPostsView);
+        } else {
+            errorLog(error);
+        }
+    }
+
+    private LatestUserPostsView save(LatestUserPostsView latestUserPostsView) {
+        return latestUserPostsViewRepository.save(latestUserPostsView);
+    }
+
+    private void errorLog(LatestUserPostsViewError latestUserPostsViewError) {
+        final LatestUserPostsView latestUserPostsView = latestUserPostsViewError.latestUserPostsView();
+        log.warn(
+            "latestUserPostsView 데이터 생성중 중복 오류가 발생하였습니다 : userId={} stockCode={} group={} category={} postViewType={}, timestamp={}",
+            latestUserPostsView.getUser().getId(),
+            latestUserPostsView.getStock().getCode(),
+            latestUserPostsView.getBoardGroup(),
+            latestUserPostsView.getBoardCategory(),
+            latestUserPostsView.getPostsViewType(),
+            latestUserPostsView.getTimestamp(),
+            latestUserPostsViewError.exception()
+        );
+    }
+
+    private LatestUserPostsView getOrInitialize(CreateLatestUserPostsViewDto requestDto) {
+        return get(requestDto)
+            .orElse(initialize(requestDto));
+    }
+
+    private Optional<LatestUserPostsView> get(CreateLatestUserPostsViewDto requestDto) {
+        final Stock stock = requestDto.getStock();
+        final User user = requestDto.getUser();
+        final BoardGroup boardGroup = requestDto.getBoardGroup();
+        final BoardCategory boardCategory = requestDto.getBoardCategory();
+        final PostsViewType postsViewType = requestDto.getPostsViewType();
 
         return latestUserPostsViewRepository.findByStockCodeAndUserIdAndBoardGroupAndBoardCategoryAndPostsViewType(
             stock.getCode(),
@@ -72,15 +101,14 @@ public class LatestUserPostsViewService {
     }
 
     private LatestUserPostsView initialize(
-        CreateLatestUserPostsViewDto dto
+        CreateLatestUserPostsViewDto requestDto
     ) {
         LatestUserPostsView newLatestUserPostsView = new LatestUserPostsView();
-        newLatestUserPostsView.setStock(dto.getStock());
-        newLatestUserPostsView.setUser(dto.getUser());
-        newLatestUserPostsView.setBoardGroup(dto.getBoardGroup());
-        newLatestUserPostsView.setBoardCategory(dto.getBoardCategory());
-        newLatestUserPostsView.setPostsViewType(dto.getPostsViewType());
-        newLatestUserPostsView.setUniqueCombinedId(newLatestUserPostsView.getUniqueCombinedId());
+        newLatestUserPostsView.setStock(requestDto.getStock());
+        newLatestUserPostsView.setUser(requestDto.getUser());
+        newLatestUserPostsView.setBoardGroup(requestDto.getBoardGroup());
+        newLatestUserPostsView.setBoardCategory(requestDto.getBoardCategory());
+        newLatestUserPostsView.setPostsViewType(requestDto.getPostsViewType());
         return newLatestUserPostsView;
     }
 }

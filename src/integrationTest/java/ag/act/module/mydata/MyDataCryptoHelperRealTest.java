@@ -1,6 +1,7 @@
 package ag.act.module.mydata;
 
 import ag.act.AbstractCommonIntegrationTest;
+import ag.act.module.mydata.crypto.MyDataCryptoHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

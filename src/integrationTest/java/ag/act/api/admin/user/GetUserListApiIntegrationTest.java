@@ -30,6 +30,7 @@ import static ag.act.TestUtil.someEmail;
 import static ag.act.TestUtil.somePhoneNumber;
 import static ag.act.TestUtil.someStockCode;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static ag.act.util.StatusUtil.getDeleteStatusesForUserList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.both;
@@ -814,7 +815,7 @@ class GetUserListApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

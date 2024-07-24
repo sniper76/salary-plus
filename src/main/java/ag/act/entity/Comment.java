@@ -1,5 +1,6 @@
 package ag.act.entity;
 
+import ag.act.enums.ClientType;
 import ag.act.enums.CommentType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -64,6 +65,10 @@ public class Comment implements ActEntity, Content, CommentExtension {
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
     @Enumerated(EnumType.STRING)
     private ag.act.model.Status status;
+
+    @Column(name = "client_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ClientType clientType;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)

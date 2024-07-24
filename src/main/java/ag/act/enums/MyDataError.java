@@ -22,6 +22,7 @@ public enum MyDataError {
     FP_50000("FP-50000", Constants.DEFAULT_MESSAGE, "마이데이터 전송 중 오류가 발생하였습니다."),
     FP_50001("FP-50001", Constants.DEFAULT_MESSAGE, "요청중 오류가 발생하였습니다."),
     FP_05023("FP-05023", "회원 USER ID값이 올바르지 않습니다. 관리자에게 문의하세요.", "회원 USER ID값이 올바르지 않습니다. 관리자에게 문의하세요."),
+    FP_04500("FP-04500", "존재하지 않는 고객사입니다.", "마이데이터 전송 중 오류가 발생하였습니다."),
     FP_99999("FP-99999", Constants.DEFAULT_MESSAGE, "서버 처리 중 오류가 발생했습니다. 관리자에게 문의하세요."),
     UNKNOWN("UNKNOWN", Constants.DEFAULT_MESSAGE, "UNKNOWN");
 

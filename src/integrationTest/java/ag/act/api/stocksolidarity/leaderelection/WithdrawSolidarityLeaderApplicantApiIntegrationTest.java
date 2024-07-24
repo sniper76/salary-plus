@@ -27,6 +27,7 @@ import static ag.act.dto.solidarity.election.SolidarityLeaderElectionStatusGroup
 import static ag.act.dto.solidarity.election.SolidarityLeaderElectionStatusGroup.CANDIDATE_REGISTER_STATUS_GROUP;
 import static ag.act.enums.solidarity.election.SolidarityLeaderElectionApplyStatus.COMPLETE;
 import static ag.act.enums.solidarity.election.SolidarityLeaderElectionApplyStatus.SAVE;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -240,7 +241,7 @@ class WithdrawSolidarityLeaderApplicantApiIntegrationTest extends AbstractSolida
     private MvcResult callApi(ResultMatcher matcher) throws Exception {
         return mockMvc.perform(
                 delete(TARGET_API, stock.getCode(), election.getId(), applicant.getId())
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             ).andExpect(matcher)
             .andReturn();
     }

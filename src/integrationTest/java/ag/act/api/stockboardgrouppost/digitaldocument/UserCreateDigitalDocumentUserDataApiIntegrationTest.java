@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ag.act.TestUtil.someFilename;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -184,7 +185,7 @@ class UserCreateDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
                         .param("answerData", answerData)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -274,7 +275,7 @@ class UserCreateDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
                         .param("answerData", answerData)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -332,7 +333,7 @@ class UserCreateDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
                         .file(idCardImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -373,7 +374,7 @@ class UserCreateDigitalDocumentUserDataApiIntegrationTest extends AbstractCommon
                     multipart(TARGET_API, digitalDocument.getId())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isForbidden())
                 .andReturn();

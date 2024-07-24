@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.stream.Stream;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -47,7 +48,7 @@ class UpdateSolidarityToActiveIntegrationTest extends AbstractCommonIntegrationT
                 patch(TARGET_API, solidarity.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().is(expectedStatus))
             .andReturn();

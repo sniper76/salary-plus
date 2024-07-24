@@ -4,10 +4,13 @@ package ag.act.api.admin.comment;
 import ag.act.AbstractCommonIntegrationTest;
 import ag.act.constants.MessageConstants;
 import ag.act.entity.Board;
+import ag.act.entity.Comment;
 import ag.act.entity.Post;
 import ag.act.entity.Stock;
 import ag.act.entity.User;
+import ag.act.enums.ClientType;
 import ag.act.enums.CommentType;
+import ag.act.exception.NotFoundException;
 import ag.act.model.CommentDataResponse;
 import ag.act.model.CommentResponse;
 import ag.act.model.CreateCommentRequest;
@@ -19,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -93,7 +98,7 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
                         .content(objectMapperUtil.toRequestBody(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt), xAppVersion(X_APP_VERSION_CMS)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -105,8 +110,16 @@ class CreateCommentApiIntegrationTest extends AbstractCommonIntegrationTest {
         }
 
         private void assertResponse(CommentDataResponse result, String nickname) {
-            final CommentResponse createUpdateResponse = result.getData();
-            assertThat(createUpdateResponse.getUserProfile().getNickname(), is(nickname));
+            final CommentResponse commentResponse = result.getData();
+            assertThat(commentResponse.getUserProfile().getNickname(), is(nickname));
+            assertFromDatabase(commentResponse.getId());
+        }
+
+        private void assertFromDatabase(Long commentId) {
+            Comment comment = itUtil.findCommentById(commentId)
+                .orElseThrow(() -> new NotFoundException("[TEST] 댓글 정보를 찾을 수 없습니다."));
+
+            assertThat(comment.getClientType(), is(ClientType.CMS));
         }
     }
 }

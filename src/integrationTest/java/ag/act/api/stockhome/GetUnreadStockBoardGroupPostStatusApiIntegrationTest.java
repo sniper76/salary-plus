@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static ag.act.TestUtil.someBoardGroupForStock;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -141,7 +142,7 @@ class GetUnreadStockBoardGroupPostStatusApiIntegrationTest extends AbstractCommo
         return mockMvc
             .perform(
                 get(TARGET_API, stock.getCode())
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(matcher)
             .andReturn();

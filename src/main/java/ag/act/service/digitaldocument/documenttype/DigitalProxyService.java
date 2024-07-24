@@ -62,6 +62,7 @@ public class DigitalProxyService implements DigitalDocumentTypeService<IDigitalP
         digitalDocument.setShareholderMeetingType(createRequest.getShareholderMeetingType());
         digitalDocument.setDesignatedAgentNames(createRequest.getDesignatedAgentNames());
         digitalDocument.setIdCardWatermarkType(IdCardWatermarkType.fromValue(createRequest.getIdCardWatermarkType()));
+        digitalDocument.setIsDisplayStockQuantity(createRequest.getIsDisplayStockQuantity());
 
         DigitalDocument savedDigitalDocument = digitalDocumentRepository.save(digitalDocument);
 

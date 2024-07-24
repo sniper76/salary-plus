@@ -659,4 +659,8 @@ public class TestUtil {
     public static PushSendStatus someReadyOrCompletePushSendStatus() {
         return someThing(PushSendStatus.READY, PushSendStatus.COMPLETE);
     }
+
+    public static String someAppVersionExcludesWeb() {
+        return someThing("100.100.100", "CMS");
+    }
 }

@@ -6,9 +6,6 @@ phases:   # 빌드 단계
       java: corretto17
   pre_build:
     commands:
-      - sudo yum install -y glibc-langpack-ko
-      - export LC_ALL=ko_KR.utf8
-      - export LANG=ko_KR.utf8
       - sudo yum install -y nodejs
       - node -v # Verify installation
       - npm -v  # Verify npm installation
@@ -26,11 +23,14 @@ phases:   # 빌드 단계
     commands:
       - echo Build started on `date`
       - ./gradlew clean bootJar
-      - mv build/libs/act-rest-api-0.0.1-SNAPSHOT.jar ./
+      - mv build/libs/act-rest-api-*.jar ./
+#      - cp .server/Procfile.dev Procfile
 artifacts:
   files:
-    - act-rest-api-0.0.1-SNAPSHOT.jar # 업로드할 파일들
+    - act-rest-api-*.jar # 업로드할 파일들
     - .platform/**/*
+    - .ebextensions/**/*
+#    - Procfile
 #  discard-paths: yes # 파일명 기준으로만 업로드
 cache:
   paths:

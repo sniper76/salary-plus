@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.io.UnsupportedEncodingException;
 
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -115,7 +116,7 @@ class EditNicknameApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt))
+                    .headers(headers(jwt(jwt))))
             .andExpect(resultMatcher)
             .andReturn();
     }

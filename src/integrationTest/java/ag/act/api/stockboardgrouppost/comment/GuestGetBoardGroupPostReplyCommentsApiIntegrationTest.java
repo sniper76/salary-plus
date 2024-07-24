@@ -24,9 +24,12 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import java.util.List;
 import java.util.Map;
 
+import static ag.act.TestUtil.someAppVersionExcludesWeb;
 import static ag.act.TestUtil.someBoardCategory;
 import static ag.act.TestUtil.someBoardCategoryExcluding;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.userAgent;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -52,9 +55,10 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
     private Comment reply1;
     private Comment reply2;
     private String appVersion;
+    private String userAgent;
 
     @BeforeEach
-    void setUP() {
+    void setUp() {
         itUtil.init();
 
         globalStock = itUtil.findStock(globalBoardManager.getStockCode());
@@ -68,102 +72,20 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
     }
 
     @Nested
-    @DisplayName("GlobalBoard 일때")
-    class WhenGlobalBoardGroup {
-
+    class GetReplyCommentsInWeb {
         @BeforeEach
         void setUp() {
-            boardGroup = BoardGroup.GLOBALBOARD;
-            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
-            post = itUtil.createPost(board, writer.getId());
-            comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            createReplies();
-
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertPaging(response.getPaging(), 2);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    @DisplayName("GlobalEvent 일때")
-    class WhenGlobalEventGroup {
-
-        @BeforeEach
-        void setUp() {
-            boardGroup = BoardGroup.GLOBALEVENT;
-            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
-            post = itUtil.createPost(board, writer.getId());
-            comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            createReplies();
-
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertPaging(response.getPaging(), 2);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    @DisplayName("GlobalCommunity 일때")
-    class WhenGlobalCommunity {
-
-        @BeforeEach
-        void setUp() {
-            boardGroup = BoardGroup.GLOBALCOMMUNITY;
-            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
-            post = itUtil.createPost(board, writer.getId());
-            comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-            createReplies();
-
-            appVersion = X_APP_VERSION_WEB;
-        }
-
-        @Test
-        @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
-        void shouldReturnSuccess() throws Exception {
-            MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
-
-            CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
-            assertPaging(response.getPaging(), 2);
-            assertResponse(response);
-        }
-    }
-
-    @Nested
-    @DisplayName("종목의 게시판 중에서")
-    class WhenStockBoardGroup {
-
-        private Stock stock;
-
-        @BeforeEach
-        void setUp() {
-            stock = itUtil.createStock();
+            userAgent = USER_AGENT_WEB;
         }
 
         @Nested
-        @DisplayName("Debate 게시판일때")
-        class WhenDebate {
+        @DisplayName("GlobalBoard 일때")
+        class WhenGlobalBoardGroup {
 
             @BeforeEach
             void setUp() {
-                boardGroup = BoardGroup.DEBATE;
-                Board board = getBoard(stock, someBoardCategory(BoardGroup.DEBATE));
+                boardGroup = BoardGroup.GLOBALBOARD;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
                 post = itUtil.createPost(board, writer.getId());
                 comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
                 createReplies();
@@ -174,7 +96,7 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
             @Test
             @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
             void shouldReturnSuccess() throws Exception {
-                MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
 
                 CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
                 assertPaging(response.getPaging(), 2);
@@ -183,23 +105,76 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
         }
 
         @Nested
-        @DisplayName("Analysis 게시판 일때")
-        class WhenAnalysisGroup {
-
-            private Board board;
+        @DisplayName("GlobalEvent 일때")
+        class WhenGlobalEventGroup {
 
             @BeforeEach
             void setUp() {
-                boardGroup = BoardGroup.ANALYSIS;
+                boardGroup = BoardGroup.GLOBALEVENT;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
+                post = itUtil.createPost(board, writer.getId());
+                comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                createReplies();
+
+                appVersion = X_APP_VERSION_WEB;
+            }
+
+            @Test
+            @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertPaging(response.getPaging(), 2);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        @DisplayName("GlobalCommunity 일때")
+        class WhenGlobalCommunity {
+
+            @BeforeEach
+            void setUp() {
+                boardGroup = BoardGroup.GLOBALCOMMUNITY;
+                Board board = getBoard(globalStock, someBoardCategory(boardGroup));
+                post = itUtil.createPost(board, writer.getId());
+                comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                createReplies();
+
+                appVersion = X_APP_VERSION_WEB;
+            }
+
+            @Test
+            @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
+            void shouldReturnSuccess() throws Exception {
+                MvcResult mvcResult = callApi(status().isOk(), globalStock.getCode());
+
+                CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                assertPaging(response.getPaging(), 2);
+                assertResponse(response);
+            }
+        }
+
+        @Nested
+        @DisplayName("종목의 게시판 중에서")
+        class WhenStockBoardGroup {
+
+            private Stock stock;
+
+            @BeforeEach
+            void setUp() {
+                stock = itUtil.createStock();
             }
 
             @Nested
-            @DisplayName("주주연대 공지 카테고리일때")
-            class WhenSolidarityLeaderLettersCategory {
+            @DisplayName("Debate 게시판일때")
+            class WhenDebate {
 
                 @BeforeEach
                 void setUp() {
-                    Board board = getBoard(stock, BoardCategory.SOLIDARITY_LEADER_LETTERS);
+                    boardGroup = BoardGroup.DEBATE;
+                    Board board = getBoard(stock, someBoardCategory(BoardGroup.DEBATE));
                     post = itUtil.createPost(board, writer.getId());
                     comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
                     createReplies();
@@ -219,56 +194,118 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
             }
 
             @Nested
-            @DisplayName("그 외의 카테고리일때")
-            class WhenOtherCategory {
-
+            @DisplayName("Analysis 게시판 일때")
+            class WhenAnalysisGroup {
                 @BeforeEach
                 void setUp() {
-                    BoardCategory boardCategory = someBoardCategoryExcluding(boardGroup, BoardCategory.SOLIDARITY_LEADER_LETTERS);
-                    Board board = getBoard(stock, boardCategory);
-                    post = itUtil.createPost(board, writer.getId());
-                    comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
-                    createReplies();
-
-                    appVersion = X_APP_VERSION_WEB;
+                    boardGroup = BoardGroup.ANALYSIS;
                 }
 
-                @Test
-                @DisplayName("게스트는 답글 목록을 조회할 수 없다.")
-                void shouldReturnUnAuthorized() throws Exception {
-                    MvcResult mvcResult = callApi(status().isUnauthorized(), stock.getCode());
+                @Nested
+                @DisplayName("주주연대 공지 카테고리일때")
+                class WhenSolidarityLeaderLettersCategory {
 
-                    itUtil.assertErrorResponse(mvcResult, UNAUTHORIZED_STATUS, "인가되지 않은 접근입니다.");
+                    @BeforeEach
+                    void setUp() {
+                        Board board = getBoard(stock, BoardCategory.SOLIDARITY_LEADER_LETTERS);
+                        post = itUtil.createPost(board, writer.getId());
+                        comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                        createReplies();
+
+                        appVersion = X_APP_VERSION_WEB;
+                    }
+
+                    @Test
+                    @DisplayName("게스트는 답글 목록을 조회할 수 있다.")
+                    void shouldReturnSuccess() throws Exception {
+                        MvcResult mvcResult = callApi(status().isOk(), stock.getCode());
+
+                        CommentPagingResponse response = itUtil.getResult(mvcResult, CommentPagingResponse.class);
+                        assertPaging(response.getPaging(), 2);
+                        assertResponse(response);
+                    }
                 }
+
+                @Nested
+                @DisplayName("그 외의 카테고리일때")
+                class WhenOtherCategory {
+
+                    @BeforeEach
+                    void setUp() {
+                        BoardCategory boardCategory = someBoardCategoryExcluding(boardGroup, BoardCategory.SOLIDARITY_LEADER_LETTERS);
+                        Board board = getBoard(stock, boardCategory);
+                        post = itUtil.createPost(board, writer.getId());
+                        comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                        createReplies();
+
+                        appVersion = X_APP_VERSION_WEB;
+                    }
+
+                    @Test
+                    @DisplayName("게스트는 답글 목록을 조회할 수 없다.")
+                    void shouldReturnUnAuthorized() throws Exception {
+                        MvcResult mvcResult = callApi(status().isUnauthorized(), stock.getCode());
+
+                        itUtil.assertErrorResponse(mvcResult, UNAUTHORIZED_STATUS, "인가되지 않은 접근입니다.");
+                    }
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("Action 게시판일때")
+        class WhenActionBoardGroup {
+
+            private Stock stock;
+
+            @BeforeEach
+            void setUp() {
+                boardGroup = BoardGroup.ACTION;
+                BoardCategory boardCategory = someBoardCategory(boardGroup);
+                stock = itUtil.createStock();
+                Board board = getBoard(stock, boardCategory);
+                post = itUtil.createPost(board, writer.getId());
+                comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
+                createReplies();
+
+                appVersion = X_APP_VERSION_WEB;
+            }
+
+            @Test
+            @DisplayName("게스트는 댓글의 답글들을 조회할 수 없다.")
+            void shouldReturnUnAuthorized() throws Exception {
+                MvcResult mvcResult = callApi(status().isUnauthorized(), stock.getCode());
+
+                itUtil.assertErrorResponse(mvcResult, UNAUTHORIZED_STATUS, "인가되지 않은 접근입니다.");
             }
         }
     }
 
     @Nested
-    @DisplayName("Action 게시판일때")
-    class WhenActionBoardGroup {
-
-        private Stock stock;
-
+    class GetReplyCommentsInNotWeb {
         @BeforeEach
         void setUp() {
-            boardGroup = BoardGroup.ACTION;
-            BoardCategory boardCategory = someBoardCategory(boardGroup);
-            stock = itUtil.createStock();
-            Board board = getBoard(stock, boardCategory);
+            userAgent = USER_AGENT_NOT_WEB;
+
+            boardGroup = BoardGroup.GLOBALCOMMUNITY;
+            Board board = getBoard(globalStock, someBoardCategory(boardGroup));
             post = itUtil.createPost(board, writer.getId());
             comment = itUtil.createComment(post.getId(), writer, CommentType.POST, Status.ACTIVE);
             createReplies();
 
-            appVersion = X_APP_VERSION_WEB;
+            appVersion = someAppVersionExcludesWeb();
         }
 
         @Test
-        @DisplayName("게스트는 댓글의 답글들을 조회할 수 없다.")
-        void shouldReturnUnAuthorized() throws Exception {
-            MvcResult mvcResult = callApi(status().isUnauthorized(), stock.getCode());
+        @DisplayName("인가되지 않은 접근 에러를 반환한다.")
+        void shouldReturnUnauthorized() throws Exception {
+            MvcResult mvcResult = callApi(status().isUnauthorized(), globalStock.getCode());
 
-            itUtil.assertErrorResponse(mvcResult, UNAUTHORIZED_STATUS, "인가되지 않은 접근입니다.");
+            itUtil.assertErrorResponse(
+                mvcResult,
+                401,
+                "인가되지 않은 접근입니다."
+            );
         }
     }
 
@@ -324,7 +361,7 @@ class GuestGetBoardGroupPostReplyCommentsApiIntegrationTest extends AbstractComm
                     .params(toMultiValueMap(params))
                     .contentType(APPLICATION_JSON)
                     .accept(APPLICATION_JSON)
-                    .header(X_APP_VERSION, appVersion)
+                    .headers(headers(xAppVersion(appVersion), userAgent(userAgent)))
             ).andExpect(resultMatcher)
             .andReturn();
     }

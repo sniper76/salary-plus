@@ -71,6 +71,8 @@ import static ag.act.TestUtil.assertTime;
 import static ag.act.TestUtil.someBoardCategory;
 import static ag.act.TestUtil.someStockCode;
 import static ag.act.enums.DigitalDocumentType.HOLDER_LIST_READ_AND_COPY_DOCUMENT;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.xAppVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -654,8 +656,7 @@ class GetPostDetailsApiIntegrationTest extends AbstractCommonIntegrationTest {
                 get(TARGET_API, stockCode, board.getGroup().name(), postId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header(AUTHORIZATION, "Bearer " + adminJwt)
-                    .header(X_APP_VERSION, X_APP_VERSION_CMS)
+                    .headers(headers(jwt(adminJwt), xAppVersion(X_APP_VERSION_CMS)))
             )
             .andExpect(status().isOk())
             .andReturn();

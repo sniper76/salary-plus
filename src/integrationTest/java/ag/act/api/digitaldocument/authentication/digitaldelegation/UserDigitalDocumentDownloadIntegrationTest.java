@@ -28,6 +28,7 @@ import java.util.List;
 
 import static ag.act.TestUtil.someLocalDateTimeInThePastDaysBetween;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -229,7 +230,7 @@ class UserDigitalDocumentDownloadIntegrationTest extends AbstractCommonIntegrati
                 get(TARGET_API, digitalDocumentId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt))
+                    .headers(headers(jwt(jwt))))
             .andExpect(resultMatcher)
             .andReturn();
     }

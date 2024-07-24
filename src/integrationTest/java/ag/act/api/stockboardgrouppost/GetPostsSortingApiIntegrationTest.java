@@ -32,6 +32,7 @@ import static ag.act.TestUtil.someBoardGroupCategoryForGlobal;
 import static ag.act.TestUtil.someBoardGroupCategoryForStock;
 import static ag.act.TestUtil.someVirtualBoardCategory;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -692,7 +693,7 @@ class GetPostsSortingApiIntegrationTest extends AbstractCommonIntegrationTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .header(X_APP_VERSION, defaultAppVersion)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

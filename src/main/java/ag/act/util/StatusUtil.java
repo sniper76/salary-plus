@@ -17,8 +17,8 @@ public class StatusUtil {
         Status.DELETED_BY_ADMIN,
         Status.DELETED
     );
-    private static final List<Status> POST_STATUSES = EnumSet.complementOf(POST_EXCLUDED_STATUSES).stream().toList();
-    private static final List<Status> STATUSES_FOR_ACTIVE_POST_LIST = List.of(Status.ACTIVE);
+    private static final List<Status> POST_STATUSES_VISIBLE_TO_USERS = EnumSet.complementOf(POST_EXCLUDED_STATUSES).stream().toList();
+    private static final List<Status> ACTIVE_POST_STATUSES = List.of(Status.ACTIVE);
     private static final List<Status> DELETED_AND_WITHDRAWAL_STATUSES = Stream.concat(
         getDeleteStatuses().stream(),
         Stream.of(Status.WITHDRAWAL_REQUESTED)
@@ -54,12 +54,12 @@ public class StatusUtil {
         return actEntity.getStatus() == Status.ACTIVE;
     }
 
-    public static List<Status> getStatusesForPostList() {
-        return getStatusesForPostList(Boolean.FALSE);
+    public static List<Status> getPostStatusesVisibleToUsers() {
+        return POST_STATUSES_VISIBLE_TO_USERS;
     }
 
-    public static List<Status> getStatusesForPostList(boolean isNotDeleted) {
-        return isNotDeleted ? STATUSES_FOR_ACTIVE_POST_LIST : POST_STATUSES;
+    public static List<Status> getActivePostStatuses() {
+        return ACTIVE_POST_STATUSES;
     }
 
     public static List<Status> getPossibleUpdateStatusesForAdmin() {

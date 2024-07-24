@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import static ag.act.TestUtil.someLocalDate;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -75,8 +76,8 @@ class AddDummyStockToUserApiIntegrationTest extends AbstractCommonIntegrationTes
             final MvcResult response = callApi(status().isOk());
 
             final ag.act.model.SimpleStringResponse result = objectMapperUtil.toResponse(
-                    response.getResponse().getContentAsString(),
-                    ag.act.model.SimpleStringResponse.class
+                response.getResponse().getContentAsString(),
+                ag.act.model.SimpleStringResponse.class
             );
 
             assertResponse(result);
@@ -86,7 +87,7 @@ class AddDummyStockToUserApiIntegrationTest extends AbstractCommonIntegrationTes
 
         private void assertUserStockFromDatabase() {
             final UserHoldingStock userHoldingStock =
-                    userHoldingStockRepository.findFirstByUserIdAndStockCode(userId, stockCode).orElseThrow();
+                userHoldingStockRepository.findFirstByUserIdAndStockCode(userId, stockCode).orElseThrow();
 
             assertThat(userHoldingStock.getStock().getCode(), is(stockCode));
             assertThat(userHoldingStock.getUserId(), is(userId));
@@ -94,8 +95,8 @@ class AddDummyStockToUserApiIntegrationTest extends AbstractCommonIntegrationTes
 
         private void assertUserStockOnReferenceDateFromDatabase() {
             final UserHoldingStockOnReferenceDate userHoldingStockOnReferenceDate =
-                    userHoldingStockOnReferenceDateRepository.findByUserIdAndStockCodeAndReferenceDate(
-                            userId, stockCode,stockReferenceDate.getReferenceDate()).orElseThrow();
+                userHoldingStockOnReferenceDateRepository.findByUserIdAndStockCodeAndReferenceDate(
+                    userId, stockCode, stockReferenceDate.getReferenceDate()).orElseThrow();
 
             assertThat(userHoldingStockOnReferenceDate.getStock().getCode(), is(stockCode));
             assertThat(userHoldingStockOnReferenceDate.getUserId(), is(userId));
@@ -290,7 +291,7 @@ class AddDummyStockToUserApiIntegrationTest extends AbstractCommonIntegrationTes
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(resultMatcher)
             .andReturn();

@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 
 import static ag.act.TestUtil.someFilename;
 import static ag.act.TestUtil.someStockCode;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -135,7 +136,7 @@ class AdminCreateEtcDigitalDocumentApiIntegrationTest extends AbstractCommonInte
                         .content(objectMapperUtil.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -177,6 +178,7 @@ class AdminCreateEtcDigitalDocumentApiIntegrationTest extends AbstractCommonInte
             assertThat(digitalDocument.getStockCode(), is(stock.getCode()));
             assertThat(digitalDocument.getType().name(), is(request.getDigitalDocument().getType()));
             assertThat(digitalDocument.getAcceptUserId(), is(solidarityLeader.getUserId()));
+            assertThat(digitalDocument.getIsDisplayStockQuantity(), is(Boolean.FALSE));
 
             JsonAttachOption jsonAttachOptionDatabase = digitalDocument.getJsonAttachOption();
             assertThat(jsonAttachOptionDatabase.getSignImage(), is(AttachOptionType.REQUIRED.name()));
@@ -202,7 +204,7 @@ class AdminCreateEtcDigitalDocumentApiIntegrationTest extends AbstractCommonInte
                         .file(signImageFile)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + jwt)
+                        .headers(headers(jwt(jwt)))
                 )
                 .andExpect(status().isOk())
                 .andReturn();

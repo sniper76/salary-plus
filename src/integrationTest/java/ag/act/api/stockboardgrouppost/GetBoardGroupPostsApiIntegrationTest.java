@@ -40,6 +40,7 @@ import static ag.act.TestUtil.someBoardCategoryFromVirtualBoardCategoryExcluding
 import static ag.act.TestUtil.someFilename;
 import static ag.act.TestUtil.someVirtualBoardCategory;
 import static ag.act.TestUtil.toMultiValueMap;
+import static ag.act.itutil.authentication.AuthenticationTestUtil.jwt;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -824,7 +825,7 @@ class GetBoardGroupPostsApiIntegrationTest extends AbstractCommonIntegrationTest
                     .params(toMultiValueMap(params))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("Authorization", "Bearer " + jwt)
+                    .headers(headers(jwt(jwt)))
             )
             .andExpect(status().isOk())
             .andReturn();

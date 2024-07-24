@@ -215,7 +215,7 @@ abstract class AbstractCommonMaintainElectionBatchIntegrationTest extends Abstra
                     .content(objectMapperUtil.toJson(request))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .header("x-api-key", "b0e6f688a1a08462201ef69f4")
+                    .headers(batchXApiKey())
             )
             .andExpect(resultMatcher)
             .andReturn();

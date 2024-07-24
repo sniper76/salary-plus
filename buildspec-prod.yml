@@ -1,0 +1,40 @@
+version: 0.2  # 0.2 권장
+
+phases:   # 빌드 단계
+  install:
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+#      - sudo yum install -y glibc-langpack-ko
+#      - export LC_ALL=ko_KR.utf8
+#      - export LANG=ko_KR.utf8
+      - sudo yum install -y nodejs
+      - node -v # Verify installation
+      - npm -v  # Verify npm installation
+      - npm install -g swagger-cli
+#      - sudo yum update
+#      - sudo yum search docker
+#      - sudo yum info docker
+#      - sudo yum install docker
+#      - sudo usermod -a -G docker ec2-user
+#      - docker --version
+#      - wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
+#      - sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
+#      - sudo chmod -v +x /usr/local/bin/docker-compose
+  build:
+    commands:
+      - echo Build started on `date`
+      - ./gradlew clean bootJar
+      - mv build/libs/act-rest-api-*.jar ./
+#      - cp .server/Procfile.prod Procfile
+artifacts:
+  files:
+    - act-rest-api-*.jar # 업로드할 파일들
+    - .platform/**/*
+    - .ebextensions/**/*
+#    - Procfile
+#  discard-paths: yes # 파일명 기준으로만 업로드
+cache:
+  paths:
+    - '/root/.m2/**/*'   # S3 cache에 등록할 파일들

@@ -30,7 +30,7 @@ public class MostRecentThreePostQueryService implements BlockedUserEnhancer {
         return postRepository.findAllByBoardStockCodeAndBoardCategoryInAndStatusInAndUserIdNotIn(
             stockCode,
             boardGroup.getCategories(),
-            StatusUtil.getStatusesForPostList(),
+            StatusUtil.getPostStatusesVisibleToUsers(),
             refinedBlockedUserIdList(blockedUserIdList),
             pageable
         );
@@ -56,7 +56,7 @@ public class MostRecentThreePostQueryService implements BlockedUserEnhancer {
         return postRepository.findAllByBoardStockCodeAndBoardCategoryAndStatusIn(
             stockCode,
             category,
-            StatusUtil.getStatusesForPostList(),
+            StatusUtil.getPostStatusesVisibleToUsers(),
             getMostRecentThreePostPageable()
         );
     }
