@@ -65,5 +65,15 @@
   <include file="db/changelog/db.changelog-056_holder_list_read_and_copies.xml"/>
   <include file="db/changelog/db.changelog-057_web_verifications.xml"/>
   <include file="db/changelog/db.changelog-058_blocked_solidarity_leader_applicants.xml"/>
+  <include file="db/changelog/db.changelog.sp-001_shop_groups.xml"/>
+  <include file="db/changelog/db.changelog.sp-002_shops.xml"/>
+  <include file="db/changelog/db.changelog.sp-003_shop_user_mappings.xml"/>
+  <include file="db/changelog/db.changelog.sp-004_price_plans.xml"/>
+  <include file="db/changelog/db.changelog.sp-005_billing_plans.xml"/>
+  <include file="db/changelog/db.changelog.sp-006_user_daily_shift_times.xml"/>
+  <include file="db/changelog/db.changelog.sp-007_shop_item_prices.xml"/>
+  <include file="db/changelog/db.changelog.sp-008_user_commissions.xml"/>
+  <include file="db/changelog/db.changelog.sp-009_shop_fine_prices.xml"/>
+  <include file="db/changelog/db.changelog.sp-010_user_daily_fines.xml"/>
 
 </databaseChangeLog>
