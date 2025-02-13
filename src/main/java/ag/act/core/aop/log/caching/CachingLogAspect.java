@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CachingLogAspect {
 
-    @Before("execution(* ag.act.configuration.initial.caching.CachingScheduler.run(..))")
+    //    @Before("execution(* ag.act.configuration.initial.caching.CachingScheduler.run(..))")
     public void aroundCachingRunMethod(JoinPoint joinPoint) {
         try {
             logStart((Caching) joinPoint.getThis());
@@ -24,7 +24,7 @@ public class CachingLogAspect {
         }
     }
 
-    @Around("execution(* ag.act.configuration.initial.caching.CachingLoader.load(..))")
+    //    @Around("execution(* ag.act.configuration.initial.caching.CachingLoader.load(..))")
     public Object aroundCachingLoadMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 
         long startTime = System.currentTimeMillis();

@@ -1,0 +1,14 @@
+#ShopGroupCreateRequest:
+  type: object
+  properties:
+    shopGroupName:
+      type: string
+      x-field-extra-annotation: |
+        @IsPhoneNumber(message = "휴대폰 번호를 확인해주세요.")
+    txSeqNo:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 20, max = 20, message = "본인인증 요청 트랜잭션 번호를 확인해주세요.")
+  example:
+    phoneNumber: '01058625193'
+    txSeqNo: '230712102659KC687332'

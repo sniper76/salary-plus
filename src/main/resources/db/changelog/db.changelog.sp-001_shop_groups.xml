@@ -6,7 +6,7 @@
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
   <changeSet id="create shop_groups table" author="Sniper">
-    <createTable tableName="shop_groups">
+    <createTable tableName="shop_groups" remarks="상점 그룹 정보">
       <column name="id" type="BIGINT" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>

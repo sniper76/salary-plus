@@ -11,6 +11,54 @@ paths:
   /api/health:
     $ref: ./paths/common/health-get.yaml
 
+#매장 그룹 정보
+#  /api/admin/shop-groups:
+#    $ref: "./paths/shop/shopGroups.yaml"
+
+#매장 정보
+  /api/admin/shops:
+    $ref: ./paths/shop/shops.yaml
+
+#매장별 상품 가격 정보
+#  /api/management/shops/{shopId}/item-prices:
+#    $ref: ./paths/shop/shops.yaml
+
+#매장별 결제 정보
+#  /api/management/shops/{shopId}/billing_plans:
+#    $ref: ./paths/shop/shops.yaml
+
+#매장별 사용자 정보
+#  /api/management/shops/{shopId}/user-mappings:
+#    $ref: ./paths/shop/shops.yaml
+
+#매장별 전체 사용자 정보
+#  /api/management/shops/{shopId}/users:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 마마상 연결 정보
+#  /api/management/users/{userId}/leader-mappings:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 전체 매장 정보
+#  /api/users/{userId}/shops:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 일일 출근 정보
+#  /api/users/{userId}/daily-shift-times:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 전체 출근 정보
+#  /api/users/{userId}/total-shift-times:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 커미션 정보
+#  /api/users/{userId}/commissions:
+#    $ref: ./paths/shop/shops.yaml
+
+#사용자별 벌금 정보
+#  /api/users/{userId}/daily-fines:
+#    $ref: ./paths/shop/shops.yaml
+
   /api/stock-search-trends:
     $ref: ./paths/stocksearch/stockSearchTrends-post.yaml
 

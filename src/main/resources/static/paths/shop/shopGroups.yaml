@@ -1,0 +1,20 @@
+#/api/admin/shop-groups:
+  post:
+    summary: '상점 그룹과 연계된 상정과 상점 근무자들을 등록한다.'
+    operationId: createShopGroup
+    tags: [ ShopGroup ]
+    security:
+      - bearerAuth: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/shop/ShopGroupCreateRequest.yaml'
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/auth/ResendAuthResponse.yaml'

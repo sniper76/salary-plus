@@ -6,7 +6,7 @@
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
   <changeSet id="create shop_item_prices table" author="Sniper">
-    <createTable tableName="shop_item_prices">
+    <createTable tableName="shop_item_prices" remarks="상점 품목 가격 정보">
       <column name="id" type="BIGINT" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
@@ -25,7 +25,7 @@
       <column name="user_commission_price" type="INTEGER" remarks="유저(바바애) 커미션">
         <constraints nullable="false"/>
       </column>
-      <column name="manager_commission_price" type="INTEGER" defaultValueNumeric="0" remarks="관리자(마마상) 커미션"/>
+      <column name="leader_commission_price" type="INTEGER" defaultValueNumeric="0" remarks="리더(마마상) 커미션"/>
       <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
         <constraints nullable="false"/>
       </column>

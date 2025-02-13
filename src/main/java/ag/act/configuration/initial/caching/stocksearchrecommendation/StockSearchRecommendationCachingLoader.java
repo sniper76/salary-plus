@@ -13,13 +13,13 @@ public class StockSearchRecommendationCachingLoader implements StockSearchRecomm
 
     private final StockSearchRecommendationRetriever stockSearchRecommendationRetriever;
 
-    @Async
-    @Override
-    public void load() {
-        loadRecommendationSections();
-    }
-
-    private void loadRecommendationSections() {
-        stockSearchRecommendationRetriever.getRecommendationSections();
-    }
+    //    @Async
+    //    @Override
+    //    public void load() {
+    //        loadRecommendationSections();
+    //    }
+    //
+    //    private void loadRecommendationSections() {
+    //        stockSearchRecommendationRetriever.getRecommendationSections();
+    //    }
 }

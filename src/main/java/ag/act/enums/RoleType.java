@@ -13,6 +13,7 @@ public enum RoleType {
     INVESTOR,
     MANAGER,
     SUPERVISOR,
+    LEADER_USER,
     ;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)

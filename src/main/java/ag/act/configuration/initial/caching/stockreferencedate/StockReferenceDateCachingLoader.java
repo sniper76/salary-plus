@@ -14,31 +14,31 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class StockReferenceDateCachingLoader implements StockReferenceDateCaching {
+public class StockReferenceDateCachingLoader {
 
     private final StockReferenceDateService stockReferenceDateService;
     private final StockService stockService;
     private final CacheManager cacheManager;
 
-    @Async
-    @Override
-    public void load() {
-        loadingAllStockReferenceDatesToCache();
-    }
+    //    @Async
+    //    @Override
+    //    public void load() {
+    //        loadingAllStockReferenceDatesToCache();
+    //    }
 
-    private void loadingAllStockReferenceDatesToCache() {
-        stockService.getAllSimpleStocks()
-            .parallelStream()
-            .forEach(stock -> {
-                final String stockCode = stock.getCode();
-                final var stockReferenceDates = stockReferenceDateService.getStockReferenceDatesWithinThreeMonths(stockCode);
-                addToCache(stockCode, stockReferenceDates);
-            });
-    }
+    //    private void loadingAllStockReferenceDatesToCache() {
+    //        stockService.getAllSimpleStocks()
+    //            .parallelStream()
+    //            .forEach(stock -> {
+    //                final String stockCode = stock.getCode();
+    //                final var stockReferenceDates = stockReferenceDateService.getStockReferenceDatesWithinThreeMonths(stockCode);
+    //                addToCache(stockCode, stockReferenceDates);
+    //            });
+    //    }
 
-    @SuppressWarnings("DataFlowIssue")
-    private void addToCache(String stockCode, List<StockReferenceDate> stockReferenceDatesWithinThreeMonths) {
-        cacheManager.getCache(getCacheName())
-            .putIfAbsent(stockCode, stockReferenceDatesWithinThreeMonths);
-    }
+    //    @SuppressWarnings("DataFlowIssue")
+    //    private void addToCache(String stockCode, List<StockReferenceDate> stockReferenceDatesWithinThreeMonths) {
+    //        cacheManager.getCache(getCacheName())
+    //            .putIfAbsent(stockCode, stockReferenceDatesWithinThreeMonths);
+    //    }
 }

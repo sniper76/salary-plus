@@ -6,7 +6,7 @@
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
   <changeSet id="create billing_plans table" author="Sniper">
-    <createTable tableName="billing_plans">
+    <createTable tableName="billing_plans" remarks="상점 결제 정보">
       <column name="id" type="BIGINT" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>

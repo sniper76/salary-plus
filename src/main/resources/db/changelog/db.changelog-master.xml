@@ -75,5 +75,6 @@
   <include file="db/changelog/db.changelog.sp-008_user_commissions.xml"/>
   <include file="db/changelog/db.changelog.sp-009_shop_fine_prices.xml"/>
   <include file="db/changelog/db.changelog.sp-010_user_daily_fines.xml"/>
+  <include file="db/changelog/db.changelog.sp-011_user_leader_mappings.xml"/>
 
 </databaseChangeLog>

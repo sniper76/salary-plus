@@ -1,0 +1,20 @@
+#/api/admin/shops:
+  post:
+    summary: '상점과 상점 그룹 상점 근무자들을 등록한다.'
+    operationId: createShop
+    tags: [ Shop ]
+    security:
+      - bearerAuth: [ ]
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '../../components/schemas/shop/ShopCreateRequest.yaml'
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/SimpleStringResponse.yaml'

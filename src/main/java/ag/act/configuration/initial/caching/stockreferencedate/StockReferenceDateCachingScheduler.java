@@ -12,21 +12,21 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class StockReferenceDateCachingScheduler implements StockReferenceDateCaching {
+public class StockReferenceDateCachingScheduler  {
 
     private final CacheManager cacheManager;
     private final StockReferenceDateCachingLoader stockReferenceDateCachingLoader;
 
-    @Scheduled(fixedRateString = "${act.caching.user-holding-stock-on-reference.ttl}")
-    @Override
-    public void run() {
-        clear();
-        stockReferenceDateCachingLoader.load();
-    }
-
-    @Override
-    public void clear() {
-        Optional.ofNullable(cacheManager.getCache(getCacheName()))
-            .ifPresent(Cache::clear);
-    }
+    //    @Scheduled(fixedRateString = "${act.caching.user-holding-stock-on-reference.ttl}")
+    //    @Override
+    //    public void run() {
+    //        clear();
+    //        stockReferenceDateCachingLoader.load();
+    //    }
+    //
+    //    @Override
+    //    public void clear() {
+    //        Optional.ofNullable(cacheManager.getCache(getCacheName()))
+    //            .ifPresent(Cache::clear);
+    //    }
 }

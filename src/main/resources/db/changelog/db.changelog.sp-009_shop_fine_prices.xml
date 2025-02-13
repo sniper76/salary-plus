@@ -6,7 +6,7 @@
                       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
   <changeSet id="create shop_fine_prices table" author="Sniper">
-    <createTable tableName="shop_fine_prices">
+    <createTable tableName="shop_fine_prices" remarks="상점 벌금 정보">
       <column name="id" type="BIGINT" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
