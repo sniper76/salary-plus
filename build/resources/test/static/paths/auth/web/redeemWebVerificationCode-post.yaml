@@ -1,0 +1,31 @@
+#/api/auth/web/redeem-verification-code:
+  post:
+    summary: Redeem Verify Verification Code
+    operationId: redeemWebVerificationCode
+    tags: [ WebVerification ]
+    security:
+      - bearerAuth: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/auth/VerificationCodeRequest.yaml'
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/SimpleStringResponse.yaml'
+      '401':
+        description: Unauthorized
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'
+            example:
+              message: 알 수 없는 오류가 발생하였습니다. 잠시 후에 다시 시도해 주세요.
+              code: 500

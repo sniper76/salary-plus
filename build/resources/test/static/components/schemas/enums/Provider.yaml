@@ -1,0 +1,12 @@
+
+
+#Provider:
+  type: string
+  description: "통신사 구분(SKT: 01, KT: 02, LGU+: 03, 알뚤폰 SKT: 04, 알뜰폰 KT: 05, 알뜰폰 LGU+: 06)"
+  enum:
+    - '01'
+    - '02'
+    - '03'
+    - '04'
+    - '05'
+    - '06'

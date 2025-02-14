@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create private_stocks table" author="Lucas">
+    <createTable tableName="private_stocks">
+      <column name="code" type="VARCHAR(255)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="total_issued_quantity" type="BIGINT"/>
+      <column name="closing_price" type="INTEGER" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="standard_code" type="VARCHAR(255)"/>
+      <column name="full_name" type="VARCHAR(255)"/>
+      <column name="market_type" type="VARCHAR(255)"/>
+      <column name="stock_type" type="VARCHAR(255)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add is_private column on stocks table" author="Tnfls99">
+    <addColumn tableName="stocks">
+      <column name="is_private" type="BOOLEAN" defaultValue="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stocks" columnName="is_private"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate update table stocks column is_private" author="Tnfls99">
+    <sql>
+      UPDATE stocks s
+      SET is_private = true
+      WHERE code IN (SELECT ps.code FROM private_stocks ps)
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

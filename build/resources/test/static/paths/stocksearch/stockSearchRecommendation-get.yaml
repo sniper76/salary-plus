@@ -1,0 +1,20 @@
+#/api/stocks/search-recommendations
+get:
+  operationId: getRecommendationSections
+  tags: [ StockSearchRecommendation ]
+  responses:
+    '200':
+      description: Stock Search Trend Section Data
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/stocksearch/StockSearchRecommendationSectionDataResponse.yaml'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/ErrorResponse.yaml'
+          example:
+            message: '알 수 없는 오류가 발생하였습니다. 잠시 후에 다시 시도해 주세요.'
+            code: 500

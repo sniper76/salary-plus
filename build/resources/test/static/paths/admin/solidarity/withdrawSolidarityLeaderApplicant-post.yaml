@@ -1,0 +1,52 @@
+#/api/admin/stocks/{stockCode}/solidarity-leader-applicants/{solidarityLeaderApplicantId}/withdraw:
+  post:
+    summary: 관리자가 지원자의 지원을 철회한다.
+    operationId: withdrawSolidarityLeaderApplicant
+    tags: [ AdminSolidarityLeaderApplicant ]
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - name: stockCode
+        in: path
+        required: true
+        description: 종목 코드
+        schema:
+          type: string
+      - name: solidarityLeaderApplicantId
+        in: path
+        required: true
+        description: 지원서 ID
+        schema:
+          type: integer
+          format: int64
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas/solidarity/WithdrawSolidarityLeaderApplicantRequest.yaml"
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/SimpleStringResponse.yaml'
+      '400':
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'
+      '403':
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'
+      '404':
+        description: Not Found
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'

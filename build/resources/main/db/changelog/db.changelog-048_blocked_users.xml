@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="create blocked_users table" author="Sniper">
+    <createTable tableName="blocked_users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="blocked_user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+  
+  <changeSet id="create_unique_user_id_blocked_user_id" author="Sniper">
+    <addUniqueConstraint tableName="blocked_users"
+                         constraintName="unique_user_id_blocked_user_id"
+                         columnNames="user_id, blocked_user_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+              tableName="blocked_users"
+              constraintName="unique_user_id_blocked_user_id"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

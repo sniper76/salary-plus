@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet id="create shop_item_prices table" author="Sniper">
+    <createTable tableName="shop_item_prices" remarks="상점 품목 가격 정보">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="shop_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(255)" remarks="바파인, LD">
+        <constraints nullable="false"/>
+      </column>
+      <column name="total_price" type="INTEGER">
+        <constraints nullable="false"/>
+      </column>
+      <column name="shop_commission_price" type="INTEGER" remarks="상점(바) 커미션">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_commission_price" type="INTEGER" remarks="유저(바바애) 커미션">
+        <constraints nullable="false"/>
+      </column>
+      <column name="leader_commission_price" type="INTEGER" defaultValueNumeric="0" remarks="리더(마마상) 커미션"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

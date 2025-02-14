@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add index on file_contents" author="jooany">
+    <createIndex tableName="file_contents" indexName="idx_file_contents_by_filename">
+      <column name="filename"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="file_contents" indexName="idx_file_contents_by_filename"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete index on file_contents" author="jooany">
+    <dropIndex tableName="file_contents" indexName="idx_file_contents_by_filename"/>
+    <rollback>
+      <createIndex tableName="file_contents" indexName="idx_file_contents_by_filename">
+        <column name="filename"/>
+      </createIndex>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

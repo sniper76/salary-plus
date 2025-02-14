@@ -1,0 +1,11 @@
+# /
+get:
+  operationId: welcomeActHome
+  tags: [ WelcomeAct ]
+  responses:
+    '200':
+      description: 'welcome to act home'
+      content:
+        'application/json':
+          schema:
+            type: string

@@ -1,0 +1,22 @@
+#/api/health:
+get:
+  operationId: healthCheck
+  tags: [ HealthCheck ]
+  responses:
+    '200':
+      description: 'server health check'
+      content:
+        'application/json':
+          schema:
+            $ref: '../../components/schemas/SimpleStringResponse.yaml'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            example1:
+              value:
+                message: 알 수 없는 오류가 발생하였습니다. 잠시 후에 다시 시도해 주세요.
+                code: 500

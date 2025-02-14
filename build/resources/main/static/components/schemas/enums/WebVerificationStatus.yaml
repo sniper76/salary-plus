@@ -1,0 +1,7 @@
+#WebVerificationStatus:
+  type: string
+  enum:
+    - VERIFIED
+    - EXPIRED
+    - WAITING
+  example: VERIFIED or EXPIRED or WAITING

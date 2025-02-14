@@ -1,0 +1,16 @@
+#UserBadgeVisibilityResponse:
+  type: object
+  properties:
+    label:
+      type: string
+    isVisible:
+      type: boolean
+    name:
+      type: string
+  example:
+    - label: '주식수'
+      isVisible: true
+      name: 'isVisibilityStockQuantity'
+    - label: '자산'
+      isVisible: true
+      name: 'isVisibilityTotalAsset'

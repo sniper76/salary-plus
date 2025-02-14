@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add poll_id column on posts table" author="Lucas">
+    <addColumn tableName="posts">
+      <column name="poll_id" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="poll_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add post_id column on polls table" author="Lucas">
+    <dropNotNullConstraint tableName="polls" columnName="post_id" columnDataType="BIGINT"/>
+
+    <rollback>
+      <addNotNullConstraint tableName="polls" columnName="post_id" columnDataType="BIGINT"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_post_images_table" author="Sniper">
+    <createTable tableName="post_images">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="image_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add_column_on_posts_table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="view_count" type="BIGINT" defaultValue="0"/>
+      <column name="view_user_count" type="BIGINT" defaultValue="0"/>
+      <column name="like_count" type="BIGINT" defaultValue="0"/>
+      <column name="comment_count" type="BIGINT" defaultValue="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="posts" columnName="view_count"/>
+      <dropColumn tableName="posts" columnName="view_user_count"/>
+      <dropColumn tableName="posts" columnName="like_count"/>
+      <dropColumn tableName="posts" columnName="comment_count"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add source_post_id column on posts table" author="Lucas">
+    <addColumn tableName="posts">
+      <column name="source_post_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="posts" columnName="source_post_id"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

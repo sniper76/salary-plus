@@ -1,0 +1,9 @@
+#MySolidarityDataArrayResponse:
+  type: object
+  properties:
+    paging:
+      $ref: '../Paging.yaml'
+    data:
+      type: array
+      items:
+        $ref: './MySolidarityResponse.yaml'

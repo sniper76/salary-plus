@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/handler/admin/post/AdminBoardGroupPostApiDelegateImplTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/handler/admin/AdminUserApiDelegateImplTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/handler/HealthCheckApiDelegateImplTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/handler/SmsAuthenticationApiDelegateImplSendAuthRequestTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/configuration/initial/BoardStockLoaderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/configuration/initial/LinkUrlsLoaderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/configuration/initial/SuperAdminLoaderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/configuration/security/TokenProviderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/configuration/security/CryptoHelperTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/DashboardStockStatisticsTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/SolidarityRepositoryTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/DashboardGenderStatisticsTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/PostUserViewRepositoryTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/DashboardStatisticsTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/DashboardAgeStatisticsTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/repository/NotificationRepositoryTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/core/aop/htmlcontent/HtmlContentEscaperTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/UrlValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/StockGroupValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/DigitalProxyModuSignValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/SolidarityValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/UserValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/DefaultRequestValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/StockBoardGroupPostValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/PopupValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/AdminStopWordValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/BlockedUserValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/LinkTypeValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/DefaultObjectValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/DigitalDocumentValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/CampaignValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/PushValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/PasswordValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/StockReferenceDateValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/NicknameValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/CorporateUserValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/ApplySolidarityValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/ZipFileDownloadValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/ReportValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/validator/PollValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/test/matcher/ApproximatelyEqual.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/post/CreatePostRequestConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/notification/UserNotificationResponseConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/admin/DashboardStatisticsItemResponseConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/user/SimpleUserProfileDtoForDetailsConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/user/UserProfileResponseForDetailsConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/PostResponseDigitalDocumentConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/UserConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/UserIpConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/push/PushRequestConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/push/UserPushAgreementItemConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/election/process/label/CandidateRegistrationProcessLabelResponseConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/converter/stock/StockGroupRequestConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/KoreanDateTimeUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/XHTMLFormatUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/DecimalFormatUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/AppLinkUrlManagerTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/InMemoryPaginatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/BatchLogFinderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/FilenameUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/PasswordUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/DigitalDocumentItemTreeGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/AppLinkUrlGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/DateTimeUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/util/badge/BadgeLabelGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/entity/dashboard/item/StockStakeDashboardItemTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/entity/dashboard/item/StockMemberCountDashboardItemTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/entity/dashboard/item/StockMarketValueDashboardItemTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/entity/dashboard/item/StockQuantityDashboardItemTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/entity/CalculateStakeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/digitaldocumentgenerator/openhtmltopdf/PDFRenderServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/digitaldocumentgenerator/converter/AttachingFilesDescriptionConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/digitaldocumentgenerator/document/DefaultDigitalDocumentGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/digitaldocumentgenerator/DigitalDocumentFilenameGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/digitaldocumentgenerator/model/ShareHolderMeetingFillTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/mydata/MyDataJsonServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/mydata/MyDataProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/mydata/MyDataJsonReaderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/mydata/MyDataCryptoHelperTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/mydata/MyDataLoadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/time/TimeDisplayFormatterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/push/PushSendFilterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/stocksearchrecommendation/StockSearchRecommendationBaseDateTimeProviderTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/okcert/OkCertServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/okcert/TestOkCertResourceManager.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/krx/KrxStockMapperTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/krx/KrxStockAggregatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/module/krx/KrxStockConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/BoardCategoryTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/AppPreferenceTypeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/virtualboard/VirtualBoardGroupTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/admin/DashboardStatisticsTypeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/admin/StockStatisticsPeriodTypeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/digitaldocument/AttachOptionTypeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/enums/NationalityTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/StockHomeFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/StockHomeNoticeFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/DigitalDocumentDownloadFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/AppPreferenceFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/converter/CarouselHeaderImageConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/PushFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeRegisterUserTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeLogoutTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeResetPinNumberTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeCheckEmailTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeRegisterPinNumberTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeVerifyPinNumberTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeCheckNicknameTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/authfacade/AuthFacadeRequestMyDataTokenTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/virtualboard/VirtualBoardGroupPostFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/admin/AdminPostFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/admin/AdminCampaignFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/admin/campaign/CampaignDownloadFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/admin/AdminDummyStockFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/UserRoleFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/StockReferenceDateFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/PopupFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/MyDataFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/UpdateStocksBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/UpdateWithdrawalRequestUsersBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/CreateSolidarityDailySummariesBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/SendPushesBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/CleanupUnfinishedDigitalDocumentUsersBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/UpdateSolidarityDailySummariesBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/batch/executor/CleanupUnfinishedBatchesBatchExecutorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/StockRankingFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/FileFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/SmsAuthFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/HomeFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/stock/StockGroupFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/SolidarityFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/facade/UserFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/SpringDataJpaTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/parser/DateTimeParserTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/TestConfiguration.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/aspect/LatestUserPostsViewAspectTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/aspect/LatestPostTimestampAspectTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/TestUtil.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/external/http/DefaultHttpClientUtilTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/ReportServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostUpdateServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/SolidarityDailySummaryServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PostServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/SolidarityLeaderApplicantServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/post/duplication/PostDuplicateProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/CommentFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UserVerificationHistoryServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/HomeServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/AppPreferenceServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/DigitalProxyApprovalServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/LatestUserPostsViewServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PostDuplicateServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PushServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/virtualboard/VirtualBoardGroupPostServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/ActionLinkServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/admin/StockDetailsServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/admin/AdminReportServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/admin/DigitalDocumentServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostDeleteServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostCreateServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/UserWithdrawalProcessServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/UserWithdrawalRequestServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/download/csv/UserCsvRecordGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/download/csv/UserDownloadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/BlockedUserServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/user/UserWithdrawalRequestValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockReferenceDateServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockHomeSolidarityLeaderServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/S3ServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/CampaignServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/FileContentServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/DigitalDocumentUserServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/push/StockPushNotificationServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/push/StockGroupPushNotificationServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/push/TopicPushNotificationServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/push/PushNotificationServiceResolverTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/push/UserPushAgreementServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PopupServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/KcbServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/BoardServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/DigitalDocumentDownloadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/DigitalDocumentCertificationGeneratorResolverTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/download/csv/AdminDigitalDocumentCsvRecordGeneratorImplTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/download/csv/CsvDataConverterTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/DigitalDocumentPreviewFillServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/DigitalDocumentPreviewServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/digitaldocument/DigitalDocumentServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockSolidarityServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/cms/CmsLoginServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PostAnonymousCountServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/download/zip/ZipFileDownloadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/download/csv/DigitalDocumentCsvDownloadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/download/csv/DigitalDocumentCsvDownloadProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/download/csv/CsvDownloadServiceResolverTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PostFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostLikeServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PostUserViewServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UserHoldingStockServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/DigitalProxyModuSignFacadeTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/LatestPostTimestampServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/datamatrix/download/csv/UserRetentionDataByWeekProviderResolverTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/datamatrix/download/csv/UserRetentionWeeklyCsvDownloadProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/BatchLogServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stockboardgrouppost/StockBoardGroupPostCommentLikeServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stockboardgrouppost/PostUpdatePreProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/NicknameHistoryServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/ThumbnailImageServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/SolidarityLeaderServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UnreadPostServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/SolidarityDashboardServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/home/StockHomeListBoardGroupSectionServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/home/notice/StockSolidarityLeaderBlockedNoticeServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/home/StockHomeListItemServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/home/StockHomeCarouselSectionServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/home/StockHomeSectionServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/StockGroupServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/StockValidatorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/UpdateStockBatchProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/stock/StockChangeCheckerTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/PollAnswerGeneratorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/solidarity/SolidarityLeaderElectionServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/CommentAnonymousCountServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/krx/KrxServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UserServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/MySolidarityServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostCommentServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/StockBoardGroupPostPollAnswerServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/SolidarityServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UploadServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/UserAnonymousCountServiceTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/test/java/ag/act/service/poll/download/csv/PollCsvDownloadProcessorTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/test/module/digitaldocumentgenerator/freemarker/TestCloudTemplateLoaderFactory.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/AbstractCommonIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/module/digitaldocumentgenerator/AbstractDigitalDocumentTypeGeneratorIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/module/digitaldocumentgenerator/DigitalDocumentGeneratorIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/module/digitaldocumentgenerator/openhtmltopdf/MergePdfFiles.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/module/core/configuration/DevServerFeatureFlagUtilIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/module/mydata/MyDataCryptoHelperRealTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/CancelSolidarityLeaderApplicationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/UpdateSolidarityLeaderMessageApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/ApplySolidarityLeaderApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/GetSolidarityLeaderApplicantsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/WithdrawSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/AbstractSolidarityLeaderElectionApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/CreateSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/GetLatestSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/GetSolidarityLeaderElectionProceduresApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/leaderelection/UpdateSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksolidarity/GetSolidarityApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/GetMySolidarityPageableApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/GetMySolidarityApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/UpdateHomeLinkApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/util/HomeApiIntegrationTestHelper.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/GetHomeApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/GetHomeApiLinkResponseIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/GetHomeApiUnreadPostsIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/home/UpdateMySolidarityApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeLeaderApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeDashboardApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeSectionsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeLeaderElectionActiveConditionApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeSolidarityLeaderApplicationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeLeaderElectionWinnerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeUnreadStockBoardGroupPostStatusResponseApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetUnreadStockBoardGroupPostStatusApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeNoticesApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeLeaderElectionDetailApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockhome/GetStockHomeAopApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/app/commons/GetCommonStocksApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/app/AppVersionValidationIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/smsauth/VerifyAuthCodeIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/smsauth/SendAuthRequestIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/HealthCheckApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/CheckNicknameIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/MyDataTokenRequestIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/web/GenerateWebVerificationCodeRequestIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/web/UpdateWebVerificationCodeIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/web/VerifyWebVerificationCodeIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/CheckEmailIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/LogoutIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/LoginIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/VerifyPinNumberIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/RegisterPinNumberIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/RegisterUserInfoIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/auth/ResetPinNumberIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/images/GetDefaultProfileImagesApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/notification/GetUserNotificationsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/notification/NotificationUserViewsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksearch/GetStockSearchRecommendationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stocksearch/CreateStockSearchTrendIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockrankings/GetTopNStockRankingsIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgroupcategory/GetBoardGroupCategoriesApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgroupcategory/GetBoardGroupCategoryApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stopwords/UpdateStopWordApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stopwords/CreateStopWordApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stopwords/GetStopWordsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stopwords/DeleteStopWordApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/PopupIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/UpdatePopupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/CreatePopupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/GetPopupDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/GetPopupListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/GetPopupExclusiveApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/popup/DeletePopupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockreferencedate/DeleteStockReferenceDateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockreferencedate/UpdateStockReferenceDateForDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockreferencedate/CreateStockReferenceDateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockreferencedate/GetStockReferenceDatesApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockreferencedate/UpdateStockReferenceDateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/GetPostsByPollApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/UpdatePostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostByPollDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostsDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/notification/PostNotificationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/GetPostsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostsDuplicateWithNotificationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/GetHolderListReadAndCopyFormApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/DownloadPostPollCsvFileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostByDigitalDocumentDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostsByPollDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostDuplicateWithNotificationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/GetPostDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostsByDigitalDocumentDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/CreatePostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/PostDuplicateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/post/DeletePostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/category/GetAdminBoardGroupCategoryApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/auth/LogInCmsUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/auth/ChangePasswordForCmsUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/commons/GetCmsCommonsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/UpdatePostCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/GetPostCommentsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/CreateCommentReplyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/CreateCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/UpdatePostCommentStatusApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/comment/GetPostCommentRepliesApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/RevokeAdminToUserUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AdminUserMyDataWithdrawApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/GetUserDummyStocksApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AdminUserWithStockCountCsvFileDownloadIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AssignAdminToUserUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AdminUserStocksApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AddRoleToUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/EditNicknameApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/DigitalDocumentEmailSenderIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/GetUserListExceptSuperAdminApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AddDummyStockToUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AdminNotificationListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/DeleteDummyStockFromUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/UserSolidarityLeaderConfidentialAgreementDocumentDownloadIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/AdminUserDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/GetUserListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/user/CheckIsChangePasswordRequiredApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/UpdateStockGroupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/DeleteStockGroupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/GetStockGroupsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/CreateStockGroupApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/GetStockGroupDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stockgroup/GetStockGroupsAutoCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/dashboard/GetDashboardAgeStatisticsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/dashboard/GetDashboardStockStatisticsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/dashboard/GetDashboardGenderStatisticsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/dashboard/GetDashboardStatisticsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/dashboard/GetDashboardStockStatisticsMonthlyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/push/GetPushDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/push/GetPushListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/push/GetAutomatedPushListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/push/CreatePushApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/push/DeletePushApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/PreviewEtcDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/RequestDigitalDocumentZipFileApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/DownloadDigitalDocumentCsvFileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/GetDigitalDocumentAcceptUserByUsersApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/UpdateDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/AdminCreateProxyDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/PreviewJointOwnershipDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/AdminCreateEtcDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/AdminDownloadUserDigitalDocumentIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/GetDigitalDocumentUsersApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/PreviewProxyDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/AdminCreateDigitalDocumentWithAttachOptionApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/CallbackDigitalDocumentZipFileResultApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/digitaldocument/AdminCreateJointOwnershipDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/apppreference/UpdateAppPreferenceApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/apppreference/GetAllAppPreferenceApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/apppreference/GetAppPreferenceDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/GetCampaignListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/DeleteCampaignApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/RequestCampaignZipFileApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/CreateCampaignWithNotificationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/DownloadCampaignCsvFileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/GetCampaignDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/UpdateCampaignApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/campaign/CreateCampaignWithDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenRegisterAndNoDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyNonRetainedUserGivenRegisterAndDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/PinVerificationGivenRegisterAndSpecificDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenFirstDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenRegisterApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetForThreeWeeksInARowPinVerificationGivenRegisterAndDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyDigitalDocumentParticipationRateGivenRegisterApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/DownloadAllUsersGivenAllConditionsRetentionCsvApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/AbstractGetUserRetentionWeeklyCsvApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyNonRetainedUserGivenRegisterAndNoDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetForThreeWeeksInARowPinVerificationGivenRegisterAndNoDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenRegisterAndSpecificDigitalDocumentNotCompleteOfCampaignApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenRegisterAndSpecificDigitalDocumentNotCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/PinVerificationGivenRegisterAndSpecificDigitalDocumentCompleteOfCampaignApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/datamatrix/GetWeeklyPinVerificationGivenRegisterAndDigitalDocumentCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/report/AdminReportPostIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/report/AdminReportDetailApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/report/AdminReportCommentIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/report/AdminReportApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/corporateusers/UpdateCorporateUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/corporateusers/DeleteCorporateUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/corporateusers/CreateCorporateUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/corporateusers/GetCorporateUserListApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stock/GetStockDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stock/GetStocksApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stock/CreatePrivateStockApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/stock/GetStockDailyStatisticsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/EditSolidarityLeaderMessageApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/DeleteSolidarityLeaderApplicantIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/UpdateSolidarityToActiveIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/CreateSolidarityLeaderCorporateUserIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/CreateSolidarityLeaderApplicantIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/GetSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/GetSolidarityLeaderApplicationIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/GetStocksAutoCompleteApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/election/AdminWithdrawSolidarityLeaderApplicantApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/solidarity/DismissSolidarityLeaderIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/email/ContactUsIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/email/PublicEmailIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/upload/AdminFileUploadApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/acceptor/CreateStockAcceptorUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/acceptor/GetDigitalDocumentPostsOfAcceptorIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/admin/acceptor/DeleteStockAcceptorUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitalproxy/SignAndGetEmbeddedUrlApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/GetSimpleProfileApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserApiUpdateMyProfileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/GetBlockedUsersApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserApiUpdateMyProfileImageIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/GetMyAuthenticationApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserApiUpdateMyAddressIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UnBlockUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserApiUpdateMyAuthTypeIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UpdateUserNicknameIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/BlockUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UpdateMyDataApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserWithdrawalRequestIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/UserApiGetMeIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/user/SolidarityLeaderConfidentialAgreementApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/image/ImageUploadApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/push/GetUserPushAgreementsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/push/UpdateUserPushAgreementsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/DigitalDocumentCertificationIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/DigitalDocumentPostsIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/DigitalDocumentDeleteIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/authentication/digitaldelegation/UserDigitalDelegateSaveApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/authentication/digitaldelegation/UserDigitalDelegateCompleteIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/authentication/digitaldelegation/UserDigitalEtcCompleteIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/authentication/digitaldelegation/GetPostDetailByDigitalDelegateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/digitaldocument/authentication/digitaldelegation/UserDigitalDocumentDownloadIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CreateSolidarityDailySummariesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateStocksFromDartCorporationsBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateSolidarityDailySummariesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/BatchExecutionExceptionIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateDartCorpCodesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateStocksBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/StockRankingBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/AutomatedAuthorPushesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CreateAllUsersSignatureOpportunityOfDigitalDocumentsExceptEtcCountCsvBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UserHoldingStockFirstHistoriesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateWithdrawalRequestUsersBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CleanupDigitalDocumentUsersBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UserHoldingStockHistoriesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CleanupUnfinishedBatchesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/DigitalDocumentMakeZipFileBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/DigitalDocumentDeleteOldDataBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CreateAllUsersSignatureOpportunityOfAllDigitalDocumentsCountCsvBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/SendPushesBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/UpdateDartCorporationsBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CreateAllUsersGivenAllConditionsRetentionCsvBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/solidarity/election/WhenVotePeriodIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/solidarity/election/WhenCandidateRegistrationPeriodToVotePeriodIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/solidarity/election/AbstractCommonMaintainElectionBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/solidarity/election/WhenCandidateRegistrationPeriodIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/batch/CreateSolidarityDailyStatisticsBatchIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckHoldingStockForCommentUpdateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckPollAnswerCurrentUserApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePostWithPollApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/like/AutomatedAuthorPushLikeApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/like/CreatePostLikeApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/UpdatePostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/GuestGetCommentsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/AutomatedAuthorPushCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/CreateBoardGroupPostReplyCommentCreationCheckAopApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/GetBoardGroupPostCommentsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/AutomatedAuthorPushReplyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/GuestGetBoardGroupPostReplyCommentsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/CreateBoardGroupPostCommentCheckAopApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/CreateCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/comment/LikeAndUnlikeCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreateReportPostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreateBoardGroupPostCheckAopApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePollAnswerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckHoldingStockForReplyCreateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckHoldingStockForCommentCreateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GuestGetPostDetailApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/UpdateMultiSelectionPollAnswerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreateReplyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/UpdatePostWithPollApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostsByGlobalEventApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GuestGetPostsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePostBySolidarityLeaderApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckHoldingStockForPostUpdateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserGetDigitalDocumentUserPdfFileApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserDeleteDigitalDocumentUserDataApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentUserDataApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentEtcDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserUpdateDigitalDocumentUserDataApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentOptionalApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/CheckPostWriterDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentJointOwnershipDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/CheckDigitalDocumentUserDataApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentHolderListReadAndCopyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/digitaldocument/UserCreateDigitalDocumentMultiThreadApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostsAopApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePostWithDigitalProxyApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePostOnAnalysisBoardApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreatePostAndUserBadgeApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CreateReportCommentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/PostWithPollAnswerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostsByGlobalCommunityApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckDateMaxAnonymousCountApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetSortedBoardGroupPostsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/preview/GetPostPreviewsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostDetailDigitalDocumentAttachOptionApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetPostsSortingApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetDeletedBoardGroupPostDetailsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostDetailApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/UpdateSingleSelectionPollAnswerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/GetBoardGroupPostDetailDigitalDocumentApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/UpdatePostChangeCategoryApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/poll/CreatePostWithMultiPollsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/poll/GetPostDetailsMultiPollsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/poll/UpdatePostWithMultiPollsApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/DeletePostApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/stockboardgrouppost/CheckHoldingStockForPostCreateApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/election/CreateElectionPollAnswerApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/election/GetSolidarityLeaderElectionPostPollApiIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/publicopen/DownloadDigitalDocumentZipFileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/api/publicopen/DownloadCampaignZipFileIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/dto/PostUserProfileDto.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/PdfTestHelper.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/ITUtil.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/holder/PostsByBoardGroupTestHolder.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/holder/StocksTestHolder.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/holder/ActEntityTestHolder.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/holder/StockGroupsTestHolder.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/dbcleaner/DbCleaner.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/dbcleaner/TableNames.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/itutil/authentication/AuthenticationTestUtil.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/service/SuperAdminLoaderIntegrationTest.java">
+</file>
+<file name="/Users/sniper76/IdeaProjects/workspace/salary-plus/src/integrationTest/java/ag/act/SpringIntegrationTest.java">
+</file>
+</checkstyle>

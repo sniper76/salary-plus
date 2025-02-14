@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create dashboard_statistics table" author="Sniper">
+    <createTable tableName="dashboard_statistics">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="VARCHAR(10)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="value" type="DECIMAL(20,5)" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create unique_dashboard_statistics_date_type on dashboard_statistics" author="Sniper">
+    <addUniqueConstraint
+      constraintName="unique_dashboard_statistics_date_type"
+      tableName="dashboard_statistics"
+      columnNames="date, type"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="dashboard_statistics"
+        constraintName="unique_dashboard_statistics_date_type"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create dashboard_gender_statistics table" author="Sniper">
+    <createTable tableName="dashboard_gender_statistics">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="VARCHAR(10)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="male_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="female_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create unique_dashboard_gender_statistics_date_type on dashboard_gender_statistics" author="Sniper">
+    <addUniqueConstraint
+      constraintName="unique_dashboard_gender_statistics_date_type"
+      tableName="dashboard_gender_statistics"
+      columnNames="date, type"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="dashboard_gender_statistics"
+        constraintName="unique_dashboard_gender_statistics_date_type"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create dashboard_age_statistics table" author="Sniper">
+    <createTable tableName="dashboard_age_statistics">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="VARCHAR(10)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_10_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_20_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_30_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_40_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_50_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_60_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_70_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_80_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="age_90_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create unique_dashboard_age_statistics_date_type on dashboard_age_statistics" author="Sniper">
+    <addUniqueConstraint
+      constraintName="unique_dashboard_age_statistics_date_type"
+      tableName="dashboard_age_statistics"
+      columnNames="date, type"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="dashboard_age_statistics"
+        constraintName="unique_dashboard_age_statistics_date_type"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create dashboard_stock_statistics table" author="Sniper">
+    <createTable tableName="dashboard_stock_statistics">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="VARCHAR(10)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet
+    id="create unique_dashboard_stock_statistics_date_type_stock_code on dashboard_stock_statistics"
+    author="Sniper"
+  >
+    <addUniqueConstraint
+      constraintName="unique_dashboard_stock_statistics_date_type_stock_code"
+      tableName="dashboard_stock_statistics"
+      columnNames="date, type, stock_code"
+    />
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="dashboard_stock_statistics"
+        constraintName="unique_dashboard_stock_statistics_date_type_stock_code"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change value type to decimal on dashboard_stock_statistics table" author="Sniper">
+    <modifyDataType tableName="dashboard_stock_statistics" columnName="value" newDataType="DECIMAL(20,5)"/>
+
+    <rollback>
+      <modifyDataType tableName="dashboard_stock_statistics" columnName="value" newDataType="BIGINT"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

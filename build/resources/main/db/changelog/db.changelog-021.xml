@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create_pushes_table" author="Lucas">
+    <createTable tableName="pushes">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="content" type="text"/>
+      <column name="target_type" type="varchar(255)"/>
+      <column name="stock_code" type="varchar(255)"/>
+      <column name="topic" type="varchar(255)"/>
+      <column name="send_type" type="varchar(255)"/>
+      <column name="target_datetime" type="TIMESTAMP"/>
+      <column name="sent_start_datetime" type="TIMESTAMP"/>
+      <column name="sent_end_datetime" type="TIMESTAMP"/>
+      <column name="send_status" type="varchar(255)"/>
+      <column name="result" type="text"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add column stock_group_id on pushes table" author="Lucas">
+    <addColumn tableName="pushes">
+      <column name="stock_group_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="stock_group_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column link_url on pushes table" author="shyeokchoi">
+    <addColumn tableName="pushes">
+      <column name="link_url" type="varchar(1000)"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="link_url"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column link_type on pushes table" author="shyeokchoi">
+    <addColumn tableName="pushes">
+      <column name="link_type" type="varchar(255)" defaultValue="NONE"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="link_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column post_id on pushes table" author="shyeokchoi">
+    <addColumn tableName="pushes">
+      <column name="post_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="post_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="rename column target_type to stock_target_type on popups" author="Lucas">
+    <renameColumn tableName="pushes" oldColumnName="target_type" newColumnName="stock_target_type"/>
+
+    <rollback>
+      <renameColumn tableName="pushes" oldColumnName="stock_target_type" newColumnName="target_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column period_time_unit on batch_logs table" author="Lucas">
+    <addColumn tableName="batch_logs">
+      <column name="period_time_unit" defaultValue="HOUR" type="varchar(255)"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="batch_logs" columnName="period_time_unit"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add batch_group_name column on batch_logs table" author="sjoonb">
+    <addColumn tableName="batch_logs">
+      <column name="batch_group_name" type="varchar(255)"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="batch_logs" columnName="batch_group_name"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add some column on user_holding_stocks" author="Lucas">
+    <addColumn tableName="user_holding_stocks">
+      <column name="cash_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="credit_quantity" type="BIGINT" defaultValue="0"/>
+      <column name="secure_loan_quantity" type="BIGINT" defaultValue="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="user_holding_stocks" columnName="cash_quantity"/>
+      <dropColumn tableName="user_holding_stocks" columnName="credit_quantity"/>
+      <dropColumn tableName="user_holding_stocks" columnName="secure_loan_quantity"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="update cash_quantity with quantity on user_holding_stocks" author="Lucas">
+    <sql>
+      update user_holding_stocks
+      set cash_quantity = quantity
+    </sql>
+  </changeSet>
+
+  <changeSet id="add column my_data_summary_id on users" author="Lucas">
+    <addColumn tableName="users">
+      <column name="my_data_summary_id" type="BIGINT" defaultValue="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="users" columnName="my_data_summary_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_my_data_summary_table" author="Lucas">
+    <createTable tableName="my_data_summaries">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT"/>
+      <column name="pension_paid_amount" type="BIGINT" defaultValue="0"/>
+      <column name="json_my_data" type="JSON"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add loan_price column on my_data_summaries table" author="Lucas">
+    <addColumn tableName="my_data_summaries">
+      <column name="loan_price" type="BIGINT" defaultValue="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="my_data_summaries" columnName="loan_price"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop my_data_file_content_id column on users table" author="Lucas">
+    <dropColumn tableName="users" columnName="my_data_file_content_id"/>
+
+    <rollback>
+      <addColumn tableName="users">
+        <column name="my_data_file_content_id" type="BIGINT" defaultValueNumeric="0"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change stake type to double on solidarity_daily_summaries table" author="sjoonb">
+    <modifyDataType tableName="solidarity_daily_summaries" columnName="stake" newDataType="DOUBLE"/>
+
+    <rollback>
+      <modifyDataType tableName="solidarity_daily_summaries" columnName="stake" newDataType="DECIMAL(10,5)"/>
+    </rollback>
+  </changeSet>
+
+
+  <changeSet id="drop is_agree_to_receive_sms column on users table" author="Lucas">
+    <dropColumn tableName="users" columnName="is_agree_to_receive_sms"/>
+
+    <rollback>
+      <addColumn tableName="users">
+        <column name="is_agree_to_receive_sms" type="Boolean" defaultValueBoolean="false"/>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add purchase_price column on user_holding_stocks" author="Lucas">
+    <addColumn tableName="user_holding_stocks">
+      <column name="purchase_price" type="BIGINT" defaultValue="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="user_holding_stocks" columnName="purchase_price"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add index on user_holding_stocks" author="Lucas">
+    <createIndex tableName="user_holding_stocks" indexName="idx_user_holding_stocks_by_stock_code">
+      <column name="stock_code"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="user_holding_stocks" indexName="idx_user_holding_stocks_by_stock_code"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add index on my_data_summaries" author="Lucas">
+    <createIndex tableName="my_data_summaries" indexName="idx_my_data_summaries_by_user_id">
+      <column name="user_id"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="my_data_summaries" indexName="idx_my_data_summaries_by_user_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add is_change_password_required column on users table" author="Lucas">
+    <addColumn tableName="users">
+      <column name="is_change_password_required" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="users" columnName="is_change_password_required"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add first_number_of_identification column on users table" author="Lucas">
+    <addColumn tableName="users">
+      <column name="first_number_of_identification" type="integer" defaultValueNumeric="1"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="users" columnName="first_number_of_identification"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate first_number_of_identification on users" author="Lucas">
+    <sql>
+      <![CDATA[
+      UPDATE users
+      SET first_number_of_identification =
+            CASE
+              WHEN birth_date < '2000-01-01' AND gender = 'M' THEN 1
+              WHEN birth_date < '2000-01-01' AND gender = 'F' THEN 2
+              WHEN birth_date >= '2000-01-01' AND gender = 'M' THEN 3
+              WHEN birth_date >= '2000-01-01' AND gender = 'F' THEN 4
+              ELSE first_number_of_identification
+              END
+      ]]>
+    </sql>
+  </changeSet>
+
+  <changeSet id="add index on users" author="Nick">
+    <createIndex tableName="users" indexName="idx_users_status_key">
+      <column name="status"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="users" indexName="idx_users_status_key"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="rename column stock_target_type to push_target_type on popups" author="Sniper">
+    <renameColumn tableName="pushes" oldColumnName="stock_target_type" newColumnName="push_target_type"/>
+
+    <rollback>
+      <renameColumn tableName="pushes" oldColumnName="push_target_type" newColumnName="stock_target_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column title on pushes table" author="Tnfls99">
+    <addColumn tableName="pushes">
+      <column name="title" type="varchar(255)" defaultValue="액트"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="title"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column is_safe_time_send_required on pushes table" author="Lucas">
+    <addColumn tableName="pushes">
+      <column name="is_safe_time_send_required" type="boolean" defaultValue="false" remarks="안전한 시간에만 푸시를 보내야 하는지 여부"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="pushes" columnName="is_safe_time_send_required"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop column is_safe_time_send_required on pushes table" author="Sniper">
+    <dropColumn tableName="pushes" columnName="is_safe_time_send_required"/>
+  </changeSet>
+
+</databaseChangeLog>

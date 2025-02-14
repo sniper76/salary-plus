@@ -1,0 +1,24 @@
+  # /api/users/solidarity-leader-confidential-agreement-document:
+    post:
+      summary: 주주대표 비밀유지 서약서 제출
+      operationId: createSolidarityLeaderConfidentialAgreementDocument
+      tags: [ User ]
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: 'CreateSolidarityLeaderConfidentialAgreementRequest'
+              properties:
+                stockCode:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/SimpleStringResponse.yaml'

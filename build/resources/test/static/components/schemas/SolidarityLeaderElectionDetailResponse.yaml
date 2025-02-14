@@ -1,0 +1,23 @@
+#SolidarityLeaderElectionDetailResponse:
+  type: object
+  properties:
+    solidarityLeaderElectionId:
+      type: integer
+      format: int64
+    status:
+      type: string
+      description: |
+        투표 상태 
+        - CANDIDATE_REGISTRATION_PENDING_PERIOD("후보자 등록 대기", 0)
+        - CANDIDATE_REGISTRATION_PERIOD("후보자 등록 기간", 1)
+        - VOTE_PERIOD("주주대표 투표", 2)
+        - FINISHED("투표마감", 3)
+    isVoted:
+      type: boolean
+      description: 로그인한 유저의 투표 여부
+    totalVoterCount:
+      type: integer
+    pollApplicants:
+      type: array
+      items:
+        $ref: './SolidarityLeaderElectionApplicantDataResponse.yaml'

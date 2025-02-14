@@ -1,0 +1,23 @@
+
+#SolidarityLeaderElectionVoteItemDataResponse:
+  type: object
+  properties:
+    pollItemId:
+      type: integer
+      format: int64
+    isVoted:
+      type: boolean
+    title:
+      type: string
+      description: '찬성/반대'
+    type:
+      type: string
+      description: 'APPROVAL/REJECTION'
+    voteCount:
+      type: integer
+    stockQuantity:
+      type: integer
+      format: int64
+    stockQuantityPercentage:
+      type: integer
+      format: int64

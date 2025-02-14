@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create digital_document_downloads table" author="Lucas">
+    <createTable tableName="digital_document_downloads">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="request_user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="digital_document_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="zip_file_status" type="VARCHAR(255)" defaultValue="REQUEST"/>
+      <column name="download_count" type="INTEGER" defaultValue="0"/>
+      <column name="zip_file_path" type="VARCHAR(255)"/>
+      <column name="zip_file_key" type="VARCHAR(255)">
+        <constraints
+          nullable="true"
+          unique="true"
+          uniqueConstraintName="unique_digital_document_downloads_zip_file_key"
+        />
+      </column>
+      <column name="is_latest" type="Boolean" defaultValueBoolean="true"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create test_stocks table" author="sjoonb">
+    <createTable tableName="test_stocks">
+      <column name="code" type="VARCHAR(255)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add columns on test_stocks table" author="Lucas">
+    <addColumn tableName="test_stocks">
+      <column name="solidarity_leader" type="JSON"/>
+      <column name="users" type="JSON"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="test_stocks" columnName="solidarity_leader"/>
+      <dropColumn tableName="test_stocks" columnName="users"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add column users tables" author="Tnfls99">
+    <addColumn tableName="users">
+      <column name="auth_type" type="VARCHAR(255)" defaultValue="PIN">
+        <constraints nullable="false" unique="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="users" columnName="auth_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add is_solidarity_leader_confidential_agreement_signed column users tables" author="Lucas">
+    <addColumn tableName="users">
+      <column name="is_solidarity_leader_confidential_agreement_signed" type="Boolean" defaultValue="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="users" columnName="is_solidarity_leader_confidential_agreement_signed"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

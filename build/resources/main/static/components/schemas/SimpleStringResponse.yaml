@@ -1,0 +1,8 @@
+#SimpleStringResponse:
+  description: 'Simple string response'
+  type: object
+  properties:
+    status:
+      type: string
+      description: "Human readable simple message"
+      example: "ok"

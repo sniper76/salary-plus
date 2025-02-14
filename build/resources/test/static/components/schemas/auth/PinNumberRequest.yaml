@@ -1,0 +1,10 @@
+#PinNumberRequest:
+  type: object
+  properties:
+    pinNumber:
+      type: string
+      x-field-extra-annotation: |
+        @Pattern(regexp = "^[0-9]{6}$", message = "핀번호를 확인해주세요.")
+        @Size(min = 6, max = 6, message = "핀번호를 확인해주세요.")
+  example:
+    pinNumber: '012345'

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create solidarity_daily_statistics table" author="Lucas">
+    <createTable tableName="solidarity_daily_statistics">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="solidarity_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_quantity" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stake" type="DECIMAL(10,5)" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="market_value" type="BIGINT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="member_count" type="INT" defaultValue="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create unique_solidarity_id_date on solidarity_daily_statistics" author="Lucas">
+    <addUniqueConstraint tableName="solidarity_daily_statistics" columnNames="solidarity_id, date"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="solidarity_daily_statistics"
+        constraintName="unique_solidarity_id_date"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add stock_code on solidarity_daily_statistics" author="Lucas">
+    <addColumn tableName="solidarity_daily_statistics">
+      <column name="stock_code" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="solidarity_daily_statistics" columnName="stock_code"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change stock_code on solidarity_daily_statistics" author="Lucas">
+    <addNotNullConstraint tableName="solidarity_daily_statistics" columnName="stock_code"/>
+
+    <rollback>
+      <dropNotNullConstraint tableName="solidarity_daily_statistics" columnName="stock_code"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="create unique_stock_code_date_on_solidarity_daily_statistics on solidarity_daily_statistics"
+    author="Lucas"
+  >
+    <addUniqueConstraint
+      constraintName="unique_stock_code_date_on_solidarity_daily_statistics"
+      tableName="solidarity_daily_statistics"
+      columnNames="stock_code, date"
+    />
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="solidarity_daily_statistics"
+        constraintName="unique_stock_code_date_on_solidarity_daily_statistics"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

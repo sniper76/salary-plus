@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="create automated_author_pushes table" author="Sniper">
+    <createTable tableName="automated_author_pushes">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="push_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content_type" type="VARCHAR(255)"/>
+      <column name="criteria" type="VARCHAR(255)"/>
+      <column name="criteria_value" type="INTEGER" defaultValueNumeric="0"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

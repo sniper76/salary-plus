@@ -1,0 +1,39 @@
+#CreatePrivateStockRequest:
+  type: object
+  properties:
+    name:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 1, max = 255, message = "종목명을 확인해주세요.")
+        @NotBlank(message = "종목명을 확인해주세요.")
+    code:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 6, max = 6, message = "종목 코드는 6글자로 입력해주세요.")
+        @NotBlank(message = "종목코드를 확인해주세요.")
+    standardCode:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 12, max = 12, message = "표준 종목 코드는 12글자로 입력해주세요.")
+        @NotBlank(message = "표준종목코드를 확인해주세요.")
+    stockType:
+      type: string
+      x-field-extra-annotation: |
+        @NotBlank(message = "종목타입을 확인해주세요.")
+        @Pattern(regexp = "보통주|액트주|신형우선주|종류주권|구형우선주", message = "종목타입을 확인해주세요.")
+    closingPrice:
+      type: integer
+      x-field-extra-annotation: |
+        @PositiveOrZero(message = "종가를 확인해주세요.")
+    totalIssuedQuantity:
+      type: integer
+      format: int64
+      x-field-extra-annotation: |
+        @PositiveOrZero(message = "총주식 발행수를 확인해주세요.")
+  example:
+    name: "종목명"
+    code: "000000"
+    standardCode: "KR7000000000"
+    stockType: "보통주"
+    closingPrice: 10000
+    totalIssuedQuantity: 1000000

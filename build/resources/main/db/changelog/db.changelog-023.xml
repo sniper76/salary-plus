@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="create_digital_documents_table" author="Sniper">
+    <createTable tableName="digital_documents">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_reference_date" type="VARCHAR(8)"/>
+      <column name="digital_document_report" type="VARCHAR(1000)"/>
+      <column name="title" type="VARCHAR(1000)"/>
+      <column name="content" type="TEXT"/>
+      <column name="company_name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="company_registration_number" type="VARCHAR(50)"/>
+      <column name="shareholder_meeting_type" type="VARCHAR(255)"/>
+      <column name="shareholder_meeting_name" type="VARCHAR(255)"/>
+      <column name="shareholder_meeting_date" type="TIMESTAMP"/>
+      <column name="designated_agent_names" type="VARCHAR(1000)"/>
+      <column name="accept_user_id" type="BIGINT"/>
+      <column name="join_stock_sum" type="BIGINT" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="join_user_count" type="INTEGER" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="target_start_date" type="TIMESTAMP"/>
+      <column name="target_end_date" type="TIMESTAMP"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_digital_document_items_table" author="Sniper">
+    <createTable tableName="digital_document_items">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="digital_document_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="title" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="default_select_value" type="varchar(255)"/>
+      <column name="parent_id" type="BIGINT"/>
+      <column name="is_last_item" type="Boolean" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_digital_document_users_table" author="Sniper">
+    <createTable tableName="digital_document_users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="digital_document_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="digital_document_answer_status" type="varchar(255)" defaultValue="SAVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="pdf_path" type="varchar(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_digital_document_item_user_answers_table" author="Sniper">
+    <createTable tableName="digital_document_item_user_answers">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="digital_document_item_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="answer_select_value" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_digital_document_id" author="Sniper">
+    <addUniqueConstraint tableName="digital_document_users" columnNames="user_id, digital_document_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="digital_document_users"
+        constraintName="create_unique_user_id_digital_document_id"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_digital_document_item_id" author="Sniper">
+    <addUniqueConstraint tableName="digital_document_item_user_answers"
+                         columnNames="user_id, digital_document_item_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="digital_document_item_user_answers"
+        constraintName="create_unique_user_id_digital_document_item_id"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add digital_document_id column on posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="digital_document_id" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="digital_document_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add item_level group_id column on digital_document_items table" author="Sniper">
+    <addColumn tableName="digital_document_items">
+      <column name="item_level" type="INTEGER"/>
+    </addColumn>
+    <addColumn tableName="digital_document_items">
+      <column name="group_id" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_document_items" columnName="item_level"/>
+      <dropColumn tableName="digital_document_items" columnName="group_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add user date column on digital_document_users table" author="Sniper">
+    <addColumn tableName="digital_document_users">
+      <column name="stock_code" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="stock_name" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="name" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="hashed_phone_number" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="birth_date" type="TIMESTAMP"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="gender" type="char(1)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="address" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="address_detail" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="zipcode" type="varchar(255)"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="stock_count" type="BIGINT"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="purchase_price" type="BIGINT"/>
+    </addColumn>
+    <addColumn tableName="digital_document_users">
+      <column name="loan_price" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_document_users" columnName="stock_code"/>
+      <dropColumn tableName="digital_document_users" columnName="stock_name"/>
+      <dropColumn tableName="digital_document_users" columnName="name"/>
+      <dropColumn tableName="digital_document_users" columnName="hashed_phone_number"/>
+      <dropColumn tableName="digital_document_users" columnName="birth_date"/>
+      <dropColumn tableName="digital_document_users" columnName="gender"/>
+      <dropColumn tableName="digital_document_users" columnName="address"/>
+      <dropColumn tableName="digital_document_users" columnName="address_detail"/>
+      <dropColumn tableName="digital_document_users" columnName="zipcode"/>
+      <dropColumn tableName="digital_document_users" columnName="stock_count"/>
+      <dropColumn tableName="digital_document_users" columnName="purchase_price"/>
+      <dropColumn tableName="digital_document_users" columnName="loan_price"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="modify stock_reference_date column on digital_documents table" author="Sniper">
+    <modifyDataType tableName="digital_documents" columnName="stock_reference_date" newDataType="DATE"/>
+    <rollback>
+      <modifyDataType tableName="digital_documents" columnName="stock_reference_date" newDataType="VARCHAR(8)"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add shareholding_ratio column on digital_documents" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="shareholding_ratio" type="DOUBLE" defaultValueNumeric="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="shareholding_ratio"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add stock_reference_date column on digital_document_users" author="Sniper">
+    <addColumn tableName="digital_document_users">
+      <column name="stock_reference_date" type="DATE"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="digital_document_users" columnName="stock_reference_date"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add leader_description column on digital_document_items" author="Sniper">
+    <addColumn tableName="digital_document_items">
+      <column name="leader_description" type="TEXT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="digital_document_items" columnName="leader_description"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add json_attach_option column on digital_documents" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="json_attach_option" type="JSON"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="json_attach_option"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="update json_attach_option on digital_documents" author="Sniper">
+    <sql>
+      update digital_documents
+      set json_attach_option = '{"signImage":"OPTIONAL","idCardImage":"OPTIONAL","bankAccountImage":"OPTIONAL"}'
+    </sql>
+  </changeSet>
+
+  <changeSet id="add index on digital_document_users" author="Sniper">
+    <createIndex tableName="digital_document_users" indexName="idx_digital_document_users_by_digital_document_id">
+      <column name="digital_document_id"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="digital_document_users" indexName="idx_digital_document_users_by_digital_document_id"/>
+    </rollback>
+  </changeSet>
+
+
+  <changeSet id="add first_number_of_identification column on digital_document_users table" author="Lucas">
+    <addColumn tableName="digital_document_users">
+      <column name="first_number_of_identification" type="integer" defaultValueNumeric="1"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_document_users" columnName="first_number_of_identification"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate first_number_of_identification on digital_document_users" author="Lucas">
+    <sql>
+      <![CDATA[
+      UPDATE digital_document_users
+      SET first_number_of_identification =
+            CASE
+              WHEN birth_date < '2000-01-01' AND gender = 'M' THEN 1
+              WHEN birth_date < '2000-01-01' AND gender = 'F' THEN 2
+              WHEN birth_date >= '2000-01-01' AND gender = 'M' THEN 3
+              WHEN birth_date >= '2000-01-01' AND gender = 'F' THEN 4
+              ELSE first_number_of_identification
+              END
+      ]]>
+    </sql>
+  </changeSet>
+
+  <changeSet id="migrate shareholder_meeting_type on digital_documents" author="Sniper">
+    <sql>
+      <![CDATA[
+      UPDATE digital_documents
+      SET shareholder_meeting_type =
+            CASE
+              WHEN shareholder_meeting_type = '정기주총' THEN 'REGULAR_GENERAL_MEETING_STOCKHOLDERS'
+              WHEN shareholder_meeting_type = '임시주총' THEN 'EXTRAORDINARY_GENERAL_MEETING_STOCKHOLDERS'
+              ELSE null
+              END
+      ]]>
+    </sql>
+  </changeSet>
+
+  <changeSet id="add is_notification column on posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="is_notification" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="is_notification"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="add index type target date on digital_documents table"
+    author="Sniper"
+  >
+    <createIndex
+      tableName="digital_documents"
+      indexName="idx_type_target_start_date_target_end_date"
+    >
+      <column descending="false" name="type"/>
+      <column descending="true" name="target_start_date"/>
+      <column descending="true" name="target_end_date"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="digital_documents"
+        indexName="idx_type_target_start_date_target_end_date"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add is_pinned column on posts table" author="Lucas">
+    <addColumn tableName="posts">
+      <column name="is_pinned" type="Boolean" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="is_pinned"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="creation index idx_posts_by_is_pinned_created_at on on posts table" author="Lucas">
+    <createIndex tableName="posts" indexName="idx_posts_by_is_pinned_created_at">
+      <column descending="true" name="is_pinned"/>
+      <column descending="true" name="created_at"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex tableName="posts" indexName="idx_posts_by_is_pinned_created_at"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add version column on digital_documents table" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="version" type="VARCHAR(255)" defaultValue="V1">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="version"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add thumbnail_image_url on posts" author="jooany">
+    <addColumn tableName="posts">
+      <column name="thumbnail_image_url" type="VARCHAR(255)"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="posts" columnName="thumbnail_image_url"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="update column thumbnail_image_url on posts" author="Lucas">
+    <modifyDataType tableName="posts" columnName="thumbnail_image_url" newDataType="TEXT"/>
+    <rollback>
+      <modifyDataType tableName="posts" columnName="thumbnail_image_url" newDataType="VARCHAR(255)"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migration thumbnail_image_url on posts from its first image" author="Lucas" failOnError="false">
+    <sql>
+      update posts
+      set thumbnail_image_url = thumbnails.first_image_url --
+        from (
+          select base_urls.base_url || fc.filename as first_image_url, p.id
+          from posts p
+               inner join post_images pi on p.id = pi.post_id and pi.status = 'ACTIVE'
+               inner join file_contents fc on fc.id = pi.image_id and fc.status = 'ACTIVE'
+               inner join (
+                  SELECT substring(u.profile_image_url from '(https://[^/]+/)') AS base_url
+                  FROM users u
+                  WHERE u.status = 'ACTIVE'
+                  AND u.profile_image_url IS NOT NULL
+                  LIMIT 1
+              ) as base_urls on 1 = 1
+          where p.status = 'ACTIVE'
+          and p.thumbnail_image_url is null
+      ) as thumbnails
+      where posts.id = thumbnails.id;
+    </sql>
+  </changeSet>
+
+  <changeSet id="migration thumbnail_image_url on posts from its contents" author="Lucas" failOnError="false">
+    <sql>
+      UPDATE posts
+      SET thumbnail_image_url = thumbnails.first_image_url --
+        from (
+          SELECT p.id, (regexp_matches(content, 'src\s*=\s*"([^"]+)"'))[1] AS first_image_url
+          FROM posts p
+          WHERE p.thumbnail_image_url IS NULL
+          AND p.content ~ 'src\s*=\s*"([^"]+)"'
+     ) thumbnails
+      where posts.id = thumbnails.id;
+    </sql>
+  </changeSet>
+
+  <changeSet id="add is_exclusive_to_holders column on posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="is_exclusive_to_holders" type="Boolean" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="is_exclusive_to_holders"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add client_type column on posts table" author="Tnfls99">
+    <addColumn tableName="posts">
+      <column name="client_type" type="VARCHAR(255)" defaultValue="APP">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="client_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migration is_exclusive_to_holders to true on posts" author="Sniper" failOnError="false">
+    <sql>
+      UPDATE posts
+      SET is_exclusive_to_holders = target_posts.is_exclusive_to_holders --formatting fixed dont remove this line
+        FROM (
+                SELECT p.id, case
+                  when b.group = 'GLOBALCOMMUNITY' then false
+                  when b.group = 'GLOBALBOARD' then false
+                  else true end as is_exclusive_to_holders
+                FROM posts p
+                INNER JOIN boards b on p.board_id = b.id
+        ) target_posts
+      WHERE posts.id = target_posts.id
+    </sql>
+  </changeSet>
+
+  <changeSet id="migration client_type on posts" author="Tnfls99" failOnError="false">
+    <sql>
+      UPDATE posts
+      SET client_type = 'CMS' FROM (
+               SELECT posts.id
+               FROM posts
+               WHERE posts.content LIKE '&lt;p&gt;%') target_posts
+      WHERE target_posts.id = posts.id;
+    </sql>
+  </changeSet>
+
+  <changeSet id="add active_start_date and active_end_date columns on posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="active_start_date" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="active_end_date" type="TIMESTAMP"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="active_start_date"/>
+      <dropColumn tableName="posts" columnName="active_end_date"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="creation idx_posts_by_active_start_end_dates index on posts" author="Lucas">
+    <createIndex tableName="posts" indexName="idx_posts_by_active_start_end_dates">
+      <column name="active_start_date"/>
+      <column name="active_end_date"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="posts" indexName="idx_posts_by_active_start_end_dates"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migration created_at to active_start_date  on posts" author="Sniper">
+    <sql>
+      UPDATE posts
+      SET active_start_date = created_at
+    </sql>
+  </changeSet>
+
+  <changeSet id="add push_id columns on posts table" author="Sniper">
+    <addColumn tableName="posts">
+      <column name="push_id" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="posts" columnName="push_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add append_date_watermark columns on digital_documents table" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="append_date_watermark" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="append_date_watermark"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add id_card_watermark_type columns on digital_documents table" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="id_card_watermark_type" type="VARCHAR(255)" defaultValue="ACT_LOGO"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="id_card_watermark_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate id_card_watermark_type on digital_documents" author="Sniper">
+    <sql>
+      update digital_documents
+      set id_card_watermark_type = case when append_date_watermark = true then 'ACT_LOGO_WITH_DATE' else 'ACT_LOGO' end
+    </sql>
+  </changeSet>
+
+  <changeSet id="add is_display_stock_quantity columns on digital_documents table" author="Sniper">
+    <addColumn tableName="digital_documents">
+      <column name="is_display_stock_quantity" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="digital_documents" columnName="is_display_stock_quantity"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="remove append_date_watermark columns on digital_documents table" author="Sniper">
+    <dropColumn tableName="digital_documents" columnName="append_date_watermark"/>
+  </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create edited_at on comments table" author="Lucas">
+    <addColumn tableName="comments">
+      <column name="edited_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="comments" columnName="edited_at"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create edited_at on posts table" author="Lucas">
+    <addColumn tableName="posts">
+      <column name="edited_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="posts" columnName="edited_at"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create edited_at on users table" author="Lucas">
+    <addColumn tableName="users">
+      <column name="edited_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="users" columnName="edited_at"/>
+    </rollback>
+  </changeSet>
+
+
+</databaseChangeLog>

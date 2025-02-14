@@ -1,0 +1,225 @@
+springdoc:
+  swagger-ui:
+    url: /openapi.yaml
+    enabled: ${SWAGGER_UI_ENABLED:true}
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:25432}/${DB_NAME:salary_plus_db}?schema=public"
+    username: "${DB_USERNAME:postgres}"
+    password: "${DB_PASSWORD:postgres}"
+    driverClassName: "org.postgresql.Driver"
+  liquibase:
+    enabled: true
+    changeLog: /db/changelog/db.changelog-master.xml
+    parameters:
+      log-level: FINE
+  docker:
+    compose:
+      file: ./compose.yaml
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: false
+  jackson:
+    default-property-inclusion: NON_NULL
+  mvc:
+    validation:
+      enabled: true
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_SIZE:20MB}
+      max-request-size: ${MAX_FILE_SIZE:20MB}
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    info:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      getFinpongAccessToken:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        slowCallDurationThreshold: 3000
+        slowCallRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+      withdrawMyData:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        slowCallDurationThreshold: 5000
+        slowCallRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+server:
+  port: ${SERVER_PORT:5000}
+
+batch:
+  api-key: "${BATCH_API_KEY:b0e6f688a0a0ad7e09b3bf484d8effa5f8462201ef69f4}"
+
+security:
+  cors:
+    origins: ${SECURITY_CORS_ORIGINS:https://*.act.ag,http://localhost:*}
+  token:
+    secret-key: "${SECURITY_TOKEN_KEY:09935d47ddef1bebb0e6f688a0a0ad7e09b3bf484d8effa5f8462201ef69f4aa09935d47ddef1bebb0e6f688a0a0ad7e09b3bf484d8effa5f8462201ef69f4aa}"
+    secret-salt: "${SECURITY_SALT:15e2fe3d-09f8-4e59-bc8d-61b4ed012345}"
+    expiration-date-in-days:
+      app: ${SECURITY_TOKEN_EXPIRATION_DATE_IN_DAYS_APP:360}
+      web: ${SECURITY_TOKEN_EXPIRATION_DATE_IN_DAYS_WEB:1}
+  super-user:
+    username: "${SECURITY_ADMIN_USERNAME:admin@act.ag}"
+    password: "${SECURITY_ADMIN_PASSWORD:admin}"
+  fake-user:
+    enabled: ${SECURITY_FAKE_USER_ENABLED:false}
+  password:
+    min:
+      length: 8
+    max:
+      length: 20
+
+external:
+  mydata:
+    baseUrl: ${MY_DATA_BASE_URL:https://tapi.finpong.com}
+    client:
+      id: "${MY_DATA_CLIENT_ID:c824cb51c39e41ea9724ae85ea19bbd3}"
+      secret: "${MY_DATA_CLIENT_SECRET:a1aec7d67285480d9ef7ca4c76076acd}"
+    aes256key: "${MY_DATA_AES256KEY:gMTk0zHZmehhZtKBkJvbWn3D8Nq7u3t+KmKM0f2nUNI=}"
+  krx:
+    timeoutSecond: 5
+    baseUrl: http://data-dbg.krx.co.kr/svc/apis/sto
+    authName: AUTH_KEY
+    authValue: "${KRX_AUTH_VALUE:CB52007D610942BCAE794852E1A3B5A22E763306}"
+  kcb:
+    target: PROD
+    cp-cd: ${KCB_CP_CD:V60880000000}
+    req-svc-name: IDS_HS_EMBED_SMS_REQ
+    res-svc-name: IDS_HS_EMBED_SMS_CIDI
+    site-name: act
+    site-url: act.ag
+    license-file: ${KCB_LICENSE_FILE:okcert/license/V60880000000_IDS_01_PROD_AES_license.dat}
+  modusign:
+    url: https://api.modusign.co.kr
+    token: ${MODUSIGN_TOKEN:MODUSING_TOKEN}
+    retry-count: ${MODUSIGN_RETRY_COUNT:10}
+  dart:
+    corp-code-api-url: https://opendart.fss.or.kr/api/corpCode.xml
+    company-api-url: https://opendart.fss.or.kr/api/company.json
+    api-key: ${DART_API_KEY:test-dart-api-key}
+  markany:
+    dna:
+      enabled: ${MARKANY_DNA_ENABLED:false}
+      hosts: ${MARKANY_DNA_SERVER_HOSTS:127.0.0.1}
+      port: ${MARKANY_DNA_SERVER_PORT:9091}
+      watermark: ${MARKANY_DNA_WATERMARK:/home/markany/markanyDNA/FPS//files/conduit2.png}
+  google:
+    recaptcha:
+      url: https://www.google.com/recaptcha/api/siteverify
+      site-key: ${GOOGLE_RECAPTCHA_SITE_KEY:google_recaptcha_site_key}
+      secret-key: ${GOOGLE_RECAPTCHA_SECRET_KEY:google_recaptcha_secret_key}
+
+aws:
+  s3:
+    public:
+      bucket:
+        files: act-${ENVIRONMENT:local}-files
+        url: https://act-${ENVIRONMENT:local}-files.s3.ap-northeast-2.amazonaws.com
+    private:
+      bucket:
+        files: act-${ENVIRONMENT:local}-private-files
+        url: https://act-${ENVIRONMENT:local}-private-files.s3.ap-northeast-2.amazonaws.com
+  lambda:
+    zip-file:
+      name: act-zip-files-${ENVIRONMENT:local}
+  ses:
+    holder-list-read-and-copy:
+      sender-email: "${SES_HOLDER_LIST_AND_COPY_SENDER_EMAIL:stock@act.ag}"
+    contact-us:
+      to-email: "${SES_CONTACT_US_TO_EMAIL:service@act.ag}"
+
+solidarity:
+  min-threshold-member-count: 50
+
+act:
+  environment: ${ENVIRONMENT:local}
+  user:
+    nickname:
+      change-limit-days: ${NICKNAME_CHANGE_LIMIT_DAYS:90}
+    anonymous-limit:
+      post-count: 3
+      comment-count: 5
+  default-user-profile-images:
+    male: >
+      static/default-user-profile-images/act_man_01.png,
+      static/default-user-profile-images/act_man_02.png,
+      static/default-user-profile-images/act_man_03.png,
+      static/default-user-profile-images/act_man_04.png
+    female: >
+      static/default-user-profile-images/act_women_01.png,
+      static/default-user-profile-images/act_women_02.png,
+      static/default-user-profile-images/act_women_03.png,
+      static/default-user-profile-images/act_women_04.png
+  free-marker-templates:
+    digital-document:
+      relative-path: "static/digital-document-templates"
+    solidarity-leader-confidential-agreement:
+      relative-path: "static/solidarity-leader-confidential-agreement-templates"
+  board:
+    stock-code: ${BOARD_STOCK_CODE:Z00001}
+  app-renewal-date: "2023-08-25"
+  caching:
+    user-holding-stock-on-reference:
+      ttl: ${CACHING_USER_HOLDING_STOCK_ON_REFERENCE_TTL:PT24H}
+    stock-search-recommendation:
+      cron-expression: ${STOCK_SEARCH_RECOMMENDATION_CRON_EXPRESSION:1 */10 * * * ?}
+  public:
+    api-key: ${PUBLIC_API_KEY:publicApiKey}
+  monitoring:
+    api-key: ${MONITORING_API_KEY:monitoringApiKey}
+
+boardGroup:
+  stock-home-header-image:
+    analysis:
+      url: "https://act-${ENVIRONMENT:local}-files.s3.ap-northeast-2.amazonaws.com/${STOCK_HOME_HEADER_IMAGE_ANALYSIS_URL:static/stock-home-header-image/analysis.png}"
+    debate:
+      url: "https://act-${ENVIRONMENT:local}-files.s3.ap-northeast-2.amazonaws.com/${STOCK_HOME_HEADER_IMAGE_DEBATE_URL:static/stock-home-header-image/debate.png}"
+    default:
+      url: "https://act-${ENVIRONMENT:local}-files.s3.ap-northeast-2.amazonaws.com/${STOCK_HOME_HEADER_IMAGE_DEFAULT_URL:static/stock-home-header-image/default.png}"
+
+firebase:
+  service-account:
+    file: ${FIREBASE_SERVICE_ACCOUNT_FILE:firebase/service-account.json}
+
+slack:
+  token: ${SLACK_TOKEN:xoxb-5410398373508-6341526481095-PoegppGGLqz1Ww5vIrNA7bcK}
+
+sentry:
+  dsn: ${SENTRY_LOG_DSN:https://9b43f4d34ad68259017a0536838f3d23@o4507008878837760.ingest.us.sentry.io/4507008984154112}
+  traces-sample-rate: ${SENTRY_TRACES_SAMPLE_RATE:0.1} # 퍼포먼스를 위한 샘플링 비율 e.g.) 1=100%
+  # exception-resolver-order: -2147483647 # SentryExceptionResolver 를 @ExceptionHandler 보다 가장 먼저 실행하도록 설정
+  environment: ${ENVIRONMENT:local} # 환경 변수 설정
+  enable-tracing: true # 트레이싱 활성화
+  enabled: ${SENTRY_LOG_ENABLED:false} # Sentry 활성화
+  send-default-pii: true # 사용자 정보 기록

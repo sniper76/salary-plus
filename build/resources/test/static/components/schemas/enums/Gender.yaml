@@ -1,0 +1,6 @@
+
+#Gender:
+  type: string
+  enum:
+    - M
+    - F

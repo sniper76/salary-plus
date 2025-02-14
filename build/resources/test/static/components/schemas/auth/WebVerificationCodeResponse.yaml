@@ -1,0 +1,10 @@
+#WebVerificationCodeResponse:
+  type: object
+  properties:
+    status:
+      $ref: '../enums/WebVerificationStatus.yaml'
+    token:
+      type: string
+      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg5MTMyNzIwLCJleHAiOjE2ODk3Mzc1MjB9.Wo3iBvhSyf3ujtQiqA9BPyZ54tQuKL_bNRAN6qS3Ih8'
+    user:
+      $ref: '../user/UserResponse.yaml'

@@ -1,0 +1,17 @@
+
+#SolidarityLeaderElectionApplicantDataLabelResponse:
+  type: object
+  properties:
+    requiredStockQuantityRatio:
+      type: string
+    stockQuantity:
+      type: integer
+      format: int64
+    label:
+      type: string
+    unit:
+      type: string
+    valueText:
+      type: string
+    color:
+      type: string

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create latest_post_timestamps table" author="shyeokchoi">
+    <createTable tableName="latest_post_timestamps">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP">
+        <constraints nullable="true"/>
+      </column>
+      <column name="timestamp" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="board_group" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="board_category" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <rollback>
+      <dropTable tableName="latest_post_timestamps"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="update columns on latest_post_timestamps table" author="Lucas">
+    <addNotNullConstraint tableName="latest_post_timestamps" columnName="stock_code"/>
+    <addNotNullConstraint tableName="latest_post_timestamps" columnName="board_group"/>
+    <addNotNullConstraint tableName="latest_post_timestamps" columnName="board_category"/>
+  </changeSet>
+
+  <changeSet id="create latest_user_posts_views table" author="shyeokchoi">
+    <createTable tableName="latest_user_posts_views">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP">
+        <constraints nullable="true"/>
+      </column>
+      <column name="timestamp" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="board_group" type="VARCHAR(255)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="board_category" type="VARCHAR(255)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="posts_view_type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createIndex tableName="latest_user_posts_views"
+                 indexName="idx_user_id_stock_code"
+                 unique="false">
+      <column name="user_id"/>
+      <column name="stock_code"/>
+    </createIndex>
+
+    <rollback>
+      <dropTable tableName="latest_user_posts_views"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="remove old unique index unique_idx_stock_code on latest_post_timestamps table"
+    author="Lucas"
+    failOnError="false"
+  >
+    <dropUniqueConstraint tableName="latest_post_timestamps" constraintName="unique_idx_stock_code"/>
+  </changeSet>
+
+  <changeSet
+    id="add unique index unique_idx_stock_code_board_group_category on latest_post_timestamps table"
+    author="Lucas"
+  >
+    <createIndex
+      tableName="latest_post_timestamps"
+      indexName="unique_idx_stock_code_board_group_category"
+      unique="true"
+    >
+      <column name="stock_code"/>
+      <column name="board_group"/>
+      <column name="board_category"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet
+    id="remove index idx_user_id_stock_code on latest_user_posts_views table"
+    author="Sniper"
+  >
+    <dropIndex tableName="latest_user_posts_views" indexName="idx_user_id_stock_code"/>
+  </changeSet>
+
+  <changeSet
+    id="add unique index unique_idx_user_id_stock_code_board_group_category on latest_user_posts_views table"
+    author="Sniper"
+  >
+    <createIndex
+      tableName="latest_user_posts_views"
+      indexName="unique_idx_user_id_stock_code_board_group_category"
+      unique="true"
+    >
+      <column name="user_id"/>
+      <column name="stock_code"/>
+      <column name="board_group"/>
+      <column name="board_category"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet id="add column unique_combined_id latest_user_posts_views" author="Sniper">
+    <addColumn tableName="latest_user_posts_views">
+      <column name="unique_combined_id" type="VARCHAR(255)" defaultValue="temp">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="latest_user_posts_views" columnName="unique_combined_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate column unique_combined_id" author="Sniper">
+    <sql>
+      update latest_user_posts_views
+      set unique_combined_id = concat(
+        stock_code, '__',
+        user_id, '__',
+        COALESCE(board_group, 'null'), '__',
+        COALESCE(board_category, 'null'), '__',
+        posts_view_type
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet id="add unique index latest_user_posts_views" author="Sniper">
+    <addUniqueConstraint tableName="latest_user_posts_views"
+                         constraintName="unique_idx_unique_combined_id"
+                         columnNames="unique_combined_id"/>
+    <rollback>
+      <dropUniqueConstraint tableName="latest_user_posts_views"
+                            constraintName="unique_idx_unique_combined_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet
+    id="remove unique index unique_idx_user_id_stock_code_board_group_category on latest_post_timestamps table"
+    author="Sniper"
+  >
+    <dropIndex tableName="latest_post_timestamps" indexName="unique_idx_user_id_stock_code_board_group_category"/>
+  </changeSet>
+
+</databaseChangeLog>

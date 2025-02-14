@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add anonymous column to comments table" author="Sniper">
+    <addColumn tableName="comments">
+      <column name="is_anonymous" type="Boolean" defaultValueBoolean="false"/>
+      <column name="anonymous_count" type="INTEGER" defaultValueNumeric="0"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="comments" columnName="is_anonymous"/>
+      <dropColumn tableName="comments" columnName="anonymous_name"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="creation comment_user_likes table" author="Sniper">
+    <createTable tableName="comment_user_likes">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="comment_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="timestamp" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="creation idx_comment_user_likes_by_post_id_comment_id index" author="Sniper">
+    <createIndex tableName="comment_user_likes" indexName="idx_comment_user_likes_by_post_id_comment_id">
+      <column name="post_id"/>
+      <column name="comment_id"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="comment_user_likes" indexName="idx_comment_user_likes_by_post_id_comment_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="creation change_post_add_default_value index" author="Sniper">
+    <addDefaultValue tableName="posts" columnName="view_count" defaultValueNumeric="0"/>
+    <addDefaultValue tableName="posts" columnName="view_user_count" defaultValueNumeric="0"/>
+    <addDefaultValue tableName="posts" columnName="like_count" defaultValueNumeric="0"/>
+    <addDefaultValue tableName="posts" columnName="comment_count" defaultValueNumeric="0"/>
+  </changeSet>
+
+  <changeSet id="add my_speech, is_agree_to_receive_sms columns on users table" author="Lucas">
+    <addColumn tableName="users">
+      <column name="my_speech" type="text" defaultValue=""/>
+      <column name="is_agree_to_receive_sms" type="Boolean" defaultValueBoolean="false"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="users" columnName="my_speech"/>
+      <dropColumn tableName="users" columnName="is_agree_to_receive_sms"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add my_data_file_content_id column on users table" author="Lucas">
+    <addColumn tableName="users">
+      <column name="my_data_file_content_id" type="BIGINT" defaultValueNumeric="0"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="users" columnName="my_data_file_content_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add like_count column on comments table" author="Sniper">
+    <addColumn tableName="comments">
+      <column name="like_count" type="BIGINT" defaultValueNumeric="0"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="comments" columnName="like_count"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add reply_comment_count column on comments table" author="Sniper">
+    <addColumn tableName="comments">
+      <column name="reply_comment_count" type="BIGINT" defaultValueNumeric="0"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="comments" columnName="reply_comment_count"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add client_type on comments table" author="Tnfls99">
+    <addColumn tableName="comments">
+      <column name="client_type" type="VARCHAR(255)" defaultValue="APP"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="comments" columnName="client_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="change content column type to text on posts table" author="Lucas">
+    <modifyDataType tableName="posts" columnName="content" newDataType="text"/>
+
+    <rollback>
+      <modifyDataType tableName="posts" columnName="content" newDataType="varchar(255)"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create_post_user_profiles_table" author="Sniper">
+    <createTable tableName="post_user_profiles">
+      <column name="post_id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="nickname" type="VARCHAR(255)"/>
+      <column name="individual_stock_count_label" type="VARCHAR(255)"/>
+      <column name="total_asset_label" type="VARCHAR(255)"/>
+      <column name="profile_image_url" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="change content column type to text on comments table" author="Sniper">
+    <modifyDataType tableName="comments" columnName="content" newDataType="text"/>
+
+    <rollback>
+      <modifyDataType tableName="comments" columnName="content" newDataType="varchar(255)"/>
+    </rollback>
+  </changeSet>
+  
+  <changeSet id="create_comments_parent_id_created_at_status_index_on_comments" author="Tnfls99">
+    <createIndex tableName="comments" indexName="comments_parent_id_created_at_status_index">
+      <column name="parent_id"/>
+      <column name="created_at"/>
+      <column name="status"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet id="create_comment_user_profiles_table" author="Sniper">
+    <createTable tableName="comment_user_profiles">
+      <column name="comment_id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="nickname" type="VARCHAR(255)"/>
+      <column name="individual_stock_count_label" type="VARCHAR(255)"/>
+      <column name="total_asset_label" type="VARCHAR(255)"/>
+      <column name="profile_image_url" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add user_ip column on post_user_profiles table" author="Lucas">
+    <addColumn tableName="post_user_profiles">
+      <column name="user_ip" type="VARCHAR(255)" defaultValue="192.168.0.1"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="post_user_profiles" columnName="user_ip"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add user_ip column on comment_user_profiles table" author="Lucas">
+    <addColumn tableName="comment_user_profiles">
+      <column name="user_ip" type="VARCHAR(255)" defaultValue="192.168.0.1"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="comment_user_profiles" columnName="user_ip"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add is_solidarity_leader column on post_user_profiles table" author="jooany">
+    <addColumn tableName="post_user_profiles">
+      <column name="is_solidarity_leader" type="boolean" defaultValue="false"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="post_user_profiles" columnName="is_solidarity_leader"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add is_solidarity_leader column on comment_user_profiles table" author="jooany">
+    <addColumn tableName="comment_user_profiles">
+      <column name="is_solidarity_leader" type="boolean" defaultValue="false"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="comment_user_profiles" columnName="is_solidarity_leader"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate individual_stock_count_label column on post_user_profiles table" author="Sniper">
+    <sql>
+      UPDATE post_user_profiles
+      SET individual_stock_count_label = CASE
+                                           WHEN individual_stock_count_label LIKE '%천+' THEN REPLACE(individual_stock_count_label, '천+', '천주+')
+                                           WHEN individual_stock_count_label LIKE '%만+' THEN REPLACE(individual_stock_count_label, '만+', '만주+')
+                                           WHEN individual_stock_count_label LIKE '%억+' THEN REPLACE(individual_stock_count_label, '억+', '억주+')
+                                           ELSE REPLACE(individual_stock_count_label, '+', '') || '주+'
+        END
+    </sql>
+  </changeSet>
+
+  <changeSet id="migrate individual_stock_count_label column on comment_user_profiles table" author="Sniper">
+    <sql>
+      UPDATE comment_user_profiles
+      SET individual_stock_count_label = CASE
+                                           WHEN individual_stock_count_label LIKE '%천+' THEN REPLACE(individual_stock_count_label, '천+', '천주+')
+                                           WHEN individual_stock_count_label LIKE '%만+' THEN REPLACE(individual_stock_count_label, '만+', '만주+')
+                                           WHEN individual_stock_count_label LIKE '%억+' THEN REPLACE(individual_stock_count_label, '억+', '억주+')
+                                           ELSE REPLACE(individual_stock_count_label, '+', '') || '주+'
+        END
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

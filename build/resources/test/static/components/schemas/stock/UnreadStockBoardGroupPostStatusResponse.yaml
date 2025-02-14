@@ -1,0 +1,15 @@
+#UnreadStockBoardGroupPostStatusResponse:
+  type: object
+  properties:
+    unreadAnalysis:
+      type: boolean
+      default: false
+      example: true
+    unreadAction:
+      type: boolean
+      default: false
+      example: true
+    unreadDebate:
+      type: boolean
+      default: false
+      example: true

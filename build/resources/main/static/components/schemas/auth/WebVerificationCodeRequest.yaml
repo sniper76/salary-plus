@@ -1,0 +1,19 @@
+#WebVerificationCodeRequest:
+  type: object
+  properties:
+    authenticationReference:
+      type: string
+      format: uuid
+      nullable: false
+      x-field-extra-annotation: |
+        @NotNull(message = "인증참조키를 확인하세요.")
+    verificationCode:
+      type: string
+      example: A123
+      nullable: false
+      x-field-extra-annotation: |
+        @Pattern(regexp = "^[A-Z]{1}[0-9]{3}$", message = "개인안심번호를 확인해주세요.")
+        @Size(min = 4, max = 4, message = "개인안심번호를 확인해주세요.")
+  example:
+    authenticationReference: 9151f21f-43ae-43b4-92f3-f4af67cdf544
+    verificationCode: A123

@@ -1,0 +1,11 @@
+#SendAuthResponse:
+  type: object
+  properties:
+    resultCode:
+      type: string
+    resultMessage:
+      type: string
+    txSeqNo:
+      type: string
+    telComResCd:
+      type: string

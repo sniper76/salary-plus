@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create solidarity_leaders table" author="sjoonb">
+    <createTable tableName="solidarity_leaders">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="solidarity_id" type="BIGINT">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="message" type="VARCHAR(255)">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create solidarity_leader_applicants table" author="sjoonb" failOnError="false" runOnChange="true">
+    <createTable tableName="solidarity_leader_applicants">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="solidarity_id" type="BIGINT">
+        <constraints nullable="false" />
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_solidarity_id" author="sjoonb">
+    <addUniqueConstraint tableName="solidarity_leader_applicants"
+                         constraintName="unique_user_id_solidarity_id"
+                         columnNames="user_id, solidarity_id"/>
+    <rollback>
+      <dropUniqueConstraint tableName="solidarity_leader_applicants"
+                            constraintName="unique_user_id_solidarity_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add version column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="version" type="INTEGER" defaultValue="1">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="version"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add save_status column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="save_status" type="VARCHAR(255)" defaultValue="COMPLETE">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="save_status"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add reasons_for_applying column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="reasons_for_applying" type="TEXT">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="reasons_for_applying"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add knowledge_of_company_management column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="knowledge_of_company_management" type="TEXT">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="knowledge_of_company_management"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add goals column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="goals" type="TEXT">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="goals"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add comments_for_stock_holder column to solidarity_leader_applicants table" author="Tnfls99">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="comments_for_stock_holder" type="TEXT">
+        <constraints nullable="true"/>
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="comments_for_stock_holder"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add solidarity_leader_election_id column on solidarity_leader_applicants table" author="Sniper">
+    <addColumn tableName="solidarity_leader_applicants">
+      <column name="solidarity_leader_election_id" type="BIGINT"/>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="solidarity_leader_applicants" columnName="solidarity_leader_election_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop_unique_user_id_solidarity_id" author="Sniper">
+    <dropUniqueConstraint tableName="solidarity_leader_applicants"
+                          constraintName="unique_user_id_solidarity_id"/>
+  </changeSet>
+
+  <changeSet id="create_unique_user_id_solidarity_id_solidarity_leader_election_id" author="Sniper">
+    <addUniqueConstraint tableName="solidarity_leader_applicants"
+                         constraintName="unique_user_id_solidarity_id_solidarity_leader_election_id"
+                         columnNames="user_id, solidarity_id, solidarity_leader_election_id"/>
+    <rollback>
+      <dropUniqueConstraint tableName="solidarity_leader_applicants"
+                            constraintName="unique_user_id_solidarity_id_solidarity_leader_election_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="delete_unique_user_id_solidarity_id_solidarity_leader_election_id" author="Tnfls99">
+    <dropUniqueConstraint tableName="solidarity_leader_applicants"
+                         constraintName="unique_user_id_solidarity_id_solidarity_leader_election_id"/>
+    <rollback>
+      <dropUniqueConstraint tableName="solidarity_leader_applicants"
+                            constraintName="unique_user_id_solidarity_id_solidarity_leader_election_id"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

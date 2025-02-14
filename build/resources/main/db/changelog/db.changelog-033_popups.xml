@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create popups table" author="Lucas">
+    <createTable tableName="popups">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="title" type="VARCHAR(1000)"/>
+      <column name="content" type="TEXT"/>
+      <column name="target_start_datetime" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="target_end_datetime" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="link_type" type="VARCHAR(255)" defaultValue="NONE"/>
+      <column name="link_title" type="VARCHAR(255)"/>
+      <column name="link_url" type="VARCHAR(1000)"/>
+      <column name="target_type" type="VARCHAR(255)" defaultValue="MAIN_HOME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)"/>
+      <column name="stock_group_id" type="BIGINT"/>
+      <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add index on popups" author="Lucas">
+    <createIndex tableName="popups" indexName="idx_popups_001">
+      <column name="created_at"/>
+      <column name="target_type"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="popups" indexName="idx_popups_001"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="rename column target_type to display_target_type on popups" author="Lucas">
+    <renameColumn tableName="popups" oldColumnName="target_type" newColumnName="display_target_type"/>
+
+    <rollback>
+      <renameColumn tableName="popups" oldColumnName="display_target_type" newColumnName="target_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add stock_target_type column on popups" author="Lucas">
+    <addColumn tableName="popups">
+      <column name="stock_target_type" type="VARCHAR(255)" defaultValue="ALL"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="popups" columnName="stock_target_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add post_id column on popups" author="Sniper">
+    <addColumn tableName="popups">
+      <column name="post_id" type="BIGINT"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="popups" columnName="post_id"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add board_category column on popups" author="Sniper">
+    <addColumn tableName="popups">
+      <column name="board_category" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="popups" columnName="board_category"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

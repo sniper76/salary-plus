@@ -1,0 +1,17 @@
+#ErrorResponse:
+  description: JSON payload with error message
+  type: object
+  properties:
+    statusCode:
+      type: integer
+      description: HTTP status code
+    errorCode:
+      type: integer
+      description: Specific error code
+    message:
+      type: string
+      description: Human readable error message
+    errorData:
+      description: Additional error data
+      additionalProperties:
+        type: object

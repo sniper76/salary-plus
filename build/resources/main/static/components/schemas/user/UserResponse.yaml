@@ -1,0 +1,145 @@
+#UserResponse:
+  type: object
+  properties:
+    id:
+      type: integer
+      format: int64
+    email:
+      type: string
+    name:
+      type: string
+    birthDate:
+      type: string
+      format: date-time
+    phoneNumber:
+      type: string
+      nullable: true
+    gender:
+      $ref: '../enums/Gender.yaml'
+    lastPinNumberVerifiedAt:
+      type: string
+      format: date-time
+      nullable: true
+    nickname:
+      type: string
+      nullable: true
+    mySpeech:
+      type: string
+      nullable: true
+    jobTitle:
+      type: string
+      nullable: true
+    address:
+      type: string
+      nullable: true
+    addressDetail:
+      type: string
+      nullable: true
+    zipcode:
+      type: string
+      nullable: true
+    totalAssetAmount:
+      type: integer
+      format: int64
+    profileImageUrl:
+      type: string
+      nullable: true
+    status:
+      $ref: '../enums/Status.yaml'
+    authType:
+      $ref: '../enums/AuthType.yaml'
+    lastNicknameUpdatedAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: null
+    createdAt:
+      type: string
+      format: date-time
+    updatedAt:
+      type: string
+      format: date-time
+    editedAt:
+      type: string
+      format: date-time
+    deletedAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: null
+    isPinNumberRegistered:
+      type: boolean
+    isAgreeToReceiveMail:
+      type: boolean
+      nullable: true
+    userBadgeVisibilities:
+      type: array
+      items:
+        $ref: './UserBadgeVisibilityResponse.yaml'
+    isChangePasswordRequired:
+      type: boolean
+      nullable: true
+    isAdmin:
+      type: boolean
+      nullable: true
+    isSolidarityLeaderConfidentialAgreementSigned:
+      type: boolean
+      description: '주주연대 대표 비밀유지계약서 서명 여부'
+    leadingSolidarityStockCodes:
+      type: array
+      items:
+        type: string
+        description: List of stocks where the user is a leader of the solidarity.
+    roles:
+      type: array
+      items:
+        type: string
+        description: List of user roles.
+    holdingStocks:
+      type: array
+      items:
+        $ref: '../stock/SimpleStockResponse.yaml'
+  example:
+    id: '1'
+    name: '이동훈'
+    email: 'yanggun7201@gmail.com'
+    birthDate: '1999-08-07T12:00:00.000Z'
+    phoneNumber: '01055556666'
+    gender: 'M'
+    isAgreeToReceiveMail: null
+    lastPinNumberVerifiedAt: '2023-07-13T08:40:08.021Z'
+    nickname: null
+    jobTitle: null
+    address: null
+    addressDetail: null
+    zipcode: null
+    totalAssetAmount: null
+    profileImageUrl: null
+    status: 'PROCESSING'
+    authType: 'PIN'
+    createdAt: '2023-07-13T08:39:14.490Z'
+    updatedAt: '2023-07-13T08:40:08.022Z'
+    deletedAt: null
+    isPinNumberRegistered: true
+    isSolidarityLeaderConfidentialAgreementSigned: true
+    userBadgeVisibility:
+      - label: '주식수'
+        isVisible: true
+        name: 'isVisibilityStockQuantity'
+      - label: '자산'
+        isVisible: true
+        name: 'isVisibilityTotalAsset'
+    lastNicknameUpdatedAt: null || 2023-07-18T13:52:45.028685Z
+    roles: [ 'USER', 'ADMIN', 'SUPER_ADMIN' ]
+    leadingSolidarityStockCodes: [ '005930', '555666', '000660' ]
+    holdingStocks:
+      [
+        {
+          code: '005930',
+          name: '삼성전자'
+        },
+        {
+          code: '000660',
+          name: 'SK하이닉스'
+        }
+      ]

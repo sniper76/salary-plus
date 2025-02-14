@@ -1,0 +1,7 @@
+#CreateStockSearchTrendRequest:
+  type: object
+  properties:
+    stockCode:
+      type: string
+      x-field-extra-annotation: |
+        @NotBlank(message = "종목코드를 확인해주세요.")

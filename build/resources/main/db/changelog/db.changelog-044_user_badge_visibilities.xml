@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create user_badge_visibilities table" author="Sniper">
+    <createTable tableName="user_badge_visibilities">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_visible" type="boolean" defaultValue="true"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add unique index on user_badge_visibilities" author="Sniper">
+    <createIndex tableName="user_badge_visibilities" indexName="idx_user_id_type_unique_on_user_badge_visibilities">
+      <column name="user_id"/>
+      <column name="type"/>
+    </createIndex>
+    <rollback>
+      <dropIndex tableName="user_badge_visibilities" indexName="idx_user_id_type_unique_on_user_badge_visibilities"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

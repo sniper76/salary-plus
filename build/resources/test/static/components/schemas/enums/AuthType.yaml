@@ -1,0 +1,7 @@
+
+
+#AuthType:
+  type: string
+  enum:
+    - PIN
+    - BIO

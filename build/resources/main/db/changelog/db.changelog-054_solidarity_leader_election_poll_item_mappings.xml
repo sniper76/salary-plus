@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create solidarity_leader_election_poll_item_mappings table" author="Sniper">
+    <createTable tableName="solidarity_leader_election_poll_item_mappings">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="solidarity_leader_election_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="solidarity_leader_applicant_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="poll_item_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="election_answer_type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add index on solidarity_leader_election_poll_item_mappings table" author="Sniper">
+    <createIndex
+      tableName="solidarity_leader_election_poll_item_mappings"
+      indexName="unique_idx_solidarity_leader_election_poll_item_mappings"
+      unique="true"
+    >
+      <column name="solidarity_leader_election_id"/>
+      <column name="solidarity_leader_applicant_id"/>
+      <column name="poll_item_id"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="solidarity_leader_election_poll_item_mappings"
+        indexName="unique_idx_solidarity_leader_election_poll_item_mappings"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,38 @@
+#/api/sms/resend-auth-request:
+  post:
+    summary: Resend Auth Request
+    operationId: resendAuthRequest
+    tags: [ SmsAuthentication ]
+    security:
+      - bearerAuth: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/auth/ResendAuthRequest.yaml'
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/auth/ResendAuthResponse.yaml'
+      '500':
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/ErrorResponse.yaml'
+            example:
+              message: 알 수 없는 오류가 발생하였습니다. 잠시 후에 다시 시도해 주세요.
+              code: 500
+      '503':
+        description: Service Unavailable
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/ErrorResponse.yaml'
+            example:
+              message: '현재 인증서버와 연결이 원활하지 않습니다. 잠시 후 다시 시도해 주세요.'
+              code: 503

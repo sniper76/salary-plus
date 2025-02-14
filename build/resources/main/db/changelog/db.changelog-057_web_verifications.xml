@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create web_verifications table" author="Lucas">
+    <createTable tableName="web_verifications">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="verification_code" type="VARCHAR(255)" remarks="인증번호">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verification_code_base_date_time" type="TIMESTAMP" remarks="인증번호 생성기준시간 (5분단위)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verification_code_start_date_time" type="TIMESTAMP" remarks="인증번호 생성시간">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verification_code_end_date_time" type="TIMESTAMP" remarks="인증번호 유효기간 종료시간">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verification_code_redeemed_at" type="TIMESTAMP" remarks="앱에서 인증번호를 입력해서 인증이 된 시간"/>
+      <column name="user_id" type="BIGINT" remarks="로그인한 유저 아이디"/>
+      <column name="authentication_reference" type="UUID" remarks="인증번호를 생성할때 사용되는 인증참조키">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create an index unique_idx_verification_code_on_web_verifications on web_verifications" author="Lucas">
+    <createIndex
+      indexName="unique_idx_verification_code_on_web_verifications"
+      tableName="web_verifications"
+      unique="true"
+    >
+      <column name="verification_code"/>
+      <column name="verification_code_base_date_time"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="web_verifications"
+        indexName="unique_idx_verification_code_on_web_verifications"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create an index idx_authentication_reference_on_web_verifications on web_verifications" author="Lucas">
+    <createIndex
+      indexName="idx_authentication_reference_on_web_verifications"
+      tableName="web_verifications"
+    >
+      <column name="authentication_reference"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="web_verifications"
+        indexName="idx_authentication_reference_on_web_verifications"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

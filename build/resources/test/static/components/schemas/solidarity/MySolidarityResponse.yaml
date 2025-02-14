@@ -1,0 +1,26 @@
+#MySolidarityResponse:
+  allOf:
+    - $ref: './SolidarityResponse.yaml'
+    - type: object
+      properties:
+        displayOrder:
+          type: integer
+          example: 1
+        links:
+          type: array
+          items:
+            $ref: './LinkResponse.yaml'
+          nullable: true
+          example: Array [ { title, url, color } ] || null
+        stakeRank:
+          type: string
+          example: '-'
+        stakeRankDelta:
+          type: integer
+          format: int32
+        marketValueRank:
+          type: string
+          example: '-'
+        marketValueRankDelta:
+          type: integer
+          format: int32

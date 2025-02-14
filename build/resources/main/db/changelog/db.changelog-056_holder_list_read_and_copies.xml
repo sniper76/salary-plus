@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="create holder_list_read_and_copies table" author="Sniper">
+    <createTable tableName="holder_list_read_and_copies">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="digital_document_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE" remarks="상태">
+        <constraints nullable="false"/>
+      </column>
+      <column name="item_type" type="VARCHAR(255)" remarks="혼합형/주관식 항목">
+        <constraints nullable="false"/>
+      </column>
+      <column name="item_value" type="VARCHAR(255)" remarks="혼합형/주관식 답변">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create an index on holder_list_read_and_copies" author="Sniper">
+    <createIndex
+      indexName="idx_holder_list_read_and_copies_digital_document_id"
+      tableName="holder_list_read_and_copies"
+    >
+      <column name="digital_document_id"/>
+    </createIndex>
+
+    <rollback>
+      <dropIndex
+        tableName="holder_list_read_and_copies"
+        indexName="idx_holder_list_read_and_copies_digital_document_id"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

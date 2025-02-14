@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet id="create stock_rankings table" author="Sniper">
+    <createTable tableName="stock_rankings">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stake" type="DECIMAL(10,5)" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stake_rank" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stake_rank_delta" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="market_value" type="BIGINT" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="market_value_rank" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="market_value_rank_delta" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add unique_date_stock_code constraint on stock_rankings table" author="Sniper">
+    <addUniqueConstraint
+      tableName="stock_rankings"
+      constraintName="unique_date_stock_code_on_stock_rankings"
+      columnNames="date, stock_code"
+    />
+    <rollback>
+      <dropUniqueConstraint
+        tableName="stock_rankings"
+        constraintName="unique_date_stock_code_on_stock_rankings"
+      />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add stock_name column on stock_rankings table" author="Lucas">
+    <addColumn tableName="stock_rankings">
+      <column name="stock_name" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stock_rankings" columnName="stock_name"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="migrate to update stock_name column on stock_ranking" author="Lucas">
+    <sql>
+      UPDATE stock_rankings
+      SET stock_name = (SELECT s.name
+                        FROM stocks s
+                        WHERE s.code = stock_rankings.stock_code)
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

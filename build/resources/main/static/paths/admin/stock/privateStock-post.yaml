@@ -1,0 +1,32 @@
+#/api/admin/stocks/private-stocks:
+  post:
+    summary: 비상장 종목 등록
+    operationId: createPrivateStock
+    tags: [ AdminPrivateStock ]
+    security:
+      - bearerAuth: [ ]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/stock/CreatePrivateStockRequest.yaml'
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/SimpleStringResponse.yaml'
+      '400':
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'
+      '403':
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: '../../../components/schemas/ErrorResponse.yaml'

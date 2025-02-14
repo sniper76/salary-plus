@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add closing_price column on user_holding_stocks table" author="Lucas">
+    <addColumn tableName="user_holding_stocks">
+      <column name="closing_price" type="INTEGER" defaultValueNumeric="0">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+    <rollback>
+      <dropColumn tableName="user_holding_stocks" columnName="closing_price"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,215 @@
+{
+  "investInfo": [
+    {
+      "orgName": "토스증권 주식회사",
+      "orgCode": "C1AAHW0000",
+      "accountNum": "00000000001",
+      "isConsent": "1",
+      "accountName": "위탁",
+      "accountType": "102",
+      "issueDate": "20210416",
+      "isTaxBenefits": "0",
+      "baseDate": "20230711",
+      "basicList": [
+        {
+          "currencyCode": "KRW",
+          "withholdingsAmt": "38.000",
+          "creditLoanAmt": "0.000",
+          "mortgageAmt": "0.000"
+        },
+        {
+          "currencyCode": "USD",
+          "withholdingsAmt": "0.000",
+          "creditLoanAmt": "0.000",
+          "mortgageAmt": "0.000"
+        }
+      ],
+      "acctTranList": [
+        {
+          "prodName": "상보",
+          "prodCode": "KR7027580000",
+          "transDtime": "{상보_date1}",
+          "transNo": "0008196908000000001",
+          "transType": "341",
+          "transTypeDetail": "KOSDAQ보통매수",
+          "transNum": "5",
+          "baseAmt": "2080",
+          "transAmt": "10400",
+          "balanceAmt": "38",
+          "currencyCode": "KRW"
+        },
+        {
+          "prodName": "상보",
+          "prodCode": "KR7027580000",
+          "transDtime": "{상보_date2}",
+          "transNo": "0008243068000000002",
+          "transType": "341",
+          "transTypeDetail": "KOSDAQ보통매수",
+          "transNum": "25",
+          "baseAmt": "2170",
+          "transAmt": "54250",
+          "balanceAmt": "10438",
+          "currencyCode": "KRW"
+        }
+      ],
+      "acctPrdList": [
+        {
+          "baseDate": "20230711",
+          "prodType": "401",
+          "prodTypeDetail": "국내주식",
+          "prodCode": "KR7027580000",
+          "prodName": "상보",
+          "creditType": "01",
+          "isTaxBenefits": 0,
+          "purchaseAmt": "64650.000",
+          "holdingNum": "30.000000",
+          "evalAmt": "62550.000",
+          "currencyCode": "KRW"
+        }
+      ],
+      "searchDate": "20230711",
+      "searchTime": "090124"
+    },
+    {
+      "orgName": "KB증권",
+      "orgCode": "C1AADA0000",
+      "accountNum": "00000000001",
+      "isConsent": "1",
+      "accountName": "개인종합자산관리계좌",
+      "accountType": "111",
+      "issueDate": "20220118",
+      "isTaxBenefits": "1",
+      "baseDate": "20230711",
+      "basicList": [
+        {
+          "currencyCode": "KRW",
+          "withholdingsAmt": "1.000",
+          "creditLoanAmt": "0.000",
+          "mortgageAmt": "0.000"
+        }
+      ],
+      "acctTranList": [
+        {
+          "prodName": "상보",
+          "prodCode": "KR7027580000",
+          "transDtime": "{상보_date3}",
+          "transNo": "0008196908000000001",
+          "transType": "341",
+          "transTypeDetail": "KOSDAQ보통매수",
+          "transNum": "15",
+          "baseAmt": "2080",
+          "transAmt": "31200",
+          "balanceAmt": "38",
+          "currencyCode": "KRW"
+        },
+        {
+          "prodName": "상보",
+          "prodCode": "KR7027580000",
+          "transDtime": "{상보_date4}",
+          "transNo": "0008196908000000001",
+          "transType": "341",
+          "transTypeDetail": "KOSDAQ보통매수",
+          "transNum": "5",
+          "baseAmt": "2080",
+          "transAmt": "10400",
+          "balanceAmt": "38",
+          "currencyCode": "KRW"
+        }
+      ],
+      "acctPrdList": [
+        {
+          "baseDate": "20230811",
+          "prodType": "401",
+          "prodTypeDetail": "국내주식",
+          "prodCode": "KR7027580000",
+          "prodName": "상보",
+          "creditType": "02",
+          "isTaxBenefits": 0,
+          "purchaseAmt": "64650.000",
+          "holdingNum": "20.000000",
+          "evalAmt": "62550.000",
+          "currencyCode": "KRW"
+        }
+      ],
+      "searchDate": "20230711",
+      "searchTime": "090123"
+    },
+    {
+      "orgName": "키움증권",
+      "orgCode": "C1AABR0000",
+      "accountNum": "00000000001",
+      "isConsent": "1",
+      "accountName": "키움종합매매상품",
+      "accountType": "101",
+      "issueDate": "20210111",
+      "isTaxBenefits": "0",
+      "baseDate": "20211017",
+      "basicList": [
+        {
+          "currencyCode": "KRW",
+          "withholdingsAmt": "8000000",
+          "creditLoanAmt": "0",
+          "mortgageAmt": "0"
+        },
+        {
+          "currencyCode": "USD",
+          "withholdingsAmt": "10000000",
+          "creditLoanAmt": "0",
+          "mortgageAmt": "0"
+        }
+      ],
+      "acctTranList": [
+        {
+          "prodName": "SK하이닉스",
+          "prodCode": "KR7000660001",
+          "transDtime": "{SK하이닉스_date1}124012",
+          "transNo": "20211009",
+          "transType": "341",
+          "transTypeDetail": "매수",
+          "transNum": "10",
+          "baseAmt": "100000",
+          "transAmt": "1000000",
+          "settleAmt": "1000",
+          "balanceAmt": "8000000",
+          "currencyCode": "KRW",
+          "exCode": ""
+        },
+        {
+          "prodName": "SK하이닉스",
+          "prodCode": "KR7000660001",
+          "transDtime": "{SK하이닉스_date2}124011",
+          "transNo": "20211009",
+          "transType": "341",
+          "transTypeDetail": "매수",
+          "transNum": "10",
+          "baseAmt": "100000",
+          "transAmt": "1000000",
+          "settleAmt": "1000",
+          "balanceAmt": "8000000",
+          "currencyCode": "KRW",
+          "exCode": ""
+        }
+      ],
+      "acctPrdList": [
+        {
+          "baseDate": "20211017",
+          "prodType": "401",
+          "prodTypeDetail": "주식",
+          "prodCode": "KR7000660001",
+          "exCode": "",
+          "prodName": "SK하이닉스",
+          "posType": "01",
+          "creditType": "01",
+          "isTaxBenefits": 0,
+          "purchaseAmt": "32000000",
+          "holdingNum": "320",
+          "evalAmt": "32000000",
+          "currencyCode": "KRW"
+        }
+      ],
+      "searchDate": "20230710",
+      "searchTime": "155031"
+    }
+  ],
+  "userId": "93785608cfda741d0b31a2a74fc25b0c3"
+}

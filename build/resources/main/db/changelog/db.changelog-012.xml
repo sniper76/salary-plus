@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="add more column on stocks table" author="Lucas">
+    <addColumn tableName="stocks">
+      <column name="closing_price" type="INTEGER" defaultValueNumeric="0">
+        <constraints nullable="false"/>
+      </column>
+      <column name="standard_code" type="VARCHAR(255)"/>
+      <column name="full_name" type="VARCHAR(255)"/>
+      <column name="market_type" type="VARCHAR(255)"/>
+      <column name="stock_type" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stocks" columnName="closing_price"/>
+      <dropColumn tableName="stocks" columnName="standard_code"/>
+      <dropColumn tableName="stocks" columnName="full_name"/>
+      <dropColumn tableName="stocks" columnName="market_type"/>
+      <dropColumn tableName="stocks" columnName="stock_type"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add representative_phone_number column on stocks table" author="Lucas">
+    <addColumn tableName="stocks">
+      <column name="representative_phone_number" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stocks" columnName="representative_phone_number"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="add address column on stocks table" author="jooany">
+    <addColumn tableName="stocks">
+      <column name="address" type="VARCHAR(255)"/>
+    </addColumn>
+
+    <rollback>
+      <dropColumn tableName="stocks" columnName="address"/>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="drop closing_price column on user_holding_stocks table" author="Lucas">
+    <dropColumn tableName="user_holding_stocks" columnName="closing_price"/>
+
+    <rollback>
+      <addColumn tableName="user_holding_stocks">
+        <column name="closing_price" type="INTEGER" defaultValueNumeric="0">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="create stock_groups table" author="Lucas">
+    <createTable tableName="stock_groups">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false" unique="true" uniqueConstraintName="unique_stock_group_name"/>
+      </column>
+      <column name="description" type="varchar(1000)"/>
+      <column name="status" type="VARCHAR(255)" defaultValue="ACTIVE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deleted_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create stock_group_mappings table" author="Lucas">
+    <createTable tableName="stock_group_mappings">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="stock_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="stock_group_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="add unique_stock_code_stock_group_id constraint on stock_group_mappings table" author="Lucas">
+    <addUniqueConstraint
+      tableName="stock_group_mappings"
+      constraintName="unique_stock_code_stock_group_id"
+      columnNames="stock_code, stock_group_id"
+    />
+    <rollback>
+      <dropUniqueConstraint
+        tableName="stock_group_mappings"
+        constraintName="unique_stock_code_stock_group_id"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

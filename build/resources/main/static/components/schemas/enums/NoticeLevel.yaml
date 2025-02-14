@@ -1,0 +1,6 @@
+#NoticeLevel:
+  type: string
+  enum:
+    - INFO
+    - WARNING
+    - CRITICAL

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet id="create shop_user_mappings table" author="Sniper">
+    <createTable tableName="shop_user_mappings" remarks="상점별 사용자 연결 정보">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="shop_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" valueComputed="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="create unique index shop_id and user_id shop_user_mappings" author="Sniper">
+    <addUniqueConstraint tableName="shop_user_mappings"
+                         constraintName="unique_index_shop_user_mappings"
+                         columnNames="shop_id,user_id"/>
+
+    <rollback>
+      <dropUniqueConstraint
+        tableName="shop_user_mappings"
+        constraintName="unique_index_shop_user_mappings"
+      />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

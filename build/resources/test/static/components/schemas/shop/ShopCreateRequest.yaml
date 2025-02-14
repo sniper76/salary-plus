@@ -1,0 +1,27 @@
+#ShopCreateRequest:
+  type: object
+  properties:
+    shopName:
+      type: string
+      x-field-extra-annotation: |
+        @NotBlank(message = "상점명을 확인해주세요.")
+    pricePlanId:
+      type: integer
+      format: int64
+    userShiftStartTime:
+      type: string
+      format: time
+    shopGroupId:
+      type: integer
+      format: int64
+      default: null
+    userListFile:
+      type: string
+      format: binary
+      default: null
+  example:
+    shopName: '상점명'
+    pricePlanId: '요금제 정보 아이디'
+    userShiftStartTime: '근무자 근무 시작 시간 09:00:00'
+    shopGroupId: '상점 그룹 아이디'
+    userListFile: '유저 목록 csv 파일'

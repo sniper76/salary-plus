@@ -1,0 +1,16 @@
+#ResendAuthResponse:
+  type: object
+  properties:
+    resultCode:
+      type: string
+    resultMessage:
+      type: string
+    resendCount:
+      type: integer
+    txSeqNo:
+      type: string
+  example:
+    resultCode: 'B000'
+    resultMessage: '인증번호 재발송 성공'
+    resendCount: 2
+    txSeqNo: '230712102659KC687332'

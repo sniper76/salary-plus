@@ -1,0 +1,22 @@
+#/api/notifications/{notificationId}:
+  post:
+    summary: 사용자 알림 확인
+    operationId: createNotificationUserView
+    tags: [ UserNotification ]
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - name: notificationId
+        in: path
+        required: true
+        description: Notification ID
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              $ref: '../../components/schemas/SimpleStringResponse.yaml'

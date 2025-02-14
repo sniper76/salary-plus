@@ -1,0 +1,48 @@
+#VerifyAuthCodeRequest:
+  type: object
+  properties:
+    phoneNumber:
+      type: string
+      x-field-extra-annotation: |
+        @IsPhoneNumber(message = "휴대폰 번호를 확인해주세요.")
+    provider:
+      type: string
+      description: "통신사 구분(SKT: 01, KT: 02, LGU+: 03, 알뚤폰 SKT: 04, 알뜰폰 KT: 05, 알뜰폰 LGU+: 06)"
+      x-field-extra-annotation: |
+        @Pattern(regexp = "^(01|02|03|04|05|06)$", message = "휴대폰 통신사를 확인해 주세요.")
+    gender:
+      type: string
+      x-field-extra-annotation: |
+        @IsGender(message = "성별을 확인해주세요.")
+    birthDate:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 8, max = 8, message = "생년월일을 8자리 ''YYYYMMDD'' 형식으로 입력해 주세요.")
+        @IsBirthDate(message = "생년월일을 8자리 ''YYYYMMDD'' 형식으로 입력해 주세요.")
+    firstNumberOfIdentification:
+      type: string
+      description: "주민번호 첫번째 자리 숫자 (1:1900년대생 남자,2:1900년대생 여자,3:2000년대생 남자,4:2000년대생 여자,5:1900년대생 외국 남자,6:1900년대생 외국 여자,7:2000년대생 외국 남자,8:2000년대생 외국 여자)"
+      x-field-extra-annotation: |
+        @Pattern(regexp = "^[1-8]$", message = "주민번호 첫번째 자리를 확인해 주세요.")
+        @NotBlank(message = "주민번호 첫번째 자리를 확인해 주세요.")
+    name:
+      type: string
+      x-field-extra-annotation: |
+        @NotBlank(message = "이름을 확인해주세요.")
+    code:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 6, max = 6, message = "인증코드를 확인해주세요.")
+    txSeqNo:
+      type: string
+      x-field-extra-annotation: |
+        @Size(min = 20, max = 20, message = "본인인증 요청 트랜잭션 번호를 확인해주세요.")
+  example:
+    phoneNumber: '01044445555'
+    provider: '04'
+    gender: 'M'
+    birthDate: '19990308'
+    firstNumberOfIdentification: '1'
+    name: '이동훈'
+    code: '459097'
+    txSeqNo: '230713090740KC024686'

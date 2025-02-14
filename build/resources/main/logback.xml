@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property name="LOGS" value="${LOGS_DIR:-./logs}"/>
+
+  <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <pattern>
+          <pattern>
+            {
+            "level": "%level",
+            "message": "%C{1}, %message"
+            }
+          </pattern>
+        </pattern>
+        <stackTrace>
+          <fieldName>stacktrace</fieldName>
+          <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+            <exclude>java\..*</exclude>
+            <exclude>net\.sf\.cglib\..*</exclude>
+            <exclude>org\.springframework\..*</exclude>
+            <exclude>sun\..*</exclude>
+            <exclude>jdk\..*</exclude>
+            <maxDepthPerThrowable>20</maxDepthPerThrowable>
+            <shortenedClassNameLength>20</shortenedClassNameLength>
+            <maxLength>2048</maxLength>
+            <rootCauseFirst>true</rootCauseFirst>
+          </throwableConverter>
+        </stackTrace>
+      </providers>
+    </encoder>
+  </appender>
+
+  <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>
+        %d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable
+      </Pattern>
+    </layout>
+  </appender>
+
+  <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOGS}/server.log</file>
+
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>%d %p %C{1}. [%t] %m%n</Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- rollover daily and when the file reaches 100 MegaBytes -->
+      <fileNamePattern>${LOGS}/server-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxFileSize>100MB</maxFileSize>
+      <maxHistory>3</maxHistory>
+      <totalSizeCap>500MB</totalSizeCap>
+    </rollingPolicy>
+  </appender>
+
+  <logger name="ag.act" level="INFO"/>
+
+  <logger name="org.apache.fontbox.ttf" level="ERROR"/>
+  <logger name="org.apache.pdfbox.pdmodel.graphics.image" level="ERROR"/>
+  <logger name="com.openhtmltopdf" level="ERROR" additivity="false"/>
+
+  <springProfile name="!local">
+    <logger
+      name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver"
+      level="ERROR"
+    />
+
+    <logger name="org.hibernate.SQL" level="WARN" additivity="false">
+      <appender-ref ref="jsonConsoleAppender"/>
+    </logger>
+
+    <root level="INFO">
+      <appender-ref ref="RollingFile"/>
+      <appender-ref ref="jsonConsoleAppender"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="local">
+
+    <logger name="ag.act" level="DEBUG"/>
+
+    <!-- query -->
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+      <appender-ref ref="Console"/>
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql" level="DEBUG" additivity="false">
+      <appender-ref ref="Console"/>
+    </logger>
+
+    <root level="INFO">
+      <appender-ref ref="Console"/>
+    </root>
+  </springProfile>
+
+</configuration>

@@ -1,0 +1,36 @@
+  # /api/users/me/stocks/{stockCode}/authentication:
+  get:
+    summary: 주주인증 정보 조회하기
+    operationId: getMyStockAuthentication
+    tags: [ User ]
+    security:
+      - bearerAuth: [ ]
+    parameters:
+      - name: stockCode
+        in: path
+        required: true
+        description: Stock code parameter
+        schema:
+          type: string
+          example: '020416'
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              title: 'MyStockAuthenticationResponse'
+              properties:
+                individualStockCountLabel:
+                  type: string
+                  example: '개별주식수 라벨'
+                stock:
+                  $ref: '../../components/schemas/stock/SimpleStockResponse.yaml'
+            example:
+              individualStockCountLabel: '5000주+'
+              holdingStock:
+                {
+                  code: '005930',
+                  name: '삼성전자'
+                }

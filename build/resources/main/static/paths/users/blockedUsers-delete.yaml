@@ -1,0 +1,23 @@
+  # /api/users/me/blocked-users/{blockedUserId}:
+    delete:
+      summary: 유저 차단 해제하기
+      operationId: unblockUser
+      tags: [ User ]
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: blockedUserId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/SimpleStringResponse.yaml'
+        '401':
+          description: Unauthorized
